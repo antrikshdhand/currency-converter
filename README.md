@@ -19,13 +19,14 @@ Contributors:
 ## How to use `git` with `gradle`
 
 1. `clone` the repository onto your computer. You should only have 2 files in this folder: `app/build.gradle` and `app/src`.
-2. Run `gradle run`. This will automatically produce all necessary gradle files as the build script is present.
-3. Make changes as necessary.
-4. Only add the source files and the build script to the staging area: `git add app/build.gradle app/src`
-5. Run `git commit -m "<Your message here>"`
-6. Run `git fetch` before pushing to ensure no one else has pushed any new code to the repo in the time you've made changes.
-7. Merge conflicts using `git merge`. 
-8. Run `git push`.
+2. `cd` into the `app` directory.
+3. Run `gradle run`. This will automatically produce all necessary gradle files as the build script is present.
+4. Make changes as necessary.
+5. Only add the source files and the build script to the staging area: `git add app/build.gradle app/src`
+6. Run `git commit -m "<Your message here>"`
+7. Run `git fetch` before pushing to ensure no one else has pushed any new code to the repo in the time you've made changes.
+8. Merge conflicts using `git merge`. 
+9. Run `git push`.
 
 ## Writing good commit messages
 _Summarised from [How to Write a Git Commit Message](https://cbea.ms/git-commit/)_
