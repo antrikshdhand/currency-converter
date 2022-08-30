@@ -20,3 +20,8 @@ _Summarised from [How to Write a Git Commit Message](https://cbea.ms/git-commit/
 - Capitalise the subject line.
 - Do not end the subject line with a full stop.
 - Use the "imperative mood" in the subject line (written as if you're giving a command). e.g. `Merge branch 'myfeature'`, `Remove deprecated methods`, `Update getting started documentation` and NOT `Changing behavior of Player.move() method`.
+
+## Use case diagrams
+Created using [draw.io](https://app.diagrams.net).
+
+Please upload the `.drawio` file to the site if you wish to make any changes. Save as `.drawio` and `.pdf` and push to the repo.
