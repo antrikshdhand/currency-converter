@@ -9,6 +9,9 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+
+    // Apply the jacoco plugin to add support for test reports on test code coverage.
+    id 'jacoco'
 }
 
 repositories {
