@@ -4,23 +4,31 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class WelcomeScreen implements ActionListener {
+public class WelcomeScreen extends JPanel implements ActionListener {
 
     JPanel panel;
+    CurrencyExchange cex;
     
-    public WelcomeScreen() {
+    public WelcomeScreen(CurrencyExchange cex) {
+        this.cex = cex;
 
-        // set up panel which lives inside the J(Internal)Frame
+        // set up panel which lives inside the JInternalFrame
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
+        addComponentsToScreen();
+
+        cex.add(this.panel);
+    }
+
+    private void addComponentsToScreen() {
         // EMPTY VERT SPACE
         panel.add(Box.createVerticalGlue());
 
         // HEADER LABEL
-        JLabel headerLabel = new JLabel("Welcome to Currency Exchange.");
-        headerLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+        JLabel headerLabel = new JLabel("Welcome to the Currency Exchange.");
+        headerLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 24));
         headerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(headerLabel);
 
@@ -46,17 +54,15 @@ public class WelcomeScreen implements ActionListener {
 
         // EMPTY VERT SPACE
         panel.add(Box.createRigidArea(new Dimension(0, 50)));
-
     }
     
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("convert")) {
-            System.out.println("Hello");
+            this.panel.setVisible(false); // first hide WelcomeScreen panel
+            Converter converter = new Converter(this.cex); // then show Converter panel
+
+            // application control now moves to Converter.java
         }   
     }
-    
-    public JPanel getPanel() {
-        return this.panel;
-    }
-    
+
 }

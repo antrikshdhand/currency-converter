@@ -1,14 +1,6 @@
 package CurrencyConverter;
 
-import javax.swing.Box;
-import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.KeyStroke;
+import javax.swing.*;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -107,6 +99,7 @@ class Desktop extends JDesktopPane implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Open CEX")) {
+            // only open a maximum of one application window 
             if (!cexOpened){
                 openCEXApplication();
                 cexOpened = true;
@@ -117,15 +110,10 @@ class Desktop extends JDesktopPane implements ActionListener {
     }
 
     private void openCEXApplication() {
-        CurrencyExchange cex = new CurrencyExchange();
-        cex.setVisible(true);
-        desktop.add(cex);
+        CurrencyExchange cex = new CurrencyExchange(desktop);
+        
+        // application control now moves to CurrencyExchange.java
 
-        try {
-            cex.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-            e.printStackTrace();
-        }
     }
 
 }

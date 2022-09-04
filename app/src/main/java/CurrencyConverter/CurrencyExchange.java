@@ -4,7 +4,12 @@ import javax.swing.*;
 
 public class CurrencyExchange extends JInternalFrame {
     
-    public CurrencyExchange() {
+    // CurrencyExchange is a JInternalFrame which we will add JPanels to
+
+    private JDesktopPane desktop;
+    private WelcomeScreen welcomeScreen;
+
+    public CurrencyExchange(JDesktopPane desktop) {
         
         // set basic graphics
         super("Currency Exchange", 
@@ -12,15 +17,23 @@ public class CurrencyExchange extends JInternalFrame {
         true, //closable
         false, //maximizable
         false); //iconifiable
+
+        this.desktop = desktop;
         this.setSize(200, 200);
         this.setLocation(60, 20);
+        this.setVisible(true);
+        desktop.add(this); // add the JInternalFrame to the JDesktopPane
 
-        this.getWelcomeScreen();
-    }
+        try {
+            this.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+            e.printStackTrace();
+        }
 
-    private void getWelcomeScreen() {
-        WelcomeScreen ws = new WelcomeScreen();
-        this.add(ws.getPanel());
+        welcomeScreen = new WelcomeScreen(this);
+        
+        // application control now moves to WelcomeScreen.java
+
     }
 
 }
