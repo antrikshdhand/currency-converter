@@ -36,4 +36,8 @@ public class CurrencyExchange extends JInternalFrame {
 
     }
 
+    public WelcomeScreen getWelcomeScreen() {
+        return this.welcomeScreen;
+    }
+
 }

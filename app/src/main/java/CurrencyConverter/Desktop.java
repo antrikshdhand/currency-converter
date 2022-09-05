@@ -99,11 +99,12 @@ class Desktop extends JDesktopPane implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Open CEX")) {
-            // only open a maximum of one application window 
-            if (!cexOpened){
-                openCEXApplication();
-                cexOpened = true;
-            }
+            // // only open a maximum of one application window 
+            // if (!cexOpened){
+            //     openCEXApplication();
+            //     cexOpened = true;
+            // }
+            openCEXApplication();
         } else if (e.getActionCommand().equals("quit")) {
             System.exit(0);
         }
