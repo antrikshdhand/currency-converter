@@ -22,7 +22,8 @@ class Desktop extends JDesktopPane implements ActionListener {
 
     public Desktop() {
         try {
-            img = ImageIO.read(new File(this.getClass().getResource("windowsXP.gif").getPath()));
+            System.out.println(this.getClass().getResource("windowsXP.gif").getPath());
+            img = ImageIO.read(new File(this.getClass().getResource("windowsXP.gif").getPath().replace("%20", " ")));
         } catch (IOException e) {
             e.printStackTrace();
         }
