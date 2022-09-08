@@ -9,7 +9,7 @@ This repository holds all planning documents for the software design alongside a
 3. Run `gradle run`. This will automatically produce all necessary gradle files as the build script is present.
 4. Make changes as necessary.
 5. Only add the source files and the build script to the staging area: `git add app/build.gradle app/src`
-6. Run `git commit -m "<Your message here>"`
+6. Run `git commit -m "<Your message here>"`.  Message should start with a present tense verb and be capitalised.
 7. Run `git fetch` before pushing to ensure no one else has pushed any new code to the repo in the time you've made changes.
 8. Merge conflicts using `git merge`. 
 9. Run `git push`.

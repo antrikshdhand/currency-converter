@@ -3,3 +3,6 @@ app/build/*
 .DS_Store
 app/.gradle
 app/.gradle/*
+app/currency.db
+app/bin
+app/bin/*
