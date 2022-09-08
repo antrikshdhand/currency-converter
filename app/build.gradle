@@ -29,7 +29,7 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:30.1.1-jre'
 
-    // Adds sqlite3
+    // Adds sqlite3, and the java driver
     implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.36.0.3'
 }
 
