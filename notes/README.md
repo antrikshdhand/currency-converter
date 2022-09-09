@@ -10,9 +10,9 @@ This repository holds all planning documents for the software design alongside a
 4. Branch into your freature branch. (use `git push --set-upstream feature_branch` to push your local feature branch to remote)
 5. Every few commits (when you feel like you've made a good but minor progression in your code), push to your remote feature branch, and then do *pull request*.
 6. Wait for review from aa colleague, but untill then you can continue working on your code.
-7. Take feedback from pull request. If it got approved the changes you pushed to main did not crash/fail the build
+7. Take feedback from pull request. If it got approved the changes you pushed to main did not crash/fail the build.
 8. `git tag v{VERSION_NO} -m "{DESCRIPTION}"` (*in the main branch*), and increment based on change (`not back compatible`.`minor change`.`patch`).
-9. return to your feature branch and then merge from main into feature. This adds any changes that is in main but not your feature branch to your feature branch.
+9. Return (`git checkout`) to your feature branch and then merge from main into feature. This adds any changes that is in main but not your feature branch to your feature branch.
 
 ## How to use `git` with `gradle`
 
