@@ -12,7 +12,7 @@ This repository holds all planning documents for the software design alongside a
 6. Wait for review from aa colleague, but untill then you can continue working on your code.
 7. Take feedback from pull request. If it got approved the changes you pushed to main did not crash/fail the build
 8. `git tag v{VERSION_NO} -m "{DESCRIPTION}"` (*in the main branch*), and increment based on change (`not back compatible`.`minor change`.`patch`).
-
+9. return to your feature branch and then merge from main into feature. This adds any changes that is in main but not your feature branch to your feature branch.
 
 ## How to use `git` with `gradle`
 
