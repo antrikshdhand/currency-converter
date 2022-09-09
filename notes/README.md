@@ -2,6 +2,18 @@
 
 This repository holds all planning documents for the software design alongside any notes for all members in our team to keep in mind throughout the software development process.
 
+
+## Continuous Integration to Continous Deployment
+1. Whenever you would like to start working on something, add it to one of the project boards if you have not already.
+2. Make sure you also move it into the in-progress section to avoid confusions and two people working on the same thing.
+3. Pull the latest main branch, and confirm that it is stable. 
+4. Branch into your freature branch. (use `git push --set-upstream feature_branch` to push your local feature branch to remote)
+5. Every few commits (when you feel like you've made a good but minor progression in your code), push to your remote feature branch, and then do *pull request*.
+6. Wait for review from aa colleague, but untill then you can continue working on your code.
+7. Take feedback from pull request. If it got approved the changes you pushed to main did not crash/fail the build
+8. `git tag v{VERSION_NO} -m "{DESCRIPTION}"` (*in the main branch*), and increment based on change (`not back compatible`.`minor change`.`patch`).
+
+
 ## How to use `git` with `gradle`
 
 1. `clone` the repository onto your computer. You should only have 2 files in this folder: `app/build.gradle` and `app/src`.
