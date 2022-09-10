@@ -8,4 +8,12 @@ public class Calculator {
         this.database = database;
     }
 
+    public double calculateConverstion(Currency currencyFrom, Currency currencyTo, double amount) {
+
+        if (currencyFrom == null || currencyTo == null) {
+            return (Double) null;
+        }
+
+    }
+
 }
