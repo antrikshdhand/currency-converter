@@ -8,8 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.annotation.meta.Exhaustive;
-
 public class CurrManager {
 
     private Connection dbConn = null; 
@@ -80,6 +78,30 @@ public class CurrManager {
 
     }
 
+    public String getCurrName(String exchCode) {
+
+        try{ 
+            ResultSet query = openStatement.executeQuery(String.format("select currency_name from currency where currency_code = %s", exchCode));
+
+            if(query.next()) {
+                return query.getString("currency_name");
+            
+            } else {
+                return null;
+
+            }
+
+        } catch(SQLException e) {
+            // if the error message is "out of memory",
+            // it probably means no database file is found
+            System.err.println(e.getMessage());
+
+        }
+
+        return null;
+
+    }
+
     public void displayCurrencies() {
         try{ 
             ResultSet query = openStatement.executeQuery("select * from currency");
@@ -120,6 +142,31 @@ public class CurrManager {
         }
         return 1;
 
+    }
+
+
+    public double getExchange(String currOne, String currTwo) {
+
+        try{ 
+            ResultSet query = openStatement.executeQuery(String.format("select con_val from exchange where currency_ex_code = %s", currOne + currTwo));
+
+            if(query.next()) {
+                return query.getDouble("con_val");
+            
+            } else {
+                return -1;
+
+            }
+
+        } catch(SQLException e) {
+            // if the error message is "out of memory",
+            // it probably means no database file is found
+            System.err.println(e.getMessage());
+
+        }
+
+        return -1;
+        
     }
 
     public void displayExhanges() {
