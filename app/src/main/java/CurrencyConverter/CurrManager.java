@@ -14,12 +14,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.io.File;
 
+//////////////////////// README ////////////////////////
+/*
+ * This is a basic instruction manual for this Curr-
+ * Manager.
+ * 
+ * Everytime you would like to access any of these func
+ * -tions, please openConn(), then after you are done
+ * closeConn().
+ * 
+ * Each function has comments explaining all of the 
+ * parameters and what the function does.
+*/
+/////////////////////////////////////////////////////// 
 
 public class CurrManager {
 
     private Connection dbConn = null; 
     private Statement openStatement = null;
 
+
+    /**
+     * Constructor for this class.
+     * Attempts to access the data base.
+     */
     public CurrManager() {
         openConn();
         closeConn();
@@ -29,6 +47,12 @@ public class CurrManager {
     }
 
 
+    /**
+     * Opens connection with a database. 
+     * To be called before any other function by calling class.
+     * 
+     * @return Returns 0 if successful and -1 if unsuccessful
+     */
     public int openConn() {
         try {
             // create a database connection
@@ -51,6 +75,12 @@ public class CurrManager {
     }
 
 
+    /**
+     * Closes the connection with the database. 
+     * To be called after you are done with database.
+     * 
+     * @return Returns 0 if successful and -1 if unsuccessful
+     */
     public int closeConn() {
         
         try {
@@ -67,7 +97,12 @@ public class CurrManager {
         }
     }
 
-    
+    /**
+     * Deletes all table data from the database (that we will be using)
+     * To only be called if you want to delete all data.
+     * 
+     * @return Returns 0 if successful and -1 if unsuccessful
+     */
     public int dropAllTables() {
 
         // Add error handelling
@@ -104,7 +139,14 @@ public class CurrManager {
 
     // }
 
-
+    /**
+     * Adds a currency to the currency table.
+     * Need to call openConn before this function.
+     * 
+     * @param exchCode The currency code for the currency as a string: e.g. "AUD".
+     * @param currName The currency name of the code: e.g. "Australian Dollar".
+     * @return Returns 0 if successful and -1 if unsuccessful.
+     */
     public int addCurrency(String exchCode, String currName) {
 
         // Add error handelling
@@ -124,6 +166,12 @@ public class CurrManager {
     }
 
 
+    /**
+     * Given a currency code returns the currency name see {@link #addCurrency(String, String) addCurrency}.
+     * 
+     * @param exchCode The currency code of a currency to be queried.
+     * @return The currency name.
+     */
     public String getCurrName(String exchCode) {
 
         try{ 
@@ -149,6 +197,11 @@ public class CurrManager {
     }
 
 
+    /**
+     * Retrives all currency codes and names.
+     * 
+     * @return Returns all currencies in the form of a {@link java.util.HashMap HashMap}. The keys are the currency codes, and the values are the currency names.
+     */
     public HashMap<String, String> getAllCurrencies() {
 
         HashMap<String, String> allCurrencies = new HashMap<String, String>();
@@ -197,7 +250,17 @@ public class CurrManager {
     //     printSeperator();
     // }
 
-
+    
+    /**
+     * Adds an echange rate from one currency to another.
+     * Also adds the reverse from currency 2 back to currency 1 into the exchange table. 
+     * So you do not have to add both AUD -> USD, and USD -> AUD manually. Only need to add one. 
+     * 
+     * @param currOne Currency from
+     * @param currTwo Currency to
+     * @param convValue  Conversion rate from currency one to currency 2
+     * @return Returns 0 if successful and -1 if unsuccessful
+     */
     public int addExchange(String currOne, String currTwo, double convValue) {
 
         // Add error handelling
@@ -217,7 +280,13 @@ public class CurrManager {
 
     }
 
-
+    /**
+     * Gets the conversion value for a particular exchange.
+     * 
+     * @param currOne Currency from
+     * @param currTwo Currency to
+     * @return Returns the conversion rate from currency one to currency two.
+     */
     public double getExchange(String currOne, String currTwo) {
 
         try{ 
@@ -267,7 +336,11 @@ public class CurrManager {
     //     printSeperator();
     // }
 
-
+    /**
+     * Gets the latest exhange rates for all exchanges.
+     * 
+     * @return Returns a {@link java.util.HashMap HashMap}, where the keys are the currency exchange codes ("USDAUD") and the values and the conversion rates. 
+     */
     public HashMap<String, Double> getLatestExchanges() {
 
         HashMap<String, Double> latestExchanges = new HashMap<String, Double>();
