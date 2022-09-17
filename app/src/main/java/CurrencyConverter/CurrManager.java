@@ -8,6 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class CurrManager {
 
     private Connection dbConn = null; 
@@ -37,11 +42,12 @@ public class CurrManager {
             // if the error message is "out of memory",
             // it probably means no database file is found
             System.err.println(e.getMessage());
-            return 1;
+            return -1;
             
         }
 
     }
+
 
     public int closeConn() {
         
@@ -55,8 +61,29 @@ public class CurrManager {
             // connection close failed.
             System.err.println(e.getMessage());
             // this.dbConn = null;
-            return 1;
+            return -1;
         }
+    }
+
+    
+    public int dropAllTables() {
+
+        // Add error handelling
+        try {
+            
+            Statement statement = dbConn.createStatement();
+            statement.setQueryTimeout(30);  // set timeout to 30 sec.
+            statement.executeUpdate("select 'drop table ' || name || ';' from sqlite_master where type = 'table';");
+            return 0;
+
+        } catch(SQLException e) {
+            // if the error message is "out of memory",
+            // it probably means no database file is found
+            System.err.println(e.getMessage());
+        }
+
+        return -1;
+        
     }
 
 
@@ -74,9 +101,10 @@ public class CurrManager {
             // it probably means no database file is found
             System.err.println(e.getMessage());
         }
-        return 1;
+        return -1;
 
     }
+
 
     public String getCurrName(String exchCode) {
 
@@ -101,6 +129,33 @@ public class CurrManager {
         return null;
 
     }
+
+
+    public HashMap<String, String> getAllCurrencies() {
+
+        HashMap<String, String> allCurrencies = new HashMap<String, String>();
+
+        try{ 
+            ResultSet query = openStatement.executeQuery(String.format("select * from currency"));
+
+            while(query.next()) {
+                String currCode = query.getString("currency_code");
+                String currName = query.getString("currency_name");
+                
+                allCurrencies.put(currCode, currName);
+            }
+
+        } catch(SQLException e) {
+            // if the error message is "out of memory",
+            // it probably means no database file is found
+            System.err.println(e.getMessage());
+
+        }
+
+        return allCurrencies;
+
+    }
+
 
     public void displayCurrencies() {
         try{ 
@@ -140,7 +195,7 @@ public class CurrManager {
             // it probably means no database file is found
             System.err.println(e.getMessage());
         }
-        return 1;
+        return -1;
 
     }
 
@@ -169,6 +224,7 @@ public class CurrManager {
         
     }
 
+
     public void displayExhanges() {
         try{ 
             ResultSet query = openStatement.executeQuery("select * from exchange");
@@ -192,6 +248,7 @@ public class CurrManager {
 
         printSeperator();
     }
+
 
     public void displayLatestExchanges() {
         try{ 
