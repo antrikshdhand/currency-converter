@@ -27,6 +27,7 @@ public class App extends JFrame {
         // manager.addCurrency("AUD", "Australian Dollar");
         // manager.addCurrency("USD", "American Dollar");
         // manager.addExchange("AUD", "USD", 1.3);
+        manager.deleteDatabase();
         for(Map.Entry<String, Double> entry : manager.getLatestExchanges().entrySet()){
             System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
         }
