@@ -13,21 +13,21 @@ public class Converter extends JPanel implements ActionListener {
     private final int JWIDTH = 100;
     private final int JHEIGHT = 40;
 
-    JLabel headerLabel;
-    JLabel amountLabel;
-    JTextField amount;
-    JLabel fromLabel;
-    JComboBox<String> fromComboBox;
-    JLabel toLabel;
-    JComboBox<String> toComboBox;
-    JButton convertButton;
-    JLabel conversionResultPreamble;
-    JLabel conversionResultLabel;
-    JButton backButton;
+    private JLabel headerLabel;
+    private JLabel amountLabel;
+    private JTextField amount;
+    private JLabel fromLabel;
+    private JComboBox<String> fromComboBox;
+    private JLabel toLabel;
+    private JComboBox<String> toComboBox;
+    private JButton convertButton;
+    private JLabel conversionResultPreamble;
+    private JLabel conversionResultLabel;
+    private JButton backButton;
 
     // temporary array just for testing UI
     // this will be replaced with our actual array of currencies
-    String[] arr = new String[] {
+    private String[] arr = new String[] {
         "AUD",
         "EUR",
         "INR",

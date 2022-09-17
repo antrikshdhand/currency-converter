@@ -101,6 +101,9 @@ public class WelcomeScreen extends JPanel implements ActionListener, ItemListene
             Popular popular = new Popular(this.cex); // then show Converter panel
             
             // application control now moves to Popular.java
+        } else if (e.getActionCommand().equals("history")) {
+            this.welcomeScreenPanel.setVisible(false); // first hide WelcomeScreen panel
+            History history = new History(this.cex); // then show Converter panel
         }
             
         // } else if (e.getActionCommand().equals("permissions")) {

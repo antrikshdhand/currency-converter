@@ -30,18 +30,19 @@ public class Popular extends JFrame implements ActionListener {
         // HEADER LABEL
         headerLabel = new JLabel("Popular Currencies");
         headerLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
-        popularPanel.add(headerLabel, BorderLayout.NORTH);
+        popularPanel.add(headerLabel);
         /////
 
         addSpace(popularPanel, 30);
 
         // TABLE
         table = new JTable(new MyTableModel());
-        popularPanel.add(table.getTableHeader());
-        popularPanel.add(table);
+        table.setFillsViewportHeight(true);
+        JScrollPane scrollPane = new JScrollPane(table);
+        popularPanel.add(scrollPane);
         /////
 
-        addSpace(popularPanel, 30);
+        addSpace(popularPanel, 20);
 
         // BACK BUTTON
         ImageIcon upIcon = new ImageIcon(this.getClass().getResource("upFolder.png").getPath());
