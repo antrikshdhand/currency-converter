@@ -47,7 +47,7 @@ public class Converter extends JPanel implements ActionListener {
 
         addComponentsToScreen();
 
-        cex.add(this.converterPanel);
+        this.cex.add(this.converterPanel);
     }
 
     private void addComponentsToScreen() {
@@ -191,9 +191,7 @@ public class Converter extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("convertFunction")) {
             printConversionStatement();
-        }
-        if (e.getActionCommand().equals("back")) {
-            System.out.println("HELLO");
+        } else if (e.getActionCommand().equals("back")) {
             this.converterPanel.setVisible(false);
             this.cex.getWelcomeScreen().getWelcomePanel().setVisible(true);
         }
