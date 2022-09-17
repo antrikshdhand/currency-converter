@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.io.File;
 
 public class CurrManager {
 
@@ -73,7 +74,11 @@ public class CurrManager {
             
             Statement statement = dbConn.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
-            statement.executeUpdate("select 'drop table ' || name || ';' from sqlite_master where type = 'table';");
+            statement.executeUpdate("drop table currency; drop table exchange;");
+
+            //error handelling
+            openConn();
+
             return 0;
 
         } catch(SQLException e) {
@@ -84,6 +89,18 @@ public class CurrManager {
 
         return -1;
         
+    }
+
+
+    protected int deleteDatabase() {
+        File deleteFile = new File("../../../../../currency.db");
+
+        if (deleteFile.delete()) { 
+            return 0;
+          } else {
+            return 1;
+          } 
+
     }
 
 
@@ -247,6 +264,32 @@ public class CurrManager {
         }
 
         printSeperator();
+    }
+
+
+    public HashMap<String, Double> getLatestExchanges() {
+
+        HashMap<String, Double> latestExchanges = new HashMap<String, Double>();
+
+        try{ 
+            ResultSet query = openStatement.executeQuery("select t1.* from exchange t1 inner join (select currency_ex_code, max(time_added) as 'time_added' from exchange group by currency_ex_code) t2 ON (t1.currency_ex_code = t2.currency_ex_code and t1.time_added = t2.time_added)");
+
+            while(query.next())
+            {
+                String currExchCode = query.getString("currency_ex_code");
+                Double conValue = (double) query.getFloat("conv_val");
+                
+                latestExchanges.put(currExchCode, conValue);
+            }
+
+        } catch(SQLException e) {
+            // if the error message is "out of memory",
+            // it probably means no database file is found
+            System.err.println(e.getMessage());
+            return null;
+        }
+
+        return latestExchanges;
     }
 
 
