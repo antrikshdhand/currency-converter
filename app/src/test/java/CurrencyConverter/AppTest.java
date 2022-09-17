@@ -3,11 +3,7 @@
  */
 package CurrencyConverter;
 
-// import org.junit.Test;
-// import static org.junit.Assert.*;
-
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
 
 public class AppTest {
     // @Test public void appHasAGreeting() {

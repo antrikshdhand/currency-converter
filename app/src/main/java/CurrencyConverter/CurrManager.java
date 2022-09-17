@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.io.File;
 
+
 public class CurrManager {
 
     private Connection dbConn = null; 
@@ -23,7 +24,7 @@ public class CurrManager {
         openConn();
         closeConn();
 
-        printSeperator();
+        // printSeperator();
 
     }
 
@@ -91,17 +92,17 @@ public class CurrManager {
         
     }
 
+    
+    // protected int deleteDatabase() {
+    //     File deleteFile = new File("../../../../../currency.db");
 
-    protected int deleteDatabase() {
-        File deleteFile = new File("../../../../../currency.db");
+    //     if (deleteFile.delete()) { 
+    //         return 0;
+    //       } else {
+    //         return 1;
+    //       } 
 
-        if (deleteFile.delete()) { 
-            return 0;
-          } else {
-            return 1;
-          } 
-
-    }
+    // }
 
 
     public int addCurrency(String exchCode, String currName) {
@@ -126,7 +127,7 @@ public class CurrManager {
     public String getCurrName(String exchCode) {
 
         try{ 
-            ResultSet query = openStatement.executeQuery(String.format("select currency_name from currency where currency_code = %s", exchCode));
+            ResultSet query = openStatement.executeQuery(String.format("select currency_name from currency where currency_code = '%s'", exchCode));
 
             if(query.next()) {
                 return query.getString("currency_name");
@@ -173,28 +174,28 @@ public class CurrManager {
 
     }
 
+    
+    // public void displayCurrencies() {
+    //     try{ 
+    //         ResultSet query = openStatement.executeQuery("select * from currency");
 
-    public void displayCurrencies() {
-        try{ 
-            ResultSet query = openStatement.executeQuery("select * from currency");
+    //         while(query.next())
+    //         {
+    //             // read the result set
+    //             System.out.println("currency = " + query.getString("currency_name"));
+    //             System.out.println("code = " + query.getString("currency_code"));
+    //             System.out.println("---LINE---");
+    //         }
 
-            while(query.next())
-            {
-                // read the result set
-                System.out.println("currency = " + query.getString("currency_name"));
-                System.out.println("code = " + query.getString("currency_code"));
-                System.out.println("---LINE---");
-            }
+    //     } catch(SQLException e) {
+    //         // if the error message is "out of memory",
+    //         // it probably means no database file is found
+    //         System.err.println(e.getMessage());
 
-        } catch(SQLException e) {
-            // if the error message is "out of memory",
-            // it probably means no database file is found
-            System.err.println(e.getMessage());
+    //     }
 
-        }
-
-        printSeperator();
-    }
+    //     printSeperator();
+    // }
 
 
     public int addExchange(String currOne, String currTwo, double convValue) {
@@ -220,10 +221,10 @@ public class CurrManager {
     public double getExchange(String currOne, String currTwo) {
 
         try{ 
-            ResultSet query = openStatement.executeQuery(String.format("select con_val from exchange where currency_ex_code = %s", currOne + currTwo));
+            ResultSet query = openStatement.executeQuery(String.format("select conv_val from exchange where currency_ex_code = '%s'", currOne + currTwo));
 
             if(query.next()) {
-                return query.getDouble("con_val");
+                return query.getDouble("conv_val");
             
             } else {
                 return -1;
@@ -241,30 +242,30 @@ public class CurrManager {
         
     }
 
+    
+    // public void displayExhanges() {
+    //     try{ 
+    //         ResultSet query = openStatement.executeQuery("select * from exchange");
 
-    public void displayExhanges() {
-        try{ 
-            ResultSet query = openStatement.executeQuery("select * from exchange");
+    //         while(query.next())
+    //         {
+    //             System.out.println("From ID = " + query.getString("currency_from"));
+    //             System.out.println("To ID = " + query.getString("currency_to"));
+    //             System.out.println("Conversion Code = " + query.getString("currency_ex_code"));
+    //             System.out.println("Conversion = " + query.getFloat("conv_val"));
+    //             System.out.println("Time = " + query.getTimestamp("time_added"));
+    //             System.out.println("---LINE---");
+    //         }
 
-            while(query.next())
-            {
-                System.out.println("From ID = " + query.getString("currency_from"));
-                System.out.println("To ID = " + query.getString("currency_to"));
-                System.out.println("Conversion Code = " + query.getString("currency_ex_code"));
-                System.out.println("Conversion = " + query.getFloat("conv_val"));
-                System.out.println("Time = " + query.getTimestamp("time_added"));
-                System.out.println("---LINE---");
-            }
+    //     } catch(SQLException e) {
+    //         // if the error message is "out of memory",
+    //         // it probably means no database file is found
+    //         System.err.println(e.getMessage());
 
-        } catch(SQLException e) {
-            // if the error message is "out of memory",
-            // it probably means no database file is found
-            System.err.println(e.getMessage());
+    //     }
 
-        }
-
-        printSeperator();
-    }
+    //     printSeperator();
+    // }
 
 
     public HashMap<String, Double> getLatestExchanges() {
@@ -293,36 +294,36 @@ public class CurrManager {
     }
 
 
-    public void displayLatestExchanges() {
-        try{ 
-            ResultSet query = openStatement.executeQuery("select t1.* from exchange t1 inner join (select currency_ex_code, max(time_added) as 'time_added' from exchange group by currency_ex_code) t2 ON (t1.currency_ex_code = t2.currency_ex_code and t1.time_added = t2.time_added)");
+    // public void displayLatestExchanges() {
+    //     try{ 
+    //         ResultSet query = openStatement.executeQuery("select t1.* from exchange t1 inner join (select currency_ex_code, max(time_added) as 'time_added' from exchange group by currency_ex_code) t2 ON (t1.currency_ex_code = t2.currency_ex_code and t1.time_added = t2.time_added)");
 
-            while(query.next())
-            {
-                System.out.println("From = " + query.getString("currency_from"));
-                System.out.println("To = " + query.getString("currency_to"));
-                System.out.println("Conversion Code = " + query.getString("currency_ex_code"));
-                System.out.println("Conversion = " + query.getFloat("conv_val"));
-                System.out.println("Time = " + query.getTimestamp("time_added"));
-                System.out.println("---LINE---");
-            }
+    //         while(query.next())
+    //         {
+    //             System.out.println("From = " + query.getString("currency_from"));
+    //             System.out.println("To = " + query.getString("currency_to"));
+    //             System.out.println("Conversion Code = " + query.getString("currency_ex_code"));
+    //             System.out.println("Conversion = " + query.getFloat("conv_val"));
+    //             System.out.println("Time = " + query.getTimestamp("time_added"));
+    //             System.out.println("---LINE---");
+    //         }
 
-        } catch(SQLException e) {
-            // if the error message is "out of memory",
-            // it probably means no database file is found
-            System.err.println(e.getMessage());
+    //     } catch(SQLException e) {
+    //         // if the error message is "out of memory",
+    //         // it probably means no database file is found
+    //         System.err.println(e.getMessage());
 
-        }
+    //     }
 
-        printSeperator();
-    }
+    //     printSeperator();
+    // }
 
 
-    public void printSeperator() {
-        System.out.println();
-        System.out.println("================================");
-        System.out.println();
-    }
+    // public void printSeperator() {
+    //     System.out.println();
+    //     System.out.println("================================");
+    //     System.out.println();
+    // }
 
 
     
