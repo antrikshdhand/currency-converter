@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2499324f-2190-48ac-8cd1-9b054abde3ad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/CurrencyConverter/BasicUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CurrencyConverter/BasicUser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/CurrencyConverter/Calculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CurrencyConverter/Calculator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -95,7 +94,7 @@
       <workItem from="1663481209701" duration="35000" />
       <workItem from="1663481251781" duration="12000" />
       <workItem from="1663502940502" duration="10000" />
-      <workItem from="1663504602398" duration="2040000" />
+      <workItem from="1663504602398" duration="2837000" />
     </task>
     <servers />
   </component>
