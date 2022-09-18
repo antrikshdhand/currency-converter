@@ -22,12 +22,14 @@ public class Calculator {
      */
     public double calculateConverstion(String currencyFrom, String currencyTo, double amount) {
 
-        if (currencyFrom == null || currencyTo == null) {
-            return (Double) null;
-        }
-
-        if (amount == 0) {
-            return 0;
+        if (
+        // currencyFrom == null 
+        // || currencyTo == null
+        // || amount == (Double) null
+        currencyFrom.equalsIgnoreCase("")
+        || currencyTo.equalsIgnoreCase("")
+        || amount == 0) {
+            return -1;
         }
 
         double rate = app.getManager().getExchange(currencyFrom, currencyTo);
