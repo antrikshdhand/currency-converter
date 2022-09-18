@@ -9,7 +9,6 @@ public class BasicUser {
      */
     protected CurrManager database;
     // protected Calculator calc;
-    // protected boolean displayPop4;
     // protected ArrayList<Currency> uniqueCurrencies;
 
 
@@ -51,7 +50,15 @@ public class BasicUser {
 
 
         double result = 0;
-        // result = this.clac.calculateConversion( from, to , amount);
+        database.openConn();
+        double rate = database.getExchange(from,to);
+        database.closeConn();
+        result = rate * amount;
+
+        if( result == -1 * amount) {
+            System.out.println("Currency not in database");
+            return 0;}
+
 
         return result;
     }
