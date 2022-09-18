@@ -2,7 +2,7 @@ package CurrencyConverter;
 
 public class Calculator {
 
-    private Database database;
+    //private Database database;
 
     public Calculator() {
     // public Calculator(Database database) {
