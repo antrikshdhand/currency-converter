@@ -53,3 +53,7 @@ javadoc {
         }
     }
 } 
+
+run {
+    standardInput = System.in
+}
