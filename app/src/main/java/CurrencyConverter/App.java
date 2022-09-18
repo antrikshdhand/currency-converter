@@ -30,6 +30,7 @@ public class App extends JFrame {
         
         System.out.println(manager.getCurrName("TSC"));
         System.out.println(manager.getAllCurrencies());
+        System.out.println(manager.getAllCurrencies());
         manager.closeConn();
 
 
