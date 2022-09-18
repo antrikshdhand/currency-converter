@@ -4,9 +4,13 @@ public class Calculator {
 
     //private Database database;
 
-    public Calculator() {
+    private App app;
+
+
+    public Calculator(App app) {
     // public Calculator(Database database) {
         // this.database = database;
+        this.app = app;
     }
 
 
@@ -26,8 +30,7 @@ public class Calculator {
             return 0;
         }
 
-        double rate = 1;
-        //double rate = database.getRate(currencyFrom.getCode(), currencyTo.getCode())
+        double rate = app.getManager().getExchange(currencyFrom, currencyTo);
 
         return amount * rate;
 
