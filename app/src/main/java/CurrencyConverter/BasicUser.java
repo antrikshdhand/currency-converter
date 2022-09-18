@@ -8,7 +8,6 @@ public class BasicUser {
      * Attribute database : CurrManager
      */
     protected CurrManager database;
-    // protected Calculator calc;
     // protected ArrayList<Currency> uniqueCurrencies;
 
 
@@ -76,6 +75,11 @@ public class BasicUser {
          return new String[0];
      }
 
+
+
+     public String [][] getPopularCurrencies(){
+         return null;
+     }
 
 
 
