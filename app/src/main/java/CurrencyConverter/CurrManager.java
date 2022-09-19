@@ -19,8 +19,8 @@ import java.io.File;
  * This is a basic instruction manual for this Curr-
  * Manager.
  * 
- * Everytime you would like to access any of these func
- * -tions, please openConn(), then after you are done
+ * Everytime you would like to access any of these function
+ * , please openConn(), then after you are done
  * closeConn().
  * 
  * Each function has comments explaining all of the 
@@ -32,6 +32,16 @@ public class CurrManager {
 
     private Connection dbConn = null; 
     private Statement openStatement = null;
+    private App app;
+
+    public App getApp() {
+        return app;
+    }
+
+
+    public void setApp(App app) {
+        this.app = app;
+    }
 
 
     /**
@@ -42,7 +52,7 @@ public class CurrManager {
         openConn();
         closeConn();
 
-        // printSeperator();
+        // printSeparator();
 
     }
 
@@ -105,14 +115,14 @@ public class CurrManager {
      */
     public int dropAllTables() {
 
-        // Add error handelling
+        // Add error handling
         try {
             
             Statement statement = dbConn.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
             statement.executeUpdate("drop table currency; drop table exchange;");
 
-            //error handelling
+            //error handling
             openConn();
 
             return 0;
@@ -149,7 +159,7 @@ public class CurrManager {
      */
     public int addCurrency(String exchCode, String currName) {
 
-        // Add error handelling
+        // Add error handling
         try {
             
             Statement statement = dbConn.createStatement();
@@ -263,7 +273,7 @@ public class CurrManager {
      */
     public int addExchange(String currOne, String currTwo, double convValue) {
 
-        // Add error handelling
+        // Add error handling.
         try {
             
             Statement statement = dbConn.createStatement();
@@ -333,7 +343,7 @@ public class CurrManager {
 
     //     }
 
-    //     printSeperator();
+    //     printSeparator();
     // }
 
     /**
@@ -388,11 +398,11 @@ public class CurrManager {
 
     //     }
 
-    //     printSeperator();
+    //     printSeparator();
     // }
 
 
-    // public void printSeperator() {
+    // public void printSeparator() {
     //     System.out.println();
     //     System.out.println("================================");
     //     System.out.println();
