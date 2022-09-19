@@ -41,6 +41,7 @@ public class CurrManager {
         {"SGD", "Singaporean Dollar"}
     };
 
+    // Got this dummy values from XE.com on the 20th of September 2022 0313 Hours
     private String[][] BasicExchanges = new String[][] {
         {"AUD", "USD", "0.67118245"},
         {"AUD", "NPR", "85.633999"},
