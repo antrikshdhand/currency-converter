@@ -13,21 +13,21 @@ public class Converter extends JPanel implements ActionListener {
     private final int JWIDTH = 100;
     private final int JHEIGHT = 40;
 
-    JLabel headerLabel;
-    JLabel amountLabel;
-    JTextField amount;
-    JLabel fromLabel;
-    JComboBox<String> fromComboBox;
-    JLabel toLabel;
-    JComboBox<String> toComboBox;
-    JButton convertButton;
-    JLabel conversionResultPreamble;
-    JLabel conversionResultLabel;
-    JButton backButton;
+    private JLabel headerLabel;
+    private JLabel amountLabel;
+    private JTextField amount;
+    private JLabel fromLabel;
+    private JComboBox<String> fromComboBox;
+    private JLabel toLabel;
+    private JComboBox<String> toComboBox;
+    private JButton convertButton;
+    private JLabel conversionResultPreamble;
+    private JLabel conversionResultLabel;
+    private JButton backButton;
 
     // temporary array just for testing UI
     // this will be replaced with our actual array of currencies
-    String[] arr = new String[] {
+    private String[] arr = new String[] {
         "AUD",
         "EUR",
         "INR",
@@ -47,7 +47,7 @@ public class Converter extends JPanel implements ActionListener {
 
         addComponentsToScreen();
 
-        cex.add(this.converterPanel);
+        this.cex.add(this.converterPanel);
     }
 
     private void addComponentsToScreen() {
@@ -191,9 +191,7 @@ public class Converter extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("convertFunction")) {
             printConversionStatement();
-        }
-        if (e.getActionCommand().equals("back")) {
-            System.out.println("HELLO");
+        } else if (e.getActionCommand().equals("back")) {
             this.converterPanel.setVisible(false);
             this.cex.getWelcomeScreen().getWelcomePanel().setVisible(true);
         }
@@ -201,7 +199,7 @@ public class Converter extends JPanel implements ActionListener {
 
     private void printConversionStatement() {
 
-        StringBuilder s1 = new StringBuilder(100);
+        StringBuilder s1 = new StringBuilder();
         s1.append("<html>Converting <font color='orange'>");
         s1.append(this.amount.getText());
         s1.append("</font> <font color='green'>");
