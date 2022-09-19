@@ -339,7 +339,7 @@ public class CurrManager {
         ArrayList<ArrayList<String>> historyList = new ArrayList<ArrayList<String>>();
 
         try{ 
-            ResultSet query = openStatement.executeQuery(String.format("select time_added, conv_val from exchange where currency_ex_code = '%s' and time_added >= '%s' and time_added <= '%s' order by time_added DESC", currOne + currTwo, dayOne, dayTwo));
+            ResultSet query = openStatement.executeQuery(String.format("select time_added, conv_val from exchange where currency_ex_code = '%s' and time_added >= '%s 00.00.00' and time_added <= '%s 23.59.59' order by time_added DESC", currOne + currTwo, dayOne, dayTwo));
 
             while(query.next()) {
 
