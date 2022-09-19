@@ -196,7 +196,7 @@ public class Converter extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("convertFunction")) {
-            
+            this.currencyToAmount = Double.toString(this.app.getCalculator().calculateConverstion((String) this.fromComboBox.getSelectedItem(), (String) this.toComboBox.getSelectedItem(), Double.parseDouble(this.amount.getText())));
             printConversionStatement();
         } else if (e.getActionCommand().equals("back")) {
             this.converterPanel.setVisible(false);
