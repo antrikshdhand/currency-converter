@@ -24,6 +24,8 @@ public class Converter extends JPanel implements ActionListener {
     private JLabel conversionResultPreamble;
     private JLabel conversionResultLabel;
     private JButton backButton;
+    private App app;
+    private String currencyToAmount;
 
     // temporary array just for testing UI
     // this will be replaced with our actual array of currencies
@@ -37,9 +39,11 @@ public class Converter extends JPanel implements ActionListener {
         "GBP"
     };
     
+    
 
     public Converter(CurrencyExchange cex) {
         this.cex = cex;
+        this.app = cex.getApp();
 
         // set up panel which lives inside the JInternalFrame
         converterPanel = new JPanel(new BorderLayout());
@@ -48,6 +52,7 @@ public class Converter extends JPanel implements ActionListener {
         addComponentsToScreen();
 
         this.cex.add(this.converterPanel);
+
     }
 
     private void addComponentsToScreen() {
@@ -188,8 +193,10 @@ public class Converter extends JPanel implements ActionListener {
 
     }
 
+
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("convertFunction")) {
+            
             printConversionStatement();
         } else if (e.getActionCommand().equals("back")) {
             this.converterPanel.setVisible(false);
@@ -210,7 +217,6 @@ public class Converter extends JPanel implements ActionListener {
         this.conversionResultPreamble.setText(s1.toString());
 
         StringBuilder s2 = new StringBuilder();
-        s2.append("200");
         s2.append(" ");
         s2.append(this.toComboBox.getSelectedItem());
         this.conversionResultLabel.setText(s2.toString());
