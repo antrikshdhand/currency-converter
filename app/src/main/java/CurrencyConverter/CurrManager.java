@@ -32,6 +32,32 @@ public class CurrManager {
 
     private Connection dbConn = null; 
     private Statement openStatement = null;
+    private String[][] BasicCurrencies = new String[][] {
+        {"AUD", "Australian Dollar"},
+        {"USD", "US Dollar"},
+        {"NPR", "Nepalese Rupee"},
+        {"INR", "Indian Rupee"},
+        {"GBP", "Great Britan Pound"},
+        {"SGD", "Singaporean Dollar"}
+    };
+
+    private String[][] BasicExchanges = new String[][] {
+        {'AUD', 'USD', '0.67118245'},
+        {'AUD', 'NPR', '85.633999'},
+        {'AUD', 'INR', '53.502302'},
+        {'AUD', 'GBP', '0.58787265'},
+        {'AUD', 'SGD', '0.94533497'},
+        {'USD', 'NPR', '127.5877'},
+        {'USD', 'INR', '79.704953'},
+        {'USD', 'GBP', '19.42119'},
+        {'USD', 'SGD', '1.4080513'},
+        {'NPR', 'INR', '0.62470717'},
+        {'NPR', 'GBP', '0.0068644026'},
+        {'NPR', 'SGD', '0.011035578'},
+        {'INR', 'GBP', '0.010988192'},
+        {'INR', 'SGD', '0.017665202'},
+        {'GBP', 'SGD', '1.6077844'},
+    };
 
 
     /**
@@ -196,6 +222,43 @@ public class CurrManager {
         return 0;
 
     }
+
+
+    /**
+     * Adds a currency to the currency table.
+     * Need to call openConn before this function.
+     * 
+     * @param exchCode The currency code for the currency as a string: e.g. "AUD".
+     * @param currName The currency name of the code: e.g. "Australian Dollar".
+     * @return Returns 0 if successful and -1 if unsuccessful.
+     */
+    public int addBasicSix() {
+
+        // Add error handelling
+        try {
+            
+            Statement statement = dbConn.createStatement();
+            statement.setQueryTimeout(30);  // set timeout to 30 sec.
+            
+            for(String[] currency : BasicCurrencies) {
+                statement.executeUpdate(String.format("insert into currency values('%s', '%s')", currency[0], currency[1]));
+            }
+
+            for(String[] exchange : BasicExchanges) {
+                openStatement.executeUpdate(String.format("insert into exchange values('%s', '%s', '%s', %f, CURRENT_TIMESTAMP)", exchange[0], exchange[1], exchange[0] + exchange[1], exchange[2]));
+            }
+            
+
+        } catch(SQLException e) {
+            // if the error message is "out of memory",
+            // it probably means no database file is found
+            System.err.println(e.getMessage());
+            return -1;
+        }
+        return 0;
+
+    }
+
 
 
     /**
