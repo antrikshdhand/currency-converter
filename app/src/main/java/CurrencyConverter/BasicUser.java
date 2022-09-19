@@ -1,6 +1,5 @@
 package CurrencyConverter;
 import java.util.*;
-
 public class BasicUser {
 
 
@@ -62,9 +61,9 @@ public class BasicUser {
 
 
 
-    public String []  getAllCurrencies(){
+    public String []  getCurrencyCodes(){
 
-        HashMap<String, String> allCurrencies = new HashMap<String, String>();
+        HashMap<String, String> allCurrencies = this.database.getAllCurrencies();
 
         String [] result = new String [allCurrencies.size()];
 
@@ -76,10 +75,6 @@ public class BasicUser {
         }
         return result;
     }
-}
-    public void displayTop4(){
-        // this is where you get the currencies of the 4 exchange
-    }
 
     /**
     * function that returns the History between 2 chosen currencies between 2 dates.
@@ -89,32 +84,63 @@ public class BasicUser {
     * @Param endDate : the date to in format "YYYY-MM-DD"
     * return an array of string, where the string is in the format currency from, currency to, exchange rate, Date.
      */
-     public String [][] getHistory(String currOne, String curTwo ,String startDate, String endDate){
-         ArrayList<ArrayList<String>> map =  this.database.getExchangeHist(currOne, curTwo, startDate, endDate);
-         int length = map.size();
+//     public String [][] getHistory(String currOne, String curTwo ,String startDate, String endDate){
+//         ArrayList<ArrayList<String>> map =  this.database.getExchangeHist(currOne, curTwo, startDate, endDate);
+//         int length = map.size();
+//
+//         String [][] result = new String[length][2];
+//
+//         int count = 0;
+//         for (ArrayList<String> val : map){
+//             String [] temp = {val.get(0), val.get(1)};
+//             result[0] = temp;
+//             count += 0;
+//         }
+//
+//         return result;
+//     }
+//
+//    public String[] getPopular4Header(){
+//         String [] temp = new String [5];
+//         temp[0] = "From/To";
+//
+//         //
+//    }
 
-         String [][] result = new String[length][2];
+//    public String [][] getPopular4Data(){
+//         String [][] temp = new String [4][5];
+//
+//         //
+//        String [] header = this.getPopular4Header();
+//         boolean first = true;
+//         int count = 1;
+//         for(String [] s : temp){
+//             s[0] = header[count];
+//             count += 1;
+//
+//         }
+//
+//        for(String [] s : temp){
+//            s[0] = header[count];
+//            count += 1;
+//
+//        }
+//    }
 
-         int count = 0;
-         for (ArrayList<String> val : map){
-             String [] temp = {val.get(0), val.get(1)};
-             result[0] = temp;
-             count += 0;
-         }
-
-         return result;
-     }
 
 //     public double getMedian(String currOne, String curTwo ,String startDate, String endDate) {
 //         ArrayList<ArrayList<String>> map = this.database.getExchangeHist(currOne, curTwo, startDate, endDate);
 //         int length = map.size();
-//         int fl = length % 2;
-//         int midVal = 0;
 //
-//         if (fl = 0) {
+//         double [] arr = new double[length];
 //
-//
+//         int count = 0;
+//         for (ArrayList<String> s : map){
+//             String temp = s.get(1);
+//             arr[count] = Double.parseDouble(temp);
 //         }
+//
+//         return
 //     }
 
 
