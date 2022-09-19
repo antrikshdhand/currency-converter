@@ -364,6 +364,32 @@ public class CurrManager {
         
     }
 
+    public HashMap<String, Double> getSummaries(String currOne, String currTwo, String dayOne, String dayTwo){
+
+        HashMap<String, Double> map = new HashMap<String, Double>();
+
+        String avgQuery = String.format("select avg(conv_val) as \"Average\" from exchange where currency_ex_code = '%s' and time_added >= '%s 00.00.00' and time_added <= '%s 23.59.59' order by time_added DESC", currOne + currTwo, dayOne, dayTwo);
+        String minQuery = String.format("select min(conv_val) as \"Min\" from exchange where currency_ex_code = '%s' and time_added >= '%s 00.00.00' and time_added <= '%s 23.59.59' order by time_added DESC", currOne + currTwo, dayOne, dayTwo);
+        String maxQuery = String.format("select max(conv_val) as \"Max\" from exchange where currency_ex_code = '%s' and time_added >= '%s 00.00.00' and time_added <= '%s 23.59.59' order by time_added DESC", currOne + currTwo, dayOne, dayTwo);
+
+        try{
+
+            ResultSet query1 = openStatement.executeQuery(avgQuery);
+            map.put("Average", query1.getDouble("Average"));
+
+            ResultSet query2 =  openStatement.executeQuery(minQuery);
+            map.put("Min", query2.getDouble("Min"));
+
+            ResultSet query3 = openStatement.executeQuery(maxQuery);
+            map.put("Max", query3.getDouble("Max"));
+        }
+        catch (SQLException e){
+            System.err.println(e.getMessage());
+        }
+
+        return map;
+    }
+
     
     // public void displayExhanges() {
     //     try{ 
