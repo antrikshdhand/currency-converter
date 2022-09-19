@@ -38,6 +38,7 @@ public class Popular extends JFrame implements ActionListener {
         // TABLE
         table = new JTable(new MyTableModel());
         table.setFillsViewportHeight(true);
+        table.getTableHeader().setReorderingAllowed(false);
         JScrollPane scrollPane = new JScrollPane(table);
         popularPanel.add(scrollPane);
         /////

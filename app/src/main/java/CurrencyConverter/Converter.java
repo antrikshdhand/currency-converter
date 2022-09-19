@@ -199,7 +199,7 @@ public class Converter extends JPanel implements ActionListener {
 
     private void printConversionStatement() {
 
-        StringBuilder s1 = new StringBuilder(100);
+        StringBuilder s1 = new StringBuilder();
         s1.append("<html>Converting <font color='orange'>");
         s1.append(this.amount.getText());
         s1.append("</font> <font color='green'>");

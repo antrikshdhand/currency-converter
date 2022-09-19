@@ -8,12 +8,29 @@ import java.awt.event.*;
 public class History extends JFrame implements ActionListener {
     
     private CurrencyExchange cex;
-    private JPanel historyPanel;
-    private JPanel selectionPanel;
+    private JPanel topLevelPanel;
+    private JPanel topText;
+    private JPanel combos;
+    private JPanel middleText;
+    private JPanel datePanel;
+    private JScrollPane tablePanel;
 
     private JLabel headerLabel;
     private JTable table;
     private JButton backButton;
+    private JLabel curr1Label;
+    private JLabel curr2Label;
+    private JComboBox<String> curr1Combo;
+    private JComboBox<String> curr2Combo;
+    private JButton setCurrenciesButton;
+    private JLabel confirmCurrenciesLabel;
+    private JLabel informationLabel1;
+    private JLabel informationLabel2;
+    private JLabel dateFromLabel;
+    private JLabel dateToLabel;
+    private JTextField dateFromField;
+    private JTextField dateToField;
+    private JButton setDatesButton;
 
     private String[] currencies = new String[] {
         "AUD",
@@ -28,89 +45,160 @@ public class History extends JFrame implements ActionListener {
     public History(CurrencyExchange cex) {
         this.cex = cex;
 
-        historyPanel = new JPanel();
-        historyPanel.setLayout(new BoxLayout(historyPanel, BoxLayout.PAGE_AXIS));
-        historyPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        this.topLevelPanel = new JPanel();
+        this.topLevelPanel.setLayout(new GridLayout(0, 1));
+        this.topLevelPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         addComponentsToScreen();
-
-        this.cex.add(this.historyPanel);
+        
+        this.cex.add(this.topLevelPanel);
     }
 
     private void addComponentsToScreen() {
-        // HEADER LABEL
+        
+        // HEADER LABEL AND STEP 1 TEXT
+        topText = new JPanel();
+        topText.setLayout(new BoxLayout(topText, BoxLayout.Y_AXIS));
+        this.topLevelPanel.add(topText);
+
         headerLabel = new JLabel("Exchange Rate History");
         headerLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
-        historyPanel.add(headerLabel);
+        topText.add(headerLabel);
+
+        addSpace(topText, 10);
+        
+        informationLabel1 = new JLabel("<html><font color='red'>1.</font> Select the exchange rate for which you wish to see the history of.</html>");
+        informationLabel1.setFont(new Font("Comic Sans MS", Font.PLAIN, 22));
+        topText.add(informationLabel1);
+        /////
+        
+        // COMBO BOXES AND APPLY BUTTON
+        combos = new JPanel();
+        combos.setLayout(new BoxLayout(combos, BoxLayout.X_AXIS));
+        this.topLevelPanel.add(combos);
+
+        curr1Label = new JLabel("<html><font color='green'>Currency 1:</font></html>");
+        curr1Label.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
+        curr2Label = new JLabel("<html><font color='orange'>Currency 2:</font></html>");
+        curr2Label.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
+    
+        curr1Combo = new JComboBox<String>(currencies);
+        curr1Combo.setPreferredSize(new Dimension(100, 40));
+        curr1Combo.setMaximumSize(new Dimension(100, 40));
+        curr2Combo = new JComboBox<String>(currencies);     
+        curr2Combo.setPreferredSize(new Dimension(100, 40));
+        curr2Combo.setMaximumSize(new Dimension(100, 40));
+
+        setCurrenciesButton = new JButton("Apply");
+        setCurrenciesButton.setPreferredSize(new Dimension(100, 30));
+        setCurrenciesButton.setMaximumSize(new Dimension(100, 30));
+        setCurrenciesButton.addActionListener(this);
+        setCurrenciesButton.setActionCommand("setCurrencies");
+
+        combos.add(curr1Label);
+        combos.add(curr1Combo);
+        combos.add(Box.createRigidArea(new Dimension(100, 0)));
+        combos.add(curr2Label);
+        combos.add(curr2Combo);
+        combos.add(Box.createRigidArea(new Dimension(150, 0)));
+        combos.add(setCurrenciesButton);
+        combos.add(Box.createRigidArea(new Dimension(300, 0)));
+        /////
+        
+        // CONFIRMATION AND STEP 2 TEXT
+        middleText = new JPanel();
+        middleText.setLayout(new BoxLayout(middleText, BoxLayout.Y_AXIS));
+        this.topLevelPanel.add(middleText);
+        
+        confirmCurrenciesLabel = new JLabel();
+        confirmCurrenciesLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
+        middleText.add(confirmCurrenciesLabel);
+
+        addSpace(middleText, 10);
+        
+        informationLabel2 = new JLabel("<html><font color='red'>2.</font> Select the date range you are interested in. <strong>Input in dd/mm/yyyy</strong>.</html>");
+        informationLabel2.setFont(new Font("Comic Sans MS", Font.PLAIN, 22));
+        middleText.add(informationLabel2);
+        /////
+    
+        // DATE FROM, DATE TO, AND APPLY BUTTON
+        datePanel = new JPanel();
+        datePanel.setLayout(new BoxLayout(datePanel, BoxLayout.LINE_AXIS));
+        this.topLevelPanel.add(datePanel);
+
+        dateFromLabel = new JLabel("<html><font color='blue'>Date from:</font></html>");
+        dateFromLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
+        dateToLabel = new JLabel("<html><font color='blue'>Date to:</font></html>");
+        dateToLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
+
+        dateFromField = new JTextField(10);
+        dateFromField.setPreferredSize(new Dimension(100, 30));
+        dateFromField.setMaximumSize(new Dimension(100, 30));
+        dateToField = new JTextField(10);
+        dateToField.setPreferredSize(new Dimension(100, 30));
+        dateToField.setMaximumSize(new Dimension(100, 30));
+
+        setDatesButton = new JButton("Apply");
+        setDatesButton.setPreferredSize(new Dimension(100, 30));
+        setDatesButton.setMaximumSize(new Dimension(100, 30));
+        setDatesButton.addActionListener(this);
+        setDatesButton.setActionCommand("setDates");
+
+        datePanel.add(dateFromLabel);
+        datePanel.add(dateFromField);
+        datePanel.add(Box.createRigidArea(new Dimension(100, 0)));
+        datePanel.add(dateToLabel);
+        datePanel.add(dateToField);
+        datePanel.add(Box.createRigidArea(new Dimension(150, 0)));
+        datePanel.add(setDatesButton);
+        datePanel.add(Box.createRigidArea(new Dimension(300, 0)));
         /////
 
-        addSpace(historyPanel, 20);
-        
-        // SELECT EXCHANGE RATE
-        JLabel informationLabel1 = new JLabel("Select the exchange rate for which you wish to see the history of.");
-        informationLabel1.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
-        historyPanel.add(informationLabel1);
-        addSpace(historyPanel, 10);
-
-        JLabel curr1Label = new JLabel("Currency 1:");
-        JLabel curr2Label = new JLabel("Currency 2:");
-        JComboBox<String> curr1Combo = new JComboBox<String>(currencies);
-        JComboBox<String> curr2Combo = new JComboBox<String>(currencies);
-        
-        historyPanel.add(curr1Label);
-        historyPanel.add(curr1Combo);
-        historyPanel.add(curr2Label);
-        historyPanel.add(curr2Combo);        
-
-        addSpace(historyPanel, 20);
-
-        JLabel informationLabel2 = new JLabel("Select the date range you are interested in.");
-        informationLabel2.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
-        historyPanel.add(informationLabel2);
-
-        addSpace(historyPanel, 20);
-        
-        // // DATE PANEL
-        // datePanel = new JPanel();
-        // datePanel.setLayout(new BoxLayout(datePanel, BoxLayout.LINE_AXIS));
-        // datePanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        // historyPanel.add(datePanel);
-        
-        
-        
-        // JLabel hi = new JLabel("HEllo WORLDDDDD");
-        // JLabel hi2 = new JLabel("ARIGATOU GOZAIMASHITA");
-        // JLabel hi3 = new JLabel("DENWA?");
-        
-        // datePanel.add(hi);
-        // datePanel.add(hi2);
-        // datePanel.add(hi3);
-
+        //this.topLevelPanel.add(Box.createVerticalGlue());
 
         // TABLE
         table = new JTable(new MyTableModel());
         table.setFillsViewportHeight(true);
-        JScrollPane scrollPane = new JScrollPane(table);
-        historyPanel.add(scrollPane);
+        table.getTableHeader().setReorderingAllowed(false);
+        tablePanel = new JScrollPane(table);
+        this.topLevelPanel.add(tablePanel);
         /////
 
-        addSpace(historyPanel, 20);
-
+        addSpace(this.topLevelPanel, 20);
+        
         // BACK BUTTON
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
+        this.topLevelPanel.add(bottomPanel);
+        
         ImageIcon upIcon = new ImageIcon(this.getClass().getResource("upFolder.png").getPath());
         backButton = new JButton("Back", upIcon);
+        backButton.setPreferredSize(new Dimension(100, 40));
+        backButton.setMaximumSize(new Dimension(100, 40));
         backButton.addActionListener(this);
         backButton.setActionCommand("back"); // for mouse-click register
-        historyPanel.add(backButton);
+        bottomPanel.add(backButton);
         /////
 
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("back")) {
-            this.historyPanel.setVisible(false);
+            this.topLevelPanel.setVisible(false);
             this.cex.getWelcomeScreen().getWelcomePanel().setVisible(true);
+        } else if (e.getActionCommand().equals("setCurrencies")) {
+            printConfirmStatement();
         }
+    }
+
+    private void printConfirmStatement() {
+        StringBuilder s1 = new StringBuilder();
+        s1.append("<html>You have selected the exchange <font color='green'>");
+        s1.append(this.curr1Combo.getSelectedItem());
+        s1.append("</font>/<font color='orange'>");
+        s1.append(this.curr2Combo.getSelectedItem());
+        s1.append("</font>.</html>");
+        this.confirmCurrenciesLabel.setText(s1.toString());
     }
 
     class MyTableModel extends AbstractTableModel {
