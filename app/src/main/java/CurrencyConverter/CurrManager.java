@@ -125,8 +125,6 @@ public class CurrManager {
             System.err.println(e.getMessage());
             return -1;
         }
-
-        return 0;
         
     }
 
@@ -325,8 +323,6 @@ public class CurrManager {
             return -1;
 
         }
-
-        return 0;
         
     }
 
