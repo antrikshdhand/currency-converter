@@ -52,8 +52,6 @@ public class BasicUser {
         database.openConn();
         double rate = database.getExchange(from,to);
         database.closeConn();
-
-        System.out.println(rate);
         if ((int)rate == -1) return 0;
 
         result = rate * amount;

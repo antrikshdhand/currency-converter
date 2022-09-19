@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 // import static org.junit.jupiter.api.Assertions.assertTimeout;
 // import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+import java.util.HashMap;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -13,21 +15,16 @@ public class BasicUserTesting {
 
     BasicUser user;
     CurrManager db;
-
-    @BeforeEach
-    public void createUser(){
-        this.user = new BasicUser( this.db);
-    }
     @BeforeEach
     public void createNewCurrManager() {
         db = new CurrManager();
         db.openConn();
         db.dropAllTables();
+        this.user = new BasicUser( this.db);
     }
 
     @AfterEach
     public void deleteCurrManager() {
-        db.closeConn();
         db = null;
         user = null;
     }
@@ -70,19 +67,35 @@ public class BasicUserTesting {
     public void onlyExchangeIntergrationTestConvert(){
         this.db.openConn();
         int result1= this.db.addExchange("AUD", "USD", 1.69);
-        int result2 = this.db.addExchange("USD", "DEN", 0.56);
+        HashMap<String, String> name = db.getAllCurrencies();
         this.db.closeConn();
 
         // only exchange rate are being added and the actual currencies do not exist in the db yet. Hence, should return -1.
-        assertEquals(-1, result1);
-        assertEquals(-1, result2);
-
-
-
-
-
+        assertEquals(0, name.size());
 
     }
+
+    @Test
+    public void fullExchangeIntegrationTesting(){
+        this.db.openConn();
+        int result1 = db.addCurrency("SNG","Singapore");
+        int result2 = db.addCurrency("AUD", "Australia");
+        this.db.closeConn();
+
+        assertEquals(0, result2);
+        assertEquals(0, result1);
+
+        this.db.openConn();
+        int result3 = db.addExchange("AUD", "SNG", 1.3 );
+        this.db.closeConn();
+
+        assertEquals(0, result3);
+
+        double result = user.convert("AUD", "SNG", 200);
+        double expected = (double) 1.3 * (double) 200;
+        assertEquals(expected, result);
+    }
+
 
 
 }

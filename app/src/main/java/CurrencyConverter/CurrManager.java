@@ -109,7 +109,7 @@ public class CurrManager {
 
         // Add error handling
         try {
-            
+
             Statement statement = dbConn.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
             statement.executeUpdate("drop table currency; drop table exchange;");
@@ -119,16 +119,15 @@ public class CurrManager {
 
             return 0;
 
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             // if the error message is "out of memory",
             // it probably means no database file is found
             System.err.println(e.getMessage());
             return -1;
         }
-
-        return 0;
-        
     }
+
+
 
     
     // protected int deleteDatabase() {
@@ -326,7 +325,6 @@ public class CurrManager {
 
         }
 
-        return 0;
         
     }
 
