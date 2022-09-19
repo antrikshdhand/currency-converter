@@ -94,7 +94,7 @@ public class CurrManagerTest {
         
         currManager.addExchange("TC1", "TC2", 25);
 
-        ArrayList<ArrayList<String>> hist = currManager.getExchangeHist("TC1", "TC2");
+        ArrayList<ArrayList<String>> hist = currManager.getExchangeHist("TC1", "TC2", "2022-09-18", "2022-09-19");
 
         // for (ArrayList<String> ar : hist) {
         //     for (String s : ar) {
@@ -108,7 +108,7 @@ public class CurrManagerTest {
 
         // System.out.println(stringArray);
 
-        assertTrue(hist.size() == 2);
+        assertEquals(2, hist.size(), String.format("Expected 2 but was %d", hist.size()));
     }
 
 }

@@ -334,12 +334,12 @@ public class CurrManager {
      * @param currTwo Currency to
      * @return Returns the conversion rate from currency one to currency two.
      */
-    public ArrayList<ArrayList<String>> getExchangeHist(String currOne, String currTwo) { // Bug fixed - now it gets latest currency value
+    public ArrayList<ArrayList<String>> getExchangeHist(String currOne, String currTwo, String dayOne, String dayTwo) { // Bug fixed - now it gets latest currency value //YYYY-MM-DD
 
         ArrayList<ArrayList<String>> historyList = new ArrayList<ArrayList<String>>();
 
         try{ 
-            ResultSet query = openStatement.executeQuery(String.format("select time_added, conv_val from exchange where currency_ex_code = '%s' order by time_added DESC", currOne + currTwo));
+            ResultSet query = openStatement.executeQuery(String.format("select time_added, conv_val from exchange where currency_ex_code = '%s' and time_added >= '%s' and time_added <= '%s' order by time_added DESC", currOne + currTwo, dayOne, dayTwo));
 
             while(query.next()) {
 
