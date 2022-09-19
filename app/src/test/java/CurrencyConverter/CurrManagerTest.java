@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
 
 
 public class CurrManagerTest {
@@ -94,7 +94,8 @@ public class CurrManagerTest {
         
         currManager.addExchange("TC1", "TC2", 25);
 
-        ArrayList<ArrayList<String>> hist = currManager.getExchangeHist("TC1", "TC2", "2022-09-18", "2022-09-19");
+        ArrayList<ArrayList<String>> hist = currManager.getExchangeHist("TC1", "TC2", "2022-09-18", "2023-09-20");
+        HashMap<String, Double> map = currManager.getSummaries("TC1", "TC2", "2022-09-18", "2023-09-20");
 
         // for (ArrayList<String> ar : hist) {
         //     for (String s : ar) {
@@ -109,6 +110,10 @@ public class CurrManagerTest {
         // System.out.println(stringArray);
 
         assertEquals(2, hist.size(), String.format("Expected 2 but was %d", hist.size()));
+        assertTrue( 3 == map.size());
+        assertTrue( map.get("Average") == 22.5);
+//        assertTrue(map.get(""));
+
     }
 
 }
