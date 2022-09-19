@@ -62,6 +62,8 @@ public class CurrManager {
 
             openStatement.executeUpdate("create table if not exists currency (currency_code char(3) primary key, currency_name var_char(20))");
             openStatement.executeUpdate("create table if not exists exchange (currency_from char(3) references currency(currency_code), currency_to char(3) references currency(currency_code), currency_ex_code char(6), conv_val float, time_added datetime default (CURRENT_TIMESTAMP), primary key (currency_ex_code, time_added), constraint check_not_equal check (currency_from != currency_to))");
+            openStatement.executeUpdate("create table if not exists popularFour (currency_from char(3) references currency(currency_code))");
+            
             return 0;
             
         } catch(SQLException e) {          
@@ -263,6 +265,16 @@ public class CurrManager {
      */
     public int addExchange(String currOne, String currTwo, double convValue) {
 
+        // We are doing this because otherwise for somereasonn Java time doesnt pass and the next time we add an exhange it has the same timestamp
+        try {
+            Thread.sleep(2000);
+        
+        } catch(InterruptedException e) {
+            // this part is executed when an exception (in this example InterruptedException) occurs
+        
+        }
+
+
         // Add error handelling
         try {
             
@@ -275,22 +287,26 @@ public class CurrManager {
             // if the error message is "out of memory",
             // it probably means no database file is found
             System.err.println(e.getMessage());
+            return -1;
         }
-        return -1;
+        
+        return 0;
 
     }
 
+
+
     /**
-     * Gets the conversion value for a particular exchange.
+     * Gets latest the conversion value for a particular exchange.
      * 
      * @param currOne Currency from
      * @param currTwo Currency to
      * @return Returns the conversion rate from currency one to currency two.
      */
-    public double getExchange(String currOne, String currTwo) {
+    public double getExchange(String currOne, String currTwo) { // Bug fixed - now it gets latest currency value
 
         try{ 
-            ResultSet query = openStatement.executeQuery(String.format("select conv_val from exchange where currency_ex_code = '%s'", currOne + currTwo));
+            ResultSet query = openStatement.executeQuery(String.format("select conv_val from exchange where currency_ex_code = '%s' and time_added in (select MAX(time_added) from exchange where currency_ex_code = '%s' group by currency_ex_code)", currOne + currTwo, currOne + currTwo));
 
             if(query.next()) {
                 return query.getDouble("conv_val");
@@ -308,6 +324,43 @@ public class CurrManager {
         }
 
         return -1;
+        
+    }
+
+
+    /**
+     * Gets latest the conversion value for a particular exchange.
+     * 
+     * @param currOne Currency from
+     * @param currTwo Currency to
+     * @return Returns the conversion rate from currency one to currency two.
+     */
+    public ArrayList<ArrayList<String>> getExchangeHist(String currOne, String currTwo) { // Bug fixed - now it gets latest currency value
+
+        ArrayList<ArrayList<String>> historyList = new ArrayList<ArrayList<String>>();
+
+        try{ 
+            ResultSet query = openStatement.executeQuery(String.format("select time_added, conv_val from exchange where currency_ex_code = '%s' order by time_added DESC", currOne + currTwo));
+
+            while(query.next()) {
+
+                ArrayList<String> tempList = new ArrayList<String>();
+                String time_added = query.getTimestamp("time_added") + "";
+                String conv_value = query.getDouble("conv_val") + "";
+
+                tempList.add(time_added);
+                tempList.add(conv_value);
+            
+            }
+
+        } catch(SQLException e) {
+            // if the error message is "out of memory",
+            // it probably means no database file is found
+            System.err.println(e.getMessage());
+
+        }
+
+        return historyList;
         
     }
 
@@ -336,35 +389,37 @@ public class CurrManager {
     //     printSeperator();
     // }
 
-    /**
-     * Gets the latest exhange rates for all exchanges.
-     * 
-     * @return Returns a {@link java.util.HashMap HashMap}, where the keys are the currency exchange codes ("USDAUD") and the values and the conversion rates. 
-     */
-    public HashMap<String, Double> getLatestExchanges() {
+    // /**
+    //  * Gets the latest exhange rates for all exchanges.
+    //  * 
+    //  * @deprecated
+    //  * @return Returns a {@link java.util.HashMap HashMap}, where the keys are the currency exchange codes ("USDAUD") and the values and the conversion rates.
+    //  */
+    // @Deprecated
+    // public HashMap<String, Double> getLatestExchanges() {
 
-        HashMap<String, Double> latestExchanges = new HashMap<String, Double>();
+    //     HashMap<String, Double> latestExchanges = new HashMap<String, Double>();
 
-        try{ 
-            ResultSet query = openStatement.executeQuery("select t1.* from exchange t1 inner join (select currency_ex_code, max(time_added) as 'time_added' from exchange group by currency_ex_code) t2 ON (t1.currency_ex_code = t2.currency_ex_code and t1.time_added = t2.time_added)");
+    //     try{ 
+    //         ResultSet query = openStatement.executeQuery("select t1.* from exchange t1 inner join (select currency_ex_code, max(time_added) as 'time_added' from exchange group by currency_ex_code) t2 ON (t1.currency_ex_code = t2.currency_ex_code and t1.time_added = t2.time_added)");
 
-            while(query.next())
-            {
-                String currExchCode = query.getString("currency_ex_code");
-                Double conValue = (double) query.getFloat("conv_val");
+    //         while(query.next())
+    //         {
+    //             String currExchCode = query.getString("currency_ex_code");
+    //             Double conValue = (double) query.getFloat("conv_val");
                 
-                latestExchanges.put(currExchCode, conValue);
-            }
+    //             latestExchanges.put(currExchCode, conValue);
+    //         }
 
-        } catch(SQLException e) {
-            // if the error message is "out of memory",
-            // it probably means no database file is found
-            System.err.println(e.getMessage());
-            return null;
-        }
+    //     } catch(SQLException e) {
+    //         // if the error message is "out of memory",
+    //         // it probably means no database file is found
+    //         System.err.println(e.getMessage());
+    //         return null;
+    //     }
 
-        return latestExchanges;
-    }
+    //     return latestExchanges;
+    // }
 
 
     // public void displayLatestExchanges() {

@@ -24,12 +24,14 @@ public class App extends JFrame {
       
         CurrManager manager = new CurrManager();
         manager.openConn();
-        // manager.addCurrency("AUD", "Australian Dollar");
-        // manager.addCurrency("USD", "American Dollar");
-        // manager.addExchange("AUD", "USD", 1.3);
-        
-        System.out.println(manager.getCurrName("TSC"));
-        System.out.println(manager.getAllCurrencies());
+        manager.addCurrency("AUD", "Australian Dollar");
+        manager.addCurrency("USD", "American Dollar");
+        manager.addExchange("AUD", "USD", 1.3);
+        manager.addExchange("AUD", "USD", 1.4);
+        // System.out.println(manager.getCurrName("TSC"));
+        // System.out.println(manager.getAllCurrencies());
+
+        manager.getExchangeHist("AUD", "USD");
         manager.closeConn();
 
 
