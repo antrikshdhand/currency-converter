@@ -32,10 +32,16 @@ public class Calculator {
             return -1;
         }
 
+        app.getManager().openConn();
         double rate = app.getManager().getExchange(currencyFrom, currencyTo);
+        app.getManager().closeConn();
 
         return amount * rate;
 
+    }
+
+    public void hello() {
+        System.out.println("hello");
     }
 
 }
