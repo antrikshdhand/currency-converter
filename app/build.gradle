@@ -24,7 +24,10 @@ repositories {
 
 dependencies {
     // Use JUnit test framework.
-    testImplementation 'junit:junit:4.13.2'
+    // testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:30.1.1-jre'
@@ -36,4 +39,39 @@ dependencies {
 application {
     // Define the main class for the application.
     mainClass = 'CurrencyConverter.App'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task jtr {
+    dependsOn jacocoTestReport
+}
+
+javadoc { 
+    sourceSets {
+        build {
+            java.srcDir file('src/main/java/CurrencyConverter')
+
+        }
+    }
+} 
+
+
+jacocoTestReport {
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: "build/classes/java/main/CurrencyConverter",
+                    exclude: ['WelcomeScreen.class',
+                              'SelectPopular.class',
+                              'History.class',
+                              'Display.class',
+                              'Desktop.class',
+                              'CurrencyExchange.class',
+                              'AdminPortal.class',
+                              'Calculator.class'])
+        }))
+    }
 }

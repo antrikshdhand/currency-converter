@@ -2,7 +2,7 @@ package CurrencyConverter;
 
 public class Calculator {
 
-    // private Database database;
+    //private Database database;
 
     public Calculator() {
     // public Calculator(Database database) {
@@ -16,7 +16,7 @@ public class Calculator {
      * @param amount
      * @return
      */
-    public double calculateConverstion(Currency currencyFrom, Currency currencyTo, double amount) {
+    public double calculateConverstion(String currencyFrom, String currencyTo, double amount) {
 
         if (currencyFrom == null || currencyTo == null) {
             return (Double) null;
