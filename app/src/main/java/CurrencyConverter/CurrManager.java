@@ -366,7 +366,6 @@ public class CurrManager {
         
         }
 
-
         // Add error handelling
         try {
             
@@ -384,8 +383,6 @@ public class CurrManager {
         return 0;
 
     }
-
-
 
     /**
      * Gets latest the conversion value for a particular exchange.
@@ -412,7 +409,6 @@ public class CurrManager {
             // it probably means no database file is found
             System.err.println(e.getMessage());
             return -1;
-
         }
 
 

@@ -50,12 +50,10 @@ public class Admin extends BasicUser {
 
     }
 
-    public void reset(){
-        this.openConn();
-        this.database.dropAllTables();
-        this.closeConn();
-        this.openConn();
-        this.database.addBasicSix();
-        this.closeConn();
-    }
+    // public void reset(){
+    //     this.database.openConn();
+    //     this.database.dropAllTables();
+    //     this.database.addBasicSix();
+    //     this.database.closeConn();
+    // }
 }

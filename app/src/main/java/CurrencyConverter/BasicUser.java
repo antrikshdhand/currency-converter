@@ -73,10 +73,6 @@ public class BasicUser {
     
     }
 
-    public void displayTop4() {
-        // this is where you get the currencies of the 4 exchange
-    }
-
     /**
     * function that returns the History between 2 chosen currencies between 2 dates.
     * @Param currOne: the currency from
@@ -104,39 +100,43 @@ public class BasicUser {
     }
 
     public String[] getPopular4Header(){
-         String [] temp = new String [5];
-         temp[0] = "From/To";
+        String [] temp = new String [5];
+        temp[0] = "From/To";
 
-         String[] data = this.database.getPopularFour();
+        this.database.openConn();
+        String[] data = this.database.getPopularFour();
+        this.database.closeConn();
 
-         int count = 1;
-         for (String s : data){
-             temp[count] = s;
-             count += 1;
-         }
-         return temp;
+        int count = 1;
+        for (String s : data){
+            temp[count] = s;
+            count += 1;
+        }
+        return temp;
     }
 
     public String [][] getPopular4Data(){
-         String [][] temp = new String [4][5];
-         String [] header = this.getPopular4Header();
+        String[][] temp = new String[4][5];
+        String[] header = this.getPopular4Header();
 
-         boolean first = true;
-         int count = 1;
-         for(String [] s : temp){
-             s[0] = header[count];
-             count += 1;
-         }
+        boolean first = true;
+        int count = 1;
+        for(String[] s : temp){
+            s[0] = header[count];
+            count += 1;
+        }
 
-         temp [0][1] = "-";
-         temp [1][2] = "-";
-         temp [2][3] = "-";
-         temp [3][4] = "-";
+        this.database.openConn();
 
-         // Row 2
-         temp[0][2] = this.database.getExchange(temp[0][0], header[2]) + "";
-         temp[0][3] = this.database.getExchange(temp[0][0], header[3]) + "";
-         temp[0][4] = this.database.getExchange(temp[0][0], header[4]) + "";
+        temp[0][1] = "-";
+        temp[1][2] = "-";
+        temp[2][3] = "-";
+        temp[3][4] = "-";
+
+        // Row 2
+        temp[0][2] = this.database.getExchange(temp[0][0], header[2]) + "";
+        temp[0][3] = this.database.getExchange(temp[0][0], header[3]) + "";
+        temp[0][4] = this.database.getExchange(temp[0][0], header[4]) + "";
 
         //Row 3;
         temp[1][1] = this.database.getExchange(temp[0][0], header[1]) + "";
@@ -152,6 +152,8 @@ public class BasicUser {
         temp[3][1] = this.database.getExchange(temp[0][0], header[1]) + "";
         temp[3][2] = this.database.getExchange(temp[0][0], header[2]) + "";
         temp[3][3] = this.database.getExchange(temp[0][0], header[3]) + "";
+
+        this.database.closeConn();
 
         return temp;
 

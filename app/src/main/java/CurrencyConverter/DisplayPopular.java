@@ -46,20 +46,9 @@ public class DisplayPopular extends JFrame implements ActionListener {
         /////
 
         // TABLE
-        String[] columns = new String[] {
-            "From/To",
-            "Curr1Name",
-            "Curr2Name",
-            "Curr3Name",
-            "Curr4Name"
-        };
+        String[] columns = this.user.getPopular4Header();
         
-        String[][] data = new String[][] {
-            {"Curr1Name", "-", "Curr1/Curr2", "Curr1/Curr3", "Curr1/Curr4"},
-            {"Curr2Name", "Curr2/Curr1", "-", "Curr2/Curr3", "Curr2/Curr4"},
-            {"Curr3Name", "Curr3/Curr1", "Curr3/Curr2", "-", "Curr3/Curr4"},
-            {"Curr4Name", "Curr4/Curr1", "Curr4/Curr2", "Curr4/Curr3", "-"}
-        };
+        String[][] data = this.user.getPopular4Data();
 
         MyTableModel mtm = new MyTableModel(columns, data);
         

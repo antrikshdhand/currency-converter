@@ -35,16 +35,22 @@ public class History extends JFrame implements ActionListener {
     private JTextField dateToField;
     private JButton setDatesButton;
 
-    private String[] currenciesArr;
-
+    
     // BACKEND
     private BasicUser user;
     public final static String DATE_FORMAT = "yyyy-MM-dd";
+    private String[] currenciesArr;
+    private String[] columnNames;
+    private String[][] data;
 
     public History(CurrencyExchange cex, BasicUser user) {
         this.cex = cex;
         this.user = user;
         this.currenciesArr = user.getCurrencyCodes();
+        this.columnNames = new String[] {"Date", "Curr1/Curr2"};
+        this.data = new String[][] {
+            {"1970-01-01", "1.00"}
+        };
 
         this.topLevelPanel = new JPanel();
         this.topLevelPanel.setLayout(new GridLayout(0, 1));
@@ -156,21 +162,7 @@ public class History extends JFrame implements ActionListener {
         /////
 
         // TABLE
-        String[] columnNames = new String[] {
-            "Date/Time",
-            "Curr1/Curr2",
-        };
-
-        String[][] data = new String[][] {
-            {"12/08/22 07:05:33", "0.98"},
-            {"13/08/22 13:22:24", "0.99"},
-            {"13/08/22 18:54:12", "1.02"},
-            {"14/08/22 02:03:59", "1.00"},
-            {"15/08/22 11:17:32", "0.98"},
-        };
-
-        MyTableModel mtm = new MyTableModel(columnNames, data);
-
+        MyTableModel mtm = new MyTableModel(this.columnNames, this.data);
         table = new JTable(mtm);
         table.setFillsViewportHeight(true);
         table.getTableHeader().setReorderingAllowed(false);
@@ -220,13 +212,8 @@ public class History extends JFrame implements ActionListener {
                     JOptionPane.ERROR_MESSAGE
                 );
             } else {
-                String[][] history = this.user.getHistory(currOne, currTwo, dateFrom, dateTo);
-                for (String[] sarray : history) {
-                    for (String s : sarray) {
-                        System.out.println(s);
-                    }
-                    System.out.println();
-                }
+                this.data = this.user.getHistory(currOne, currTwo, dateFrom, dateTo);
+                this.table = new JTable(new MyTableModel(this.columnNames, this.data));
             }
         }
     }
