@@ -52,11 +52,11 @@ public class BasicUser {
         database.openConn();
         double rate = database.getExchange(from,to);
         database.closeConn();
-        result = rate * amount;
 
-        if( result == -1 * amount) {
-            System.out.println("Currency not in database");
-            return 0;}
+        System.out.println(rate);
+        if ((int)rate == -1) return 0;
+
+        result = rate * amount;
 
 
         return result;
@@ -67,11 +67,12 @@ public class BasicUser {
     }
 
     /**
-    * function that returns the History of a chosen currency
-    * @Param curr : the chosen currency (currency)
+    * function that returns the History between 2 chosen currencies.
+    * @Param currOne: the currency from
+    * @Param currTwo: the currency to
     * return an array of string, where the string is in the format currency from, currency to, exchange rate, Date.
      */
-     public String [] getHistory(Currency curr){
+     public String [] getHistory(String currOne, String cuTwo ){
          return new String[0];
      }
 
