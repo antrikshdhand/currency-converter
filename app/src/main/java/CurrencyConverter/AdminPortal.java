@@ -14,9 +14,14 @@ public class AdminPortal extends JPanel implements ActionListener {
     private JButton newCurrency;
     private JButton updateRates;
     private JButton backButton;
+    private JButton resetDB;
 
-    public AdminPortal(CurrencyExchange cex) {
+    // BACKEND
+    private Admin admin;
+
+    public AdminPortal(CurrencyExchange cex, Admin admin) {
         this.cex = cex;
+        this.admin = admin;
 
         this.adminPortalPanel = new JPanel();
         this.adminPortalPanel.setLayout(new BoxLayout(adminPortalPanel, BoxLayout.PAGE_AXIS));
@@ -57,7 +62,15 @@ public class AdminPortal extends JPanel implements ActionListener {
         updateRates.addActionListener(this);
         updateRates.setActionCommand("update");
         this.adminPortalPanel.add(updateRates);
-        
+
+        addSpace(adminPortalPanel, 10);
+
+        // RESET BUTTON
+        resetDB = new JButton("Reset database to original 6 currencies");
+        resetDB.addActionListener(this);
+        resetDB.setActionCommand("reset");
+        this.adminPortalPanel.add(resetDB);
+
         addSpace(adminPortalPanel, 30);
         
         // BACK BUTTON
@@ -70,30 +83,6 @@ public class AdminPortal extends JPanel implements ActionListener {
         this.adminPortalPanel.add(backButton);
         /////
 
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("back")) {
-            this.adminPortalPanel.setVisible(false);
-            this.cex.getWelcomeScreen().getWelcomePanel().setVisible(true);
-        } else if (e.getActionCommand().equals("popular")) {
-            this.adminPortalPanel.setVisible(false);
-            SelectPopular selectPopular = new SelectPopular(this.cex);
-
-            // application control now moves to SelectPopular.java
-        } else if (e.getActionCommand().equals("new")) {
-            // currencyCode is index 0
-            // currencyName is index 1
-            String[] newCurrency = newCurrencyDialogue();
-            if (newCurrency == null) return;
-            
-            // RUN VERIFICATION ON CURRENCYCODE
-            boolean currencyValid = testCurrency(newCurrency);
-            if (!currencyValid) displayError();
-        } else if (e.getActionCommand().equals("update")) {
-            this.adminPortalPanel.setVisible(false);
-            UpdateExchange updateExchange = new UpdateExchange(this.cex);
-        }
     }
 
     private String[] newCurrencyDialogue() {
@@ -135,6 +124,30 @@ public class AdminPortal extends JPanel implements ActionListener {
             "Currency code error",
             JOptionPane.ERROR_MESSAGE
         );
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("back")) {
+            this.adminPortalPanel.setVisible(false);
+            this.cex.getWelcomeScreen().getWelcomePanel().setVisible(true);
+        } else if (e.getActionCommand().equals("popular")) {
+            this.adminPortalPanel.setVisible(false);
+            SelectPopular selectPopular = new SelectPopular(this.cex, this.admin);
+
+            // application control now moves to SelectPopular.java
+        } else if (e.getActionCommand().equals("new")) {
+            // currencyCode is index 0
+            // currencyName is index 1
+            String[] newCurrency = newCurrencyDialogue();
+            if (newCurrency == null) return;
+            
+            // RUN VERIFICATION ON CURRENCYCODE
+            boolean currencyValid = testCurrency(newCurrency);
+            if (!currencyValid) displayError();
+        } else if (e.getActionCommand().equals("update")) {
+            this.adminPortalPanel.setVisible(false);
+            UpdateExchange updateExchange = new UpdateExchange(this.cex, this.admin);
+        }
     }
 
     private void addSpace(JPanel jp, int y) {

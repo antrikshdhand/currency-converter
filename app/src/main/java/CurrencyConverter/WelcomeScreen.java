@@ -21,9 +21,17 @@ public class WelcomeScreen extends JPanel implements ActionListener, ItemListene
     private History history;
     private AdminPortal adminPortal;
 
-    
+    // BACKEND
+    private CurrManager cm;
+    private BasicUser user;
+    private Admin admin;
+
     public WelcomeScreen(CurrencyExchange cex) {
         this.cex = cex;
+        this.cm = new CurrManager();
+
+        this.user = new BasicUser(this.cm);
+        this.admin = new Admin(this.cm);
 
         // set up panel which lives inside the JInternalFrame
         welcomeScreenPanel = new JPanel();
@@ -96,22 +104,22 @@ public class WelcomeScreen extends JPanel implements ActionListener, ItemListene
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("convertApp")) {
             this.welcomeScreenPanel.setVisible(false); // first hide WelcomeScreen panel
-            converter = new Converter(this.cex); // then show Converter panel
+            converter = new Converter(this.cex, this.user); // then show Converter panel
             
             // application control now moves to Converter.java
         } else if (e.getActionCommand().equals("popular")) {
             this.welcomeScreenPanel.setVisible(false);
-            displayPopular = new DisplayPopular(this.cex);
+            displayPopular = new DisplayPopular(this.cex, this.user);
             
             // application control now moves to Popular.java
         } else if (e.getActionCommand().equals("history")) {
             this.welcomeScreenPanel.setVisible(false);
-            history = new History(this.cex);
+            history = new History(this.cex, this.user);
             
             // application control now moves to History.java
         } else if (e.getActionCommand().equals("admin")) {
             this.welcomeScreenPanel.setVisible(false);
-            adminPortal = new AdminPortal(this.cex);
+            adminPortal = new AdminPortal(this.cex, this.admin);
             
             // application control now moves to AdminPortal.java
         } 

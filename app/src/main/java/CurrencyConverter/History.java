@@ -4,6 +4,9 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class History extends JFrame implements ActionListener {
     
@@ -32,18 +35,16 @@ public class History extends JFrame implements ActionListener {
     private JTextField dateToField;
     private JButton setDatesButton;
 
-    private String[] currencies = new String[] {
-        "AUD",
-        "EUR",
-        "INR",
-        "USD",
-        "NZD",
-        "JPY",
-        "GBP"
-    };
+    private String[] currenciesArr;
 
-    public History(CurrencyExchange cex) {
+    // BACKEND
+    private BasicUser user;
+    public final static String DATE_FORMAT = "yyyy-MM-dd";
+
+    public History(CurrencyExchange cex, BasicUser user) {
         this.cex = cex;
+        this.user = user;
+        this.currenciesArr = user.getCurrencyCodes();
 
         this.topLevelPanel = new JPanel();
         this.topLevelPanel.setLayout(new GridLayout(0, 1));
@@ -82,10 +83,10 @@ public class History extends JFrame implements ActionListener {
         curr2Label = new JLabel("<html><font color='orange'>Currency 2:</font></html>");
         curr2Label.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
     
-        curr1Combo = new JComboBox<String>(currencies);
+        curr1Combo = new JComboBox<String>(currenciesArr);
         curr1Combo.setPreferredSize(new Dimension(100, 40));
         curr1Combo.setMaximumSize(new Dimension(100, 40));
-        curr2Combo = new JComboBox<String>(currencies);     
+        curr2Combo = new JComboBox<String>(currenciesArr);     
         curr2Combo.setPreferredSize(new Dimension(100, 40));
         curr2Combo.setMaximumSize(new Dimension(100, 40));
 
@@ -116,7 +117,7 @@ public class History extends JFrame implements ActionListener {
 
         middleText.add(Box.createVerticalGlue());
         
-        informationLabel2 = new JLabel("<html><font color='red'>2.</font> Select the date range you are interested in. <strong>Input in dd/mm/yyyy</strong>.</html>");
+        informationLabel2 = new JLabel("<html><font color='red'>2.</font> Select the date range you are interested in. <strong>Input in yyyy-mm-dd</strong>.</html>");
         informationLabel2.setFont(new Font("Comic Sans MS", Font.PLAIN, 22));
         middleText.add(informationLabel2);
         /////
@@ -155,7 +156,22 @@ public class History extends JFrame implements ActionListener {
         /////
 
         // TABLE
-        table = new JTable(new MyTableModel());
+        String[] columnNames = new String[] {
+            "Date/Time",
+            "Curr1/Curr2",
+        };
+
+        String[][] data = new String[][] {
+            {"12/08/22 07:05:33", "0.98"},
+            {"13/08/22 13:22:24", "0.99"},
+            {"13/08/22 18:54:12", "1.02"},
+            {"14/08/22 02:03:59", "1.00"},
+            {"15/08/22 11:17:32", "0.98"},
+        };
+
+        MyTableModel mtm = new MyTableModel(columnNames, data);
+
+        table = new JTable(mtm);
         table.setFillsViewportHeight(true);
         table.getTableHeader().setReorderingAllowed(false);
         tablePanel = new JScrollPane(table);
@@ -188,7 +204,45 @@ public class History extends JFrame implements ActionListener {
             this.cex.getWelcomeScreen().getWelcomePanel().setVisible(true);
         } else if (e.getActionCommand().equals("setCurrencies")) {
             printConfirmStatement();
+        } else if (e.getActionCommand().equals("setDates")) {
+            String currOne = (String) this.curr1Combo.getSelectedItem();
+            String currTwo = (String) this.curr2Combo.getSelectedItem();
+    
+            String dateFrom = dateFromField.getText();
+            String dateTo = dateToField.getText();
+            
+            String[] dates = new String[] {dateFrom, dateTo};
+            boolean valid = areDatesValid(dates);
+            if (!valid) {
+                JOptionPane.showMessageDialog(this.topLevelPanel,
+                    "Date format not valid. Please try again.",
+                    "Date formatting error",
+                    JOptionPane.ERROR_MESSAGE
+                );
+            } else {
+                String[][] history = this.user.getHistory(currOne, currTwo, dateFrom, dateTo);
+                for (String[] sarray : history) {
+                    for (String s : sarray) {
+                        System.out.println(s);
+                    }
+                    System.out.println();
+                }
+            }
         }
+    }
+
+    private boolean areDatesValid(String[] dates) {
+        DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+        df.setLenient(false);
+        try {
+            for (String s : dates) {
+                df.parse(s);
+            }
+        } catch (ParseException e) {
+            return false;
+        }
+
+        return true;
     }
 
     private void printConfirmStatement() {
@@ -202,18 +256,14 @@ public class History extends JFrame implements ActionListener {
     }
 
     class MyTableModel extends AbstractTableModel {
-        private String[] columnNames = new String[] {
-            "Date/Time",
-            "Curr1/Curr2",
-        };
+        private String[] columnNames;
+        private String[][] data;
 
-        private String[][] data = new String[][] {
-            {"12/08/22 07:05:33", "0.98"},
-            {"13/08/22 13:22:24", "0.99"},
-            {"13/08/22 18:54:12", "1.02"},
-            {"14/08/22 02:03:59", "1.00"},
-            {"15/08/22 11:17:32", "0.98"},
-        };
+        public MyTableModel(String[] columnNames, String[][] data) {
+            super();
+            this.columnNames = columnNames;
+            this.data = data;
+        }
 
         public int getColumnCount() {
             return columnNames.length;

@@ -16,9 +16,13 @@ public class DisplayPopular extends JFrame implements ActionListener {
     private JLabel headerLabel;
     private JTable table;
     private JButton backButton;
+    
+    // BACKEND
+    private BasicUser user;
 
-    public DisplayPopular(CurrencyExchange cex) {
+    public DisplayPopular(CurrencyExchange cex, BasicUser user) {
         this.cex = cex;
+        this.user = user;
 
         this.topLevelPanel = new JPanel();
         this.topLevelPanel.setLayout(new GridLayout(0, 1));
@@ -41,10 +45,25 @@ public class DisplayPopular extends JFrame implements ActionListener {
         topText.add(headerLabel);
         /////
 
-        // addSpace(popularPanel, 30);
-
         // TABLE
-        table = new JTable(new MyTableModel());
+        String[] columns = new String[] {
+            "From/To",
+            "Curr1Name",
+            "Curr2Name",
+            "Curr3Name",
+            "Curr4Name"
+        };
+        
+        String[][] data = new String[][] {
+            {"Curr1Name", "-", "Curr1/Curr2", "Curr1/Curr3", "Curr1/Curr4"},
+            {"Curr2Name", "Curr2/Curr1", "-", "Curr2/Curr3", "Curr2/Curr4"},
+            {"Curr3Name", "Curr3/Curr1", "Curr3/Curr2", "-", "Curr3/Curr4"},
+            {"Curr4Name", "Curr4/Curr1", "Curr4/Curr2", "Curr4/Curr3", "-"}
+        };
+
+        MyTableModel mtm = new MyTableModel(columns, data);
+        
+        table = new JTable(mtm);
         table.setFillsViewportHeight(true);
         table.getTableHeader().setReorderingAllowed(false);
         tablePanel = new JScrollPane(table);
@@ -76,20 +95,14 @@ public class DisplayPopular extends JFrame implements ActionListener {
     }
 
     class MyTableModel extends AbstractTableModel {
-        private String[] columnNames = new String[] {
-            "From/To",
-            "Curr1Name",
-            "Curr2Name",
-            "Curr3Name",
-            "Curr4Name"
-        };
+        private String[] columnNames;
+        private String[][] data;
 
-        private String[][] data = new String[][] {
-            {"Curr1Name", "-", "Curr1/Curr2", "Curr1/Curr3", "Curr1/Curr4"},
-            {"Curr2Name", "Curr2/Curr1", "-", "Curr2/Curr3", "Curr2/Curr4"},
-            {"Curr3Name", "Curr3/Curr1", "Curr3/Curr2", "-", "Curr3/Curr4"},
-            {"Curr4Name", "Curr4/Curr1", "Curr4/Curr2", "Curr4/Curr3", "-"}
-        };
+        public MyTableModel(String[] columnNames, String[][] data) {
+            super();
+            this.columnNames = columnNames;
+            this.data = data;
+        }
 
         public int getColumnCount() {
             return columnNames.length;

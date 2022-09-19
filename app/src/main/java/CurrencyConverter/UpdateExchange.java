@@ -28,18 +28,14 @@ public class UpdateExchange extends JPanel implements ActionListener {
     private JLabel newExchangeRateLabel;
     private JButton submitRate;
 
-    private String[] currencies = new String[] {
-        "AUD",
-        "EUR",
-        "INR",
-        "USD",
-        "NZD",
-        "JPY",
-        "GBP"
-    };
+    // BACKEND
+    private Admin admin;
+    private String[] currencies;
 
-    public UpdateExchange(CurrencyExchange cex) {
+    public UpdateExchange(CurrencyExchange cex, Admin admin) {
         this.cex = cex;
+        this.admin = admin;
+        this.currencies = admin.getCurrencyCodes();
         
         this.topLevelPanel = new JPanel();
         this.topLevelPanel.setLayout(new GridLayout(0, 1));
