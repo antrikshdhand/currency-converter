@@ -247,7 +247,7 @@ public class CurrManager {
             }
 
             for(String[] exchange : BasicExchanges) {
-                openStatement.executeUpdate(String.format("insert into exchange values('%s', '%s', '%s', %f, CURRENT_TIMESTAMP)", exchange[0], exchange[1], exchange[0] + exchange[1], exchange[2]));
+                openStatement.executeUpdate(String.format("insert into exchange values('%s', '%s', '%s', %f, CURRENT_TIMESTAMP)", exchange[0], exchange[1], exchange[0] + exchange[1], Double.parseDouble(exchange[2])));
             }
             
 

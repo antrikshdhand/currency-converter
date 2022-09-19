@@ -112,29 +112,29 @@ public class BasicUser {
          }
          else{
              int val1 = (int) length/2;
-             result = Double.parseDouble(map.get(val1).get(1);
+             result = Double.parseDouble(map.get(val1).get(1));
          }
          return result;
 
      }
 
-     public double getAverage(String currOne, String curTwo ,String startDate, String endDate){
-         HashMap<String, Double> map = this.database.getSummaries(String currOne, String currTwo, String dayOne, String dayTwo);
+     public double getAverage(String currOne, String currTwo ,String startDate, String endDate){
+         HashMap<String, Double> map = this.database.getSummaries(currOne, currTwo, startDate, endDate);
          return map.get("Average");
      }
 
-    public double getMinimum(String currOne, String curTwo ,String startDate, String endDate){
-        HashMap<String, Double> map = this.database.getSummaries(String currOne, String currTwo, String dayOne, String dayTwo);
+    public double getMinimum(String currOne, String currTwo ,String startDate, String endDate){
+        HashMap<String, Double> map = this.database.getSummaries(currOne, currTwo, startDate, endDate);
         return map.get("Min");
     }
 
-    public double getMaximum(String currOne, String curTwo ,String startDate, String endDate){
-        HashMap<String, Double> map = this.database.getSummaries(String currOne, String currTwo, String dayOne, String dayTwo);
+    public double getMaximum(String currOne, String currTwo ,String startDate, String endDate){
+        HashMap<String, Double> map = this.database.getSummaries(currOne, currTwo, startDate, endDate);
         return map.get("Max");
     }
 
-    public double getSD(String currOne, String curTwo ,String startDate, String endDate){
-        HashMap<String, Double> map = this.database.getSummaries(String currOne, String currTwo, String dayOne, String dayTwo);
+    public double getSD(String currOne, String currTwo ,String startDate, String endDate){
+        HashMap<String, Double> map = this.database.getSummaries(currOne, currTwo, startDate, endDate);
         return Math.sqrt(map.get("Var"));
     }
 

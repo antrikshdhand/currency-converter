@@ -47,6 +47,9 @@ public class App extends JFrame {
         
         manager.closeConn();
 
+        Admin user = new Admin(manager);
+        user.reset();
+
 
         // set look and feel
         try {
