@@ -58,7 +58,7 @@ public class History extends JFrame implements ActionListener {
         
         // HEADER LABEL AND STEP 1 TEXT
         topText = new JPanel();
-        topText.setLayout(new BoxLayout(topText, BoxLayout.Y_AXIS));
+        topText.setLayout(new BoxLayout(topText, BoxLayout.PAGE_AXIS));
         this.topLevelPanel.add(topText);
 
         headerLabel = new JLabel("Exchange Rate History");
@@ -74,7 +74,7 @@ public class History extends JFrame implements ActionListener {
         
         // COMBO BOXES AND APPLY BUTTON
         combos = new JPanel();
-        combos.setLayout(new BoxLayout(combos, BoxLayout.X_AXIS));
+        combos.setLayout(new BoxLayout(combos, BoxLayout.LINE_AXIS));
         this.topLevelPanel.add(combos);
 
         curr1Label = new JLabel("<html><font color='green'>Currency 1:</font></html>");
@@ -107,7 +107,7 @@ public class History extends JFrame implements ActionListener {
         
         // CONFIRMATION AND STEP 2 TEXT
         middleText = new JPanel();
-        middleText.setLayout(new BoxLayout(middleText, BoxLayout.Y_AXIS));
+        middleText.setLayout(new BoxLayout(middleText, BoxLayout.PAGE_AXIS));
         this.topLevelPanel.add(middleText);
         
         confirmCurrenciesLabel = new JLabel();
@@ -154,8 +154,6 @@ public class History extends JFrame implements ActionListener {
         datePanel.add(Box.createRigidArea(new Dimension(300, 0)));
         /////
 
-        //this.topLevelPanel.add(Box.createVerticalGlue());
-
         // TABLE
         table = new JTable(new MyTableModel());
         table.setFillsViewportHeight(true);
@@ -168,7 +166,7 @@ public class History extends JFrame implements ActionListener {
         
         // BACK BUTTON
         JPanel bottomPanel = new JPanel();
-        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
+        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.PAGE_AXIS));
         this.topLevelPanel.add(bottomPanel);
         
         ImageIcon upIcon = new ImageIcon(this.getClass().getResource("upFolder.png").getPath());
