@@ -77,12 +77,12 @@ public class BasicUser {
     }
 
     /**
-    * function that returns the History between 2 chosen currencies between 2 dates.
+    * function that returns the History between 2 chosen currencies between 2 date.
     * @Param currOne: the currency from
     * @Param currTwo: the currency to
     * @Param startDate : the date form in format "YYYY-MM-DD"
     * @Param endDate : the date to in format "YYYY-MM-DD"
-    * return an array of string, where the string is in the format currency from, currency to, exchange rate, Date.
+    * @return  A 2 dimensional array where the index is the timestamp and the index 1 is the exchange rate at the time.
      */
      public String [][] getHistory(String currOne, String curTwo ,String startDate, String endDate){
          ArrayList<ArrayList<String>> map =  this.database.getExchangeHist(currOne, curTwo, startDate, endDate);
@@ -100,20 +100,43 @@ public class BasicUser {
          return result;
      }
 
-     //     public double getMedian(String currOne, String curTwo ,String startDate, String endDate) {
-//         ArrayList<ArrayList<String>> map = this.database.getExchangeHist(currOne, curTwo, startDate, endDate);
-//         int length = map.size();
-//
-//         double [] arr = new double[length];
-//
-//         int count = 0;
-//         for (ArrayList<String> s : map){
-//             String temp = s.get(1);
-//             arr[count] = Double.parseDouble(temp);
-//         }
-//
-//         return
-//     }
+     public double getMedian(String currOne, String curTwo ,String startDate, String endDate) {
+         ArrayList<ArrayList<String>> map = this.database.getExchangeHist(currOne, curTwo, startDate, endDate);
+         int length = map.size();
+         int fl = length % 2;
+         double result = 0;
+         if (fl == 0 ){
+             int val1 = (int) Math.floor(length/2) ;
+             int val2 = (int) Math.ceil(length/2);
+             result = (Double.parseDouble(map.get(val1).get(1)) + Double.parseDouble(map.get(val2).get(1)));
+         }
+         else{
+             int val1 = (int) length/2;
+             result = Double.parseDouble(map.get(val1).get(1);
+         }
+         return result;
+
+     }
+
+     public double getAverage(String currOne, String curTwo ,String startDate, String endDate){
+         HashMap<String, Double> map = this.database.getSummaries(String currOne, String currTwo, String dayOne, String dayTwo);
+         return map.get("Average");
+     }
+
+    public double getMinimum(String currOne, String curTwo ,String startDate, String endDate){
+        HashMap<String, Double> map = this.database.getSummaries(String currOne, String currTwo, String dayOne, String dayTwo);
+        return map.get("Min");
+    }
+
+    public double getMaximum(String currOne, String curTwo ,String startDate, String endDate){
+        HashMap<String, Double> map = this.database.getSummaries(String currOne, String currTwo, String dayOne, String dayTwo);
+        return map.get("Max");
+    }
+
+    public double getSD(String currOne, String curTwo ,String startDate, String endDate){
+        HashMap<String, Double> map = this.database.getSummaries(String currOne, String currTwo, String dayOne, String dayTwo);
+        return Math.sqrt(map.get("Var"));
+    }
 
 
     public String[] getPopular4Header(){

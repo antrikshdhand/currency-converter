@@ -464,6 +464,7 @@ public class CurrManager {
         String avgQuery = String.format("select avg(conv_val) as \"Average\" from exchange where currency_ex_code = '%s' and time_added >= '%s 00.00.00' and time_added <= '%s 23.59.59' order by time_added DESC", currOne + currTwo, dayOne, dayTwo);
         String minQuery = String.format("select min(conv_val) as \"Min\" from exchange where currency_ex_code = '%s' and time_added >= '%s 00.00.00' and time_added <= '%s 23.59.59' order by time_added DESC", currOne + currTwo, dayOne, dayTwo);
         String maxQuery = String.format("select max(conv_val) as \"Max\" from exchange where currency_ex_code = '%s' and time_added >= '%s 00.00.00' and time_added <= '%s 23.59.59' order by time_added DESC", currOne + currTwo, dayOne, dayTwo);
+        String varQuery = String.format("Select avg((t.conv_val - SUB.mean) * (t.conv_val - SUB.mean)) as \"Var\" from exchange t,(SELECT AVG(conv_val) AS mean FROM exchange) AS SUB) where currency_ex_code = '%s' and time_added >= '%s 00.00.00' and time_added <= '%s 23.59.59' order by time_added DESC", currOne + currTwo, dayOne, dayTwo);
 
         try{
 
@@ -475,6 +476,9 @@ public class CurrManager {
 
             ResultSet query3 = openStatement.executeQuery(maxQuery);
             map.put("Max", query3.getDouble("Max"));
+
+            ResultSet query4 = openStatement.executeQuery(varQuery);
+            map.put("Var",query4.getDouble("Var"));
         }
         catch (SQLException e){
             System.err.println(e.getMessage());
