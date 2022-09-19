@@ -125,8 +125,6 @@ public class CurrManager {
             System.err.println(e.getMessage());
             return -1;
         }
-
-        return 0;
         
     }
 
@@ -200,7 +198,7 @@ public class CurrManager {
 
     }
 
-
+    
     /**
      * Retrives all currency codes and names.
      * 
@@ -325,8 +323,6 @@ public class CurrManager {
             return -1;
 
         }
-
-        return 0;
         
     }
 
@@ -353,6 +349,7 @@ public class CurrManager {
 
                 tempList.add(time_added);
                 tempList.add(conv_value);
+                historyList.add(tempList);
             
             }
 
