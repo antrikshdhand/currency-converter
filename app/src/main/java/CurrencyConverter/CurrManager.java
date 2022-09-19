@@ -123,9 +123,10 @@ public class CurrManager {
             // if the error message is "out of memory",
             // it probably means no database file is found
             System.err.println(e.getMessage());
+            return -1;
         }
 
-        return -1;
+        return 0;
         
     }
 
@@ -162,8 +163,9 @@ public class CurrManager {
             // if the error message is "out of memory",
             // it probably means no database file is found
             System.err.println(e.getMessage());
+            return -1;
         }
-        return -1;
+        return 0;
 
     }
 
@@ -320,10 +322,11 @@ public class CurrManager {
             // if the error message is "out of memory",
             // it probably means no database file is found
             System.err.println(e.getMessage());
+            return -1;
 
         }
 
-        return -1;
+        return 0;
         
     }
 
