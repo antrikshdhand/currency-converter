@@ -1,6 +1,5 @@
 package CurrencyConverter;
 import java.util.*;
-
 public class BasicUser {
 
 
@@ -62,9 +61,9 @@ public class BasicUser {
 
 
 
-    public String []  getAllCurrencies(){
+    public String []  getCurrencyCodes(){
 
-        HashMap<String, String> allCurrencies = new HashMap<String, String>();
+        HashMap<String, String> allCurrencies = this.database.getAllCurrencies();
 
         String [] result = new String [allCurrencies.size()];
 
@@ -75,10 +74,6 @@ public class BasicUser {
             count += 1;
         }
         return result;
-    }
-}
-    public void displayTop4(){
-        // this is where you get the currencies of the 4 exchange
     }
 
     /**
@@ -105,22 +100,77 @@ public class BasicUser {
          return result;
      }
 
-//     public double getMedian(String currOne, String curTwo ,String startDate, String endDate) {
+     //     public double getMedian(String currOne, String curTwo ,String startDate, String endDate) {
 //         ArrayList<ArrayList<String>> map = this.database.getExchangeHist(currOne, curTwo, startDate, endDate);
 //         int length = map.size();
-//         int fl = length % 2;
-//         int midVal = 0;
 //
-//         if (fl = 0) {
+//         double [] arr = new double[length];
 //
-//
+//         int count = 0;
+//         for (ArrayList<String> s : map){
+//             String temp = s.get(1);
+//             arr[count] = Double.parseDouble(temp);
 //         }
+//
+//         return
 //     }
 
 
-     public String [][] getPopularCurrencies(){
-         return null;
-     }
+    public String[] getPopular4Header(){
+         String [] temp = new String [5];
+         temp[0] = "From/To";
+
+         String[] data = this.database.getPopularFour();
+
+         int count = 1;
+         for (String s : data){
+             temp[count] = s;
+             count += 1;
+         }
+         return temp;
+    }
+
+    public String [][] getPopular4Data(){
+         String [][] temp = new String [4][5];
+         String [] header = this.getPopular4Header();
+
+         boolean first = true;
+         int count = 1;
+         for(String [] s : temp){
+             s[0] = header[count];
+             count += 1;
+         }
+
+         temp [0][1] = "-";
+         temp [1][2] = "-";
+         temp [2][3] = "-";
+         temp [3][4] = "-";
+
+         // Row 2
+         temp[0][2] = this.database.getExchange(temp[0][0], header[2]) + "";
+         temp[0][3] = this.database.getExchange(temp[0][0], header[3]) + "";
+         temp[0][4] = this.database.getExchange(temp[0][0], header[4]) + "";
+
+        //Row 3;
+        temp[1][1] = this.database.getExchange(temp[0][0], header[1]) + "";
+        temp[1][3] = this.database.getExchange(temp[0][0], header[3]) + "";
+        temp[1][4] = this.database.getExchange(temp[0][0], header[4]) + "";
+
+        // Row 4
+        temp[2][1] = this.database.getExchange(temp[0][0], header[1]) + "";
+        temp[2][2] = this.database.getExchange(temp[0][0], header[2]) + "";
+        temp[2][4] = this.database.getExchange(temp[0][0], header[4]) + "";
+
+        // Row 5
+        temp[3][1] = this.database.getExchange(temp[0][0], header[1]) + "";
+        temp[3][2] = this.database.getExchange(temp[0][0], header[2]) + "";
+        temp[3][3] = this.database.getExchange(temp[0][0], header[3]) + "";
+
+        return temp;
+
+    }
+
+
 
 
 
