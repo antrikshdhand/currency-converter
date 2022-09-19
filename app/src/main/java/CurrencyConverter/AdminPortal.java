@@ -31,7 +31,7 @@ public class AdminPortal extends JPanel implements ActionListener {
     private void addComponentsToScreen() {
         // HEADER LABEL
         headerLabel = new JLabel("<html><font color='purple'>Admin Portal</font></html>");
-        headerLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 24));
+        headerLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
         this.adminPortalPanel.add(headerLabel);
 
         addSpace(adminPortalPanel, 30);
@@ -90,30 +90,33 @@ public class AdminPortal extends JPanel implements ActionListener {
             // RUN VERIFICATION ON CURRENCYCODE
             boolean currencyValid = testCurrency(newCurrency);
             if (!currencyValid) displayError();
-
+        } else if (e.getActionCommand().equals("update")) {
+            this.adminPortalPanel.setVisible(false);
+            UpdateExchange updateExchange = new UpdateExchange(this.cex);
         }
     }
 
     private String[] newCurrencyDialogue() {
+        JPanel newCurrPanel = new JPanel();
+
         JTextField currencyCode = new JTextField(3);
         JTextField currencyName = new JTextField(10);
 
-        JPanel newCurrPanel = new JPanel();
         newCurrPanel.add(new JLabel("Currency code:"));
         newCurrPanel.add(currencyCode);
-        newCurrPanel.add(Box.createHorizontalStrut(15)); // a spacer
+        newCurrPanel.add(Box.createHorizontalStrut(15));
         newCurrPanel.add(new JLabel("Currency name:"));
         newCurrPanel.add(currencyName);
 
         int result = JOptionPane.showConfirmDialog(this.adminPortalPanel, newCurrPanel, 
             "Create new currency",
             JOptionPane.OK_CANCEL_OPTION);
+
         if (result == JOptionPane.OK_OPTION) {
             return new String[] {currencyCode.getText(), currencyName.getText()};
         } else {
             return null;
         }
-
     }
 
     private boolean testCurrency(String[] currency) {

@@ -49,7 +49,7 @@ public class WelcomeScreen extends JPanel implements ActionListener, ItemListene
 
         // HEADER LABEL
         headerLabel = new JLabel("Welcome to the Currency Exchange.");
-        headerLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 24));
+        headerLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
         headerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         welcomeScreenPanel.add(headerLabel);
 
