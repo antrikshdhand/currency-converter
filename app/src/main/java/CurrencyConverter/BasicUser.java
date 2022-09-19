@@ -13,7 +13,7 @@ public class BasicUser {
 
     /**
     * Constuctor of class
-    * @Param Database : take in Currmanager which queries a databse.
+    * @Param Database : take in Currmanager which queries a database.
      */
     public BasicUser(CurrManager database) {
         this.database = database;
@@ -60,20 +60,62 @@ public class BasicUser {
         return result;
     }
 
+
+
+    public String []  getAllCurrencies(){
+
+        HashMap<String, String> allCurrencies = new HashMap<String, String>();
+
+        String [] result = new String [allCurrencies.size()];
+
+
+        int count = 0;
+        for (String s : allCurrencies.keySet()){
+            result [count] = s;
+            count += 1;
+        }
+        return result;
+    }
+}
     public void displayTop4(){
         // this is where you get the currencies of the 4 exchange
     }
 
     /**
-    * function that returns the History between 2 chosen currencies.
+    * function that returns the History between 2 chosen currencies between 2 dates.
     * @Param currOne: the currency from
     * @Param currTwo: the currency to
+    * @Param startDate : the date form in format "YYYY-MM-DD"
+    * @Param endDate : the date to in format "YYYY-MM-DD"
     * return an array of string, where the string is in the format currency from, currency to, exchange rate, Date.
      */
-     public String [] getHistory(String currOne, String cuTwo ){
-         return new String[0];
+     public String [][] getHistory(String currOne, String curTwo ,String startDate, String endDate){
+         ArrayList<ArrayList<String>> map =  this.database.getExchangeHist(currOne, curTwo, startDate, endDate);
+         int length = map.size();
+
+         String [][] result = new String[length][2];
+
+         int count = 0;
+         for (ArrayList<String> val : map){
+             String [] temp = {val.get(0), val.get(1)};
+             result[0] = temp;
+             count += 0;
+         }
+
+         return result;
      }
 
+//     public double getMedian(String currOne, String curTwo ,String startDate, String endDate) {
+//         ArrayList<ArrayList<String>> map = this.database.getExchangeHist(currOne, curTwo, startDate, endDate);
+//         int length = map.size();
+//         int fl = length % 2;
+//         int midVal = 0;
+//
+//         if (fl = 0) {
+//
+//
+//         }
+//     }
 
 
      public String [][] getPopularCurrencies(){
