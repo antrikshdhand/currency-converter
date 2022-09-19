@@ -112,6 +112,36 @@ public class CurrManager {
 
             Statement statement = dbConn.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
+            statement.executeUpdate("drop table currency; drop table exchange; drop table popularFour");
+
+            //error handelling
+            openConn();
+
+            return 0;
+
+        } catch(SQLException e) {
+            // if the error message is "out of memory",
+            // it probably means no database file is found
+            System.err.println(e.getMessage());
+            return -1;
+        }
+        
+    }
+
+
+    /**
+     * Deletes popular four data from the database
+     * To only be called if you want to delete all data.
+     * 
+     * @return Returns 0 if successful and -1 if unsuccessful
+     */
+    public int dropPopularFour() {
+
+        // Add error handelling
+        try {
+            
+            Statement statement = dbConn.createStatement();
+            statement.setQueryTimeout(30);  // set timeout to 30 sec.
             statement.executeUpdate("drop table currency; drop table exchange;");
 
             //error handling
@@ -231,6 +261,66 @@ public class CurrManager {
 
     }
 
+    /**
+     * Sets the popular currency codes.
+     * 
+     * @return Returns 0 if successful and -1 if unsuccessful.
+     */
+    public int setPopularFour(String[] currencyList) {
+
+        try{ 
+            dropPopularFour();
+
+            for(int i = 0; i < 4; i++) {
+                String currency = currencyList[i]; 
+                openStatement.executeUpdate(String.format("insert into popularFour values('%s')", currency));
+            }
+
+        } catch(SQLException e) {
+            // if the error message is "out of memory",
+            // it probably means no database file is found
+            System.err.println(e.getMessage());
+            return -1;
+
+        }
+
+        return 0;
+
+    }
+
+
+    /**
+     * Retrives popular currency codes.
+     * 
+     * @return Returns all currencies in the form of a {@link java.util.HashMap HashMap}. The keys are the currency codes, and the values are the currency names.
+     */
+    public String[] getPopularFour() {
+
+        String[] popCurrencies = new String[4];
+
+        try{
+            ResultSet query = openStatement.executeQuery(String.format("select * from popularFour"));
+
+            
+            int i = 0;
+            while(query.next() && i < 0) {
+                String currCode = query.getString("currency_code");
+                
+                popCurrencies[i] = currCode;
+                i++;
+            }
+
+        } catch(SQLException e) {
+            // if the error message is "out of memory",
+            // it probably means no database file is found
+            System.err.println(e.getMessage());
+
+        }
+
+        return popCurrencies;
+
+    }
+
     
     // public void displayCurrencies() {
     //     try{ 
@@ -280,10 +370,9 @@ public class CurrManager {
         // Add error handelling
         try {
             
-            Statement statement = dbConn.createStatement();
-            statement.setQueryTimeout(30);  // set timeout to 30 sec.
-            statement.executeUpdate(String.format("insert into exchange values('%s', '%s', '%s', %f, CURRENT_TIMESTAMP)", currOne, currTwo, currOne+currTwo, convValue));
-            statement.executeUpdate(String.format("insert into exchange values('%s', '%s', '%s', %f, CURRENT_TIMESTAMP)", currTwo, currOne, currTwo+currOne, 1/convValue));
+            openStatement.setQueryTimeout(30);  // set timeout to 30 sec.
+            openStatement.executeUpdate(String.format("insert into exchange values('%s', '%s', '%s', %f, CURRENT_TIMESTAMP)", currOne, currTwo, currOne+currTwo, convValue));
+            openStatement.executeUpdate(String.format("insert into exchange values('%s', '%s', '%s', %f, CURRENT_TIMESTAMP)", currTwo, currOne, currTwo+currOne, 1/convValue));
 
         } catch(SQLException e) {
             // if the error message is "out of memory",
