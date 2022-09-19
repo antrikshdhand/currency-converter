@@ -5,58 +5,72 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Popular extends JFrame implements ActionListener {
+public class DisplayPopular extends JFrame implements ActionListener {
 
     private CurrencyExchange cex;
-    private JPanel popularPanel;
+    private JPanel topLevelPanel;
+    private JPanel topText;
+    private JScrollPane tablePanel;
+    private JPanel bottomPanel;
 
     private JLabel headerLabel;
     private JTable table;
     private JButton backButton;
 
-    public Popular(CurrencyExchange cex) {
+    public DisplayPopular(CurrencyExchange cex) {
         this.cex = cex;
 
-        popularPanel = new JPanel();
-        popularPanel.setLayout(new BoxLayout(popularPanel, BoxLayout.PAGE_AXIS));
-        popularPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        this.topLevelPanel = new JPanel();
+        this.topLevelPanel.setLayout(new GridLayout(0, 1));
+        this.topLevelPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         addComponentsToScreen();
 
-        this.cex.add(this.popularPanel);
+        this.cex.add(this.topLevelPanel);
     }
 
     private void addComponentsToScreen() {
-        // HEADER LABEL
+
+        // TITLE
+        topText = new JPanel();
+        topText.setLayout(new BoxLayout(topText, BoxLayout.PAGE_AXIS));
+        this.topLevelPanel.add(topText);
+
         headerLabel = new JLabel("Popular Currencies");
         headerLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
-        popularPanel.add(headerLabel);
+        topText.add(headerLabel);
         /////
 
-        addSpace(popularPanel, 30);
+        // addSpace(popularPanel, 30);
 
         // TABLE
         table = new JTable(new MyTableModel());
         table.setFillsViewportHeight(true);
         table.getTableHeader().setReorderingAllowed(false);
-        JScrollPane scrollPane = new JScrollPane(table);
-        popularPanel.add(scrollPane);
+        tablePanel = new JScrollPane(table);
+        this.topLevelPanel.add(tablePanel);
         /////
 
-        addSpace(popularPanel, 20);
+        addSpace(this.topLevelPanel, 20);
 
         // BACK BUTTON
+        bottomPanel = new JPanel();
+        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.PAGE_AXIS));
+        this.topLevelPanel.add(bottomPanel);
+
         ImageIcon upIcon = new ImageIcon(this.getClass().getResource("upFolder.png").getPath());
         backButton = new JButton("Back", upIcon);
+        backButton.setPreferredSize(new Dimension(100, 40));
+        backButton.setMaximumSize(new Dimension(100, 40));
         backButton.addActionListener(this);
         backButton.setActionCommand("back"); // for mouse-click register
-        popularPanel.add(backButton);
+        bottomPanel.add(backButton);
         /////
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("back")) {
-            this.popularPanel.setVisible(false);
+            this.topLevelPanel.setVisible(false);
             this.cex.getWelcomeScreen().getWelcomePanel().setVisible(true);
         }
     }

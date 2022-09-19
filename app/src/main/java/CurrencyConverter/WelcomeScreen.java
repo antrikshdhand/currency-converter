@@ -8,12 +8,18 @@ public class WelcomeScreen extends JPanel implements ActionListener, ItemListene
 
     private JPanel welcomeScreenPanel;
     private CurrencyExchange cex;
+    
     private JLabel headerLabel;
     private JCheckBox adminRights;
-    private JButton convert;
-    private JButton popular;
-    private JButton history;
-    private JButton adminPortal;
+    private JButton convertButton;
+    private JButton popularButton;
+    private JButton historyButton;
+    private JButton adminPortalButton;
+
+    private Converter converter;
+    private DisplayPopular displayPopular;
+    private History history;
+    private AdminPortal adminPortal;
 
     
     public WelcomeScreen(CurrencyExchange cex) {
@@ -26,7 +32,7 @@ public class WelcomeScreen extends JPanel implements ActionListener, ItemListene
 
         addComponentsToScreen();
 
-        cex.add(this.welcomeScreenPanel);
+        this.cex.add(this.welcomeScreenPanel);
     }
 
     private void addComponentsToScreen() {
@@ -43,95 +49,94 @@ public class WelcomeScreen extends JPanel implements ActionListener, ItemListene
 
         // HEADER LABEL
         headerLabel = new JLabel("Welcome to the Currency Exchange.");
-        headerLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 24));
+        headerLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
         headerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         welcomeScreenPanel.add(headerLabel);
 
-        addSpace(welcomeScreenPanel, 10);
+        addSpace(welcomeScreenPanel, 20);
 
         // CONVERT CURRENCIES BUTTON
-        convert = new JButton("Convert currencies");
-        convert.setAlignmentX(Component.CENTER_ALIGNMENT);
-        convert.addActionListener(this);
-        convert.setActionCommand("convertApp"); // for mouse-click register
-        welcomeScreenPanel.add(convert);
+        convertButton = new JButton("Convert currencies");
+        convertButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        convertButton.addActionListener(this);
+        convertButton.setActionCommand("convertApp"); // for mouse-click register
+        welcomeScreenPanel.add(convertButton);
 
         addSpace(welcomeScreenPanel, 10);
 
         // VIEW POPULAR CURRENCIES BUTTON
-        popular = new JButton("Popular currencies");
-        popular.setAlignmentX(Component.CENTER_ALIGNMENT);
-        popular.addActionListener(this);
-        popular.setActionCommand("popular"); // for mouse-click register
-        welcomeScreenPanel.add(popular);
+        popularButton = new JButton("Popular currencies");
+        popularButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        popularButton.addActionListener(this);
+        popularButton.setActionCommand("popular"); // for mouse-click register
+        welcomeScreenPanel.add(popularButton);
 
         addSpace(welcomeScreenPanel, 10);
 
         // VIEW HISTORICAL RATES BUTTON
-        history = new JButton("Historical rates");
-        history.setAlignmentX(Component.CENTER_ALIGNMENT);
-        history.addActionListener(this);
-        history.setActionCommand("history"); // for mouse-click register
-        welcomeScreenPanel.add(history);
+        historyButton = new JButton("Historical rates");
+        historyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        historyButton.addActionListener(this);
+        historyButton.setActionCommand("history"); // for mouse-click register
+        welcomeScreenPanel.add(historyButton);
 
         addSpace(welcomeScreenPanel, 10);
 
         // ADMIN PORTAL BUTTON
-        adminPortal = new JButton("Admin portal");
-        adminPortal.setAlignmentX(Component.CENTER_ALIGNMENT);
-        adminPortal.addActionListener(this);
-        adminPortal.setActionCommand("admin"); // for mouse-click register
-        welcomeScreenPanel.add(adminPortal);
-        adminPortal.setVisible(false);
+        adminPortalButton = new JButton("Admin portal");
+        adminPortalButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        adminPortalButton.addActionListener(this);
+        adminPortalButton.setActionCommand("admin"); // for mouse-click register
+        welcomeScreenPanel.add(adminPortalButton);
+        adminPortalButton.setVisible(false);
 
     }
 
-    private void addSpace(JPanel jp, int y) {
-        jp.add(Box.createRigidArea(new Dimension(0, y)));
-    }
     
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("convertApp")) {
             this.welcomeScreenPanel.setVisible(false); // first hide WelcomeScreen panel
-            Converter converter = new Converter(this.cex); // then show Converter panel
+            converter = new Converter(this.cex); // then show Converter panel
             
             // application control now moves to Converter.java
         } else if (e.getActionCommand().equals("popular")) {
-            this.welcomeScreenPanel.setVisible(false); // first hide WelcomeScreen panel
-            Popular popular = new Popular(this.cex); // then show Converter panel
+            this.welcomeScreenPanel.setVisible(false);
+            displayPopular = new DisplayPopular(this.cex);
             
             // application control now moves to Popular.java
         } else if (e.getActionCommand().equals("history")) {
-            this.welcomeScreenPanel.setVisible(false); // first hide WelcomeScreen panel
-            History history = new History(this.cex); // then show Converter panel
-        }
+            this.welcomeScreenPanel.setVisible(false);
+            history = new History(this.cex);
             
-        // } else if (e.getActionCommand().equals("permissions")) {
-        //     if (this.permissionsSelector.getSelectedItem().equals("Admin")) {
-        //         System.out.println("HEKKIIIII");
-        //         welcomeScreenPanel.add(this.adminPortal);
-        //     } else {
-        //         System.out.println("NOOOO");
-        //         welcomeScreenPanel.remove(this.adminPortal);
-        //     }
-        //     // // EMPTY VERT SPACE
-        //     // addSpace(welcomeScreenPanel, 50);
-        // }
+            // application control now moves to History.java
+        } else if (e.getActionCommand().equals("admin")) {
+            this.welcomeScreenPanel.setVisible(false);
+            adminPortal = new AdminPortal(this.cex);
+            
+            // application control now moves to AdminPortal.java
+        } 
     }
-
+    
     public void itemStateChanged(ItemEvent e) {
         
         JCheckBox jcb = (JCheckBox) e.getItemSelectable();
-
+        
         if (jcb.isSelected()) {
-            adminPortal.setVisible(true);
+            this.adminPortalButton.setVisible(true);
         } else {
-            adminPortal.setVisible(false);
+            this.adminPortalButton.setVisible(false);
         }
     }
-
+    
     public JPanel getWelcomePanel() {
         return this.welcomeScreenPanel;
     }
 
+    public AdminPortal getAdminPortal() {
+        return this.adminPortal;
+    }
+    
+    private void addSpace(JPanel jp, int y) {
+        jp.add(Box.createRigidArea(new Dimension(0, y)));
+    }
 }
