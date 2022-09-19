@@ -198,7 +198,7 @@ public class CurrManager {
 
     }
 
-
+    
     /**
      * Retrives all currency codes and names.
      * 
