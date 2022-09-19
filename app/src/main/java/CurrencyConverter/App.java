@@ -33,12 +33,14 @@ public class App extends JFrame {
 
     public void run() {
         calculator = new Calculator(this);
-        
+
+        // manager.openConn();
         // manager.addCurrency("AUD", "Australian Dollar");
         // manager.addCurrency("USD", "American Dollar");
         // manager.addExchange("AUD", "AUD", 1.0);
         // manager.addExchange("AUD", "USD", 1.49);
         // manager.addExchange("USD", "AUD", 0.67);
+        // manager.closeConn();
         
         // System.out.println(manager.getCurrName("TSC"));
         // System.out.println(manager.getAllCurrencies());

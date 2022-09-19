@@ -217,6 +217,7 @@ public class Converter extends JPanel implements ActionListener {
         this.conversionResultPreamble.setText(s1.toString());
 
         StringBuilder s2 = new StringBuilder();
+        s2.append(currencyToAmount);
         s2.append(" ");
         s2.append(this.toComboBox.getSelectedItem());
         this.conversionResultLabel.setText(s2.toString());
