@@ -62,12 +62,7 @@ public class BasicUser {
         HashMap<String, String> allCurrencies = this.database.getAllCurrencies();
         this.database.closeConn();
 
-    public String []  getCurrencyCodes(){
-
-        HashMap<String, String> allCurrencies = this.database.getAllCurrencies();
-
-        String [] result = new String [allCurrencies.size()];
-
+        String[] result = new String [allCurrencies.size()];
 
         int count = 0;
         for (String s : allCurrencies.keySet()){
@@ -75,6 +70,7 @@ public class BasicUser {
             count += 1;
         }
         return result;
+    
     }
 
     public void displayTop4() {
@@ -106,18 +102,6 @@ public class BasicUser {
 
         return result;
     }
-
-//     public double getMedian(String currOne, String curTwo ,String startDate, String endDate) {
-//         ArrayList<ArrayList<String>> map = this.database.getExchangeHist(currOne, curTwo, startDate, endDate);
-//         int length = map.size();
-//         int fl = length % 2;
-//         int midVal = 0;
-//
-//         if (fl = 0) {
-//
-//
-//         }
-//     }
 
     public String[] getPopular4Header(){
          String [] temp = new String [5];
