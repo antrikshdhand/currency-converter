@@ -125,6 +125,10 @@ public class CurrManager {
             System.err.println(e.getMessage());
             return -1;
         }
+<<<<<<< HEAD
+=======
+        
+>>>>>>> test_db
     }
 
 
@@ -199,7 +203,7 @@ public class CurrManager {
 
     }
 
-
+    
     /**
      * Retrives all currency codes and names.
      * 
@@ -325,6 +329,7 @@ public class CurrManager {
 
         }
 
+
         
     }
 
@@ -336,12 +341,12 @@ public class CurrManager {
      * @param currTwo Currency to
      * @return Returns the conversion rate from currency one to currency two.
      */
-    public ArrayList<ArrayList<String>> getExchangeHist(String currOne, String currTwo) { // Bug fixed - now it gets latest currency value
+    public ArrayList<ArrayList<String>> getExchangeHist(String currOne, String currTwo, String dayOne, String dayTwo) { // Bug fixed - now it gets latest currency value //YYYY-MM-DD
 
         ArrayList<ArrayList<String>> historyList = new ArrayList<ArrayList<String>>();
 
         try{ 
-            ResultSet query = openStatement.executeQuery(String.format("select time_added, conv_val from exchange where currency_ex_code = '%s' order by time_added DESC", currOne + currTwo));
+            ResultSet query = openStatement.executeQuery(String.format("select time_added, conv_val from exchange where currency_ex_code = '%s' and time_added >= '%s 00.00.00' and time_added <= '%s 23.59.59' order by time_added DESC", currOne + currTwo, dayOne, dayTwo));
 
             while(query.next()) {
 
@@ -351,6 +356,7 @@ public class CurrManager {
 
                 tempList.add(time_added);
                 tempList.add(conv_value);
+                historyList.add(tempList);
             
             }
 
@@ -363,6 +369,32 @@ public class CurrManager {
 
         return historyList;
         
+    }
+
+    public HashMap<String, Double> getSummaries(String currOne, String currTwo, String dayOne, String dayTwo){
+
+        HashMap<String, Double> map = new HashMap<String, Double>();
+
+        String avgQuery = String.format("select avg(conv_val) as \"Average\" from exchange where currency_ex_code = '%s' and time_added >= '%s 00.00.00' and time_added <= '%s 23.59.59' order by time_added DESC", currOne + currTwo, dayOne, dayTwo);
+        String minQuery = String.format("select min(conv_val) as \"Min\" from exchange where currency_ex_code = '%s' and time_added >= '%s 00.00.00' and time_added <= '%s 23.59.59' order by time_added DESC", currOne + currTwo, dayOne, dayTwo);
+        String maxQuery = String.format("select max(conv_val) as \"Max\" from exchange where currency_ex_code = '%s' and time_added >= '%s 00.00.00' and time_added <= '%s 23.59.59' order by time_added DESC", currOne + currTwo, dayOne, dayTwo);
+
+        try{
+
+            ResultSet query1 = openStatement.executeQuery(avgQuery);
+            map.put("Average", query1.getDouble("Average"));
+
+            ResultSet query2 =  openStatement.executeQuery(minQuery);
+            map.put("Min", query2.getDouble("Min"));
+
+            ResultSet query3 = openStatement.executeQuery(maxQuery);
+            map.put("Max", query3.getDouble("Max"));
+        }
+        catch (SQLException e){
+            System.err.println(e.getMessage());
+        }
+
+        return map;
     }
 
     

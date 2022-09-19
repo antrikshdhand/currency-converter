@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
 
 
 public class CurrManagerTest {
@@ -87,16 +87,6 @@ public class CurrManagerTest {
         currManager.addCurrency("TC1", "Test Currency 1");
         currManager.addCurrency("TC2", "Test Currency 2");
         currManager.addExchange("TC1", "TC2", 20);
-
-
-        // We are doing this because otherwise for somereasonn JUnit time doesnt pass in the test and the next time we add an exhange it has the same timestamp
-        try {
-            Thread.sleep(2000);
-        
-        } catch(InterruptedException e) {
-            // this part is executed when an exception (in this example InterruptedException) occurs
-        
-        }
         
 
         assertEquals("Test Currency 1", currManager.getCurrName("TC1"));
@@ -104,13 +94,25 @@ public class CurrManagerTest {
         
         currManager.addExchange("TC1", "TC2", 25);
 
-        ArrayList<ArrayList<String>> hist = currManager.getExchangeHist("TC1", "TC2");
+        ArrayList<ArrayList<String>> hist = currManager.getExchangeHist("TC1", "TC2", "2022-09-18", "2023-09-20");
+        HashMap<String, Double> map = currManager.getSummaries("TC1", "TC2", "2022-09-18", "2023-09-20");
+
+        // for (ArrayList<String> ar : hist) {
+        //     for (String s : ar) {
+        //         System.out.print(s + ", ");
+        //     }
+
+        //     System.out.println("");
+        // }
 
         // String[][] stringArray = hist.stream().map(u -> u.toArray(new String[0])).toArray(String[][]::new);
 
         // System.out.println(stringArray);
 
-        assertTrue(true);
+        assertEquals(2, hist.size(), String.format("Expected 2 but was %d", hist.size()));
+        assertTrue( 3 == map.size());
+        assertTrue( map.get("Average") == 22.5);
+//        assertTrue(map.get(""));
 
     }
 
