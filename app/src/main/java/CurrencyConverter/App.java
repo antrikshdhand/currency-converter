@@ -11,6 +11,7 @@ import javax.swing.UIManager;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 
 public class App extends JFrame {
 
@@ -30,8 +31,10 @@ public class App extends JFrame {
         manager.addExchange("AUD", "USD", 1.4);
         // System.out.println(manager.getCurrName("TSC"));
         // System.out.println(manager.getAllCurrencies());
+        
+        System.out.println(manager.getExchange("AUD", "USD"));
 
-        manager.getExchangeHist("AUD", "USD");
+        
         manager.closeConn();
 
 

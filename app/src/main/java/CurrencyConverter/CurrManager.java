@@ -350,6 +350,7 @@ public class CurrManager {
 
                 tempList.add(time_added);
                 tempList.add(conv_value);
+                historyList.add(tempList);
             
             }
 
