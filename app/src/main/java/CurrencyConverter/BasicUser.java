@@ -219,30 +219,42 @@ public class BasicUser {
          temp [3][4] = "-";
 
          // Row 2
-         temp[0][2] = this.database.getExchange(temp[0][0], header[2]) + "";
-         temp[0][3] = this.database.getExchange(temp[0][0], header[3]) + "";
-         temp[0][4] = this.database.getExchange(temp[0][0], header[4]) + "";
+         temp[0][2] = this.database.getExchange(temp[0][0], header[2]) + " " + this.chekcState(temp[0][0], header[2]);
+         temp[0][3] = this.database.getExchange(temp[0][0], header[3]) + " " + this.chekcState(temp[0][0], header[3]);
+         temp[0][4] = this.database.getExchange(temp[0][0], header[4]) + " " + this.chekcState(temp[0][0], header[4]);
 
         //Row 3;
-        temp[1][1] = this.database.getExchange(temp[0][0], header[1]) + "";
-        temp[1][3] = this.database.getExchange(temp[0][0], header[3]) + "";
-        temp[1][4] = this.database.getExchange(temp[0][0], header[4]) + "";
+        temp[1][1] = this.database.getExchange(temp[1][0], header[1]) + " " + this.chekcState(temp[1][0], header[1]);
+        temp[1][3] = this.database.getExchange(temp[1][0], header[3]) + " " + this.chekcState(temp[1][0], header[2]);
+        temp[1][4] = this.database.getExchange(temp[1][0], header[4]) + " " + this.chekcState(temp[1][0], header[4]);
 
         // Row 4
-        temp[2][1] = this.database.getExchange(temp[0][0], header[1]) + "";
-        temp[2][2] = this.database.getExchange(temp[0][0], header[2]) + "";
-        temp[2][4] = this.database.getExchange(temp[0][0], header[4]) + "";
+        temp[2][1] = this.database.getExchange(temp[2][0], header[1]) + " " + this.chekcState(temp[2][0], header[1]);
+        temp[2][2] = this.database.getExchange(temp[2][0], header[2]) + " " + this.chekcState(temp[2][0], header[2]);
+        temp[2][4] = this.database.getExchange(temp[2][0], header[4]) + " " + this.chekcState(temp[2][0], header[4]);;
 
         // Row 5
-        temp[3][1] = this.database.getExchange(temp[0][0], header[1]) + "";
-        temp[3][2] = this.database.getExchange(temp[0][0], header[2]) + "";
-        temp[3][3] = this.database.getExchange(temp[0][0], header[3]) + "";
+        temp[3][1] = this.database.getExchange(temp[3][0], header[1]) + "" + this.chekcState(temp[3][0], header[1]);
+        temp[3][2] = this.database.getExchange(temp[3][0], header[2]) + "" + this.chekcState(temp[3][0], header[2]);
+        temp[3][3] = this.database.getExchange(temp[3][0], header[3]) + "" + this.chekcState(temp[3][0], header[3]);
 
         return temp;
 
     }
 
 
+    public String chekcState(String currOne, String currTwo){
+
+        Double [] arr = this.database.getLatestThreeHist(currOne,currTwo);
+
+        if ( arr[1] == null) {return "(NEW)";}
+
+        if( arr[0] > arr[1]){
+            return "I!";
+        }
+        else { return "D¡";
+
+    }
 
 
 
