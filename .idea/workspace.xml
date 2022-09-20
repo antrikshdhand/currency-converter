@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5a4c1ae-f61c-4428-ac0c-12c64d1e1d6d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/CurrencyConverter/BasicUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/CurrencyConverter/BasicUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/CurrencyConverter/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/CurrencyConverter/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/CurrencyConverter/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/CurrencyConverter/App.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +65,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1663636612962</updated>
-      <workItem from="1663636614378" duration="5307000" />
+      <workItem from="1663636614378" duration="6716000" />
     </task>
     <servers />
   </component>
