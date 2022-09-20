@@ -32,13 +32,17 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![Currency Converter][product-screenshot-1]
-
-<br />
-
 ![Currency Converter][product-screenshot-2]
 
-Add about here.
+Created for Project 1 in SOFT2412: Agile Software Development Practices, the Currency Converter project delivers a manually-administrated currency exchange program. 
+
+Created in Java 17 using `java.swing` for the GUI, the currency exchange allows users to:
+
+- convert between various currencies
+- view current exchange rates of popular currencies, and 
+- view historical exchange rate data
+
+Admins of the application are responsible for setting which currencies are popular and adding and updating currencies and their exchange rates. All data is persistant and is stored in a local SQLite database.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -84,12 +88,15 @@ We recommend using the [`sdkman`](https://sdkman.io) package manager to install 
    ```sh
    git clone https://github.sydney.edu.au/adha5655/currency-converter.git
    ```
-2. Navigate to `currency_convert/app`
+   
+2. Navigate to the `/currency_convert/app` directory
 3. Run using `gradle`
 
     ```sh
     gradle run
     ```
+    
+4. To exit the application, either press `Ctrl+Q` OR open the in-app start menu and click *Turn off computer.*
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -97,6 +104,20 @@ We recommend using the [`sdkman`](https://sdkman.io) package manager to install 
 ## Usage
 
 Add usage here.
+
+![Currency Converter][product-screenshot-3]
+
+
+### How to test code
+
+1. Navigate to the `currency-converter/app` directory
+2. Run testing using `gradle` 
+
+  ```sh
+  gradle test
+  ```
+
+3. On successful testing, the terminal will display *BUILD SUCCESSFUL*
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -120,7 +141,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- CONTACT -->
 ## Contact
 
-Created for SOFT2412: Agile Development Practices in Semester 2, 2022.
+Created for SOFT2412: Agile Software Development Practices in Semester 2, 2022.
 
 ```bash
 | name           | unikey   | sid       |
