@@ -51,18 +51,18 @@ public class Admin extends BasicUser {
     public void addPopularCurrency(String currOne, String currTwo, String currThree , String currFour){
 
         String[] arr = {currOne, currTwo, currThree ,currFour};
-        this.database.setPopularCurrencies(arr);
+        this.database.setPopularFour(arr);
 
 
     }
 
-    /**
-     * Function for setting the Popular 4 currencies.
-     * @param arr String []
-     */
-    public void addPopularCurrency(Stirng [] arr){
-        this.database.setPopularCurrencies(arr);
-    }
+    // /**
+    //  * Function for setting the Popular 4 currencies.
+    //  * @param arr String []
+    //  */
+    // public void addPopularCurrency(String [] arr){
+    //     this.database.setPopularCurrencies(arr);
+    // }
 
 
 
