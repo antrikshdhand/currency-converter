@@ -99,20 +99,27 @@ public class BasicUser {
      * @param endDate the date onw wants rates before, in format "YYYY-MM-DD" inclusive.
      * @return double which is the median exchange rate between these values.
      */
-    public double getMedian(String currOne, String curTwo ,String startDate, String endDate) {
-        ArrayList<ArrayList<String>> map = this.database.getExchangeHist(currOne, curTwo, startDate, endDate);
-        int length = map.size();
-        int fl = length % 2;
-        double result = 0;
-        if (fl == 0 ){
-            int val1 = (int) Math.floor(length/2) ;
-            int val2 = (int) Math.ceil(length/2);
-            result = (Double.parseDouble(map.get(val1).get(1)) + Double.parseDouble(map.get(val2).get(1)));
-        }
-        else {
-            int val1 = (int) length/2;
-            result = Double.parseDouble(map.get(val1).get(1));
-        }
+     public double getMedian(String currOne, String curTwo ,String startDate, String endDate) {
+         this.database.openConn();
+         ArrayList<ArrayList<String>> map = this.database.getExchangeHist(currOne, curTwo, startDate, endDate);
+         this.database.closeConn();
+         int length = map.size();
+//         System.out.println(length);
+         int fl = length % 2;
+         double result = 0;
+         if (fl == 0 ){
+             int val1 = length/2 -1;
+             int val2 = (int) Math.ceil(length/2);
+             result = (Double.parseDouble(map.get(val1).get(1)) + Double.parseDouble(map.get(val2).get(1)))/2;
+//             System.out.println(val1);
+//             System.out.println(val2);
+         }
+         else{
+             int val1 = (int) length/2;
+             result = Double.parseDouble(map.get(val1).get(1));
+         }
+
+//         System.out.println(result);
          return result;
 
     }
@@ -125,10 +132,12 @@ public class BasicUser {
      * @param endDate the date onw wants rates before, in format "YYYY-MM-DD" inclusive.
      * @return double which is the average exchange rate between these values.
      */
-    public double getAverage(String currOne, String currTwo ,String startDate, String endDate){
-        HashMap<String, Double> map = this.database.getSummaries(currOne, currTwo, startDate, endDate);
-        return map.get("Average");
-    }
+     public double getAverage(String currOne, String currTwo ,String startDate, String endDate){
+         this.database.openConn();
+         HashMap<String, Double> map = this.database.getSummaries(currOne, currTwo, startDate, endDate);
+         this.database.closeConn();
+         return map.get("Average");
+     }
 
     /**
      * Function calculates the Minimum exchange rate between 2 specified currency within a given time frame.
@@ -139,7 +148,9 @@ public class BasicUser {
      * @return double which is the Minimum exchange rate between these values.
      */
     public double getMinimum(String currOne, String currTwo ,String startDate, String endDate){
+        this.database.openConn();
         HashMap<String, Double> map = this.database.getSummaries(currOne, currTwo, startDate, endDate);
+        this.database.closeConn();
         return map.get("Min");
     }
 
@@ -152,7 +163,9 @@ public class BasicUser {
      * @return double which is the Maximum exchange rate between these values.
      */
     public double getMaximum(String currOne, String currTwo ,String startDate, String endDate){
+        this.database.openConn();
         HashMap<String, Double> map = this.database.getSummaries(currOne, currTwo, startDate, endDate);
+        this.database.closeConn();
         return map.get("Max");
     }
 
@@ -165,8 +178,29 @@ public class BasicUser {
      * @return double which is the Deviation exchange rate between these values.
      */
     public double getSD(String currOne, String currTwo ,String startDate, String endDate){
-        HashMap<String, Double> map = this.database.getSummaries(currOne, currTwo, startDate, endDate);
-        return Math.sqrt(map.get("Var"));
+//        this.database.openConn();
+//        HashMap<String, Double> map = this.database.getSummaries(currOne, currTwo, startDate, endDate);
+//        this.database.closeConn();
+//        System.out.println(map.get("Var"));
+//        return Math.sqrt(map.get("Var"));
+
+        this.database.openConn();
+        ArrayList<ArrayList<String>> map = this.database.getExchangeHist(currOne, currTwo, startDate, endDate);
+        this.database.closeConn();
+
+        double avg = this.getAverage(currOne,currTwo,startDate,endDate);
+        double sum = 0;
+        double var = 0;
+        for (ArrayList<String> s: map){
+            double num1 = Double.parseDouble(s.get(1));
+            double num2 = (num1 - avg) * (num1 - avg);
+            sum += num2;
+        }
+        var = sum/map.size();
+        return Math.sqrt(var);
+
+
+
     }
 
 
