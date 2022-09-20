@@ -11,10 +11,10 @@ public class CurrencyExchange extends JInternalFrame {
 
 
     /**
-     * Construtor for currency exchange class
+     * Construtor for currency exchange class.
      * Used to open new window for currency exchange in the application.
      * 
-     * @param desktop
+     * @param desktop the Java swing window
      */
     public CurrencyExchange(JDesktopPane desktop) {
         
@@ -45,9 +45,9 @@ public class CurrencyExchange extends JInternalFrame {
 
     
     /**
-     * Called to return to the homepage of our application
+     * Return the homepage of the app.
      * 
-     * @return returns home page for the 
+     * @return the home page of the app 
      */
     public WelcomeScreen getWelcomeScreen() {
         return this.welcomeScreen;

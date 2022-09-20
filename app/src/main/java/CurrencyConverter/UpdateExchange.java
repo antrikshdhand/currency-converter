@@ -188,7 +188,7 @@ public class UpdateExchange extends JPanel implements ActionListener {
 
     private void printSuccessPopup() {
         JOptionPane.showMessageDialog(this.topLevelPanel,
-                "Successfully reset database to original 6 currencies."
+                "Successfully updated the exchange rate."
             );
     }
 

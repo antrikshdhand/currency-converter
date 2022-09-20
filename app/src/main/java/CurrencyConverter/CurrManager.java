@@ -61,7 +61,7 @@ public class CurrManager {
 
     /**
      * Constructor for this class.
-     * Attempts to access the data base.
+     * Attempts to access the database.
      */
     public CurrManager() {
         openConn();
@@ -74,7 +74,7 @@ public class CurrManager {
      * Opens connection with a database.
      * To be called before any other function by calling class.
      *
-     * @return Returns 0 if successful and -1 if unsuccessful
+     * @return 0 if successful and -1 if unsuccessful
      */
     public int openConn() {
         try {
@@ -104,7 +104,7 @@ public class CurrManager {
      * Closes the connection with the database.
      * To be called after you are done with database.
      *
-     * @return Returns 0 if successful and -1 if unsuccessful
+     * @return 0 if successful and -1 if unsuccessful
      */
     public int closeConn() {
 
@@ -122,11 +122,12 @@ public class CurrManager {
         }
     }
 
+
     /**
-     * Deletes all table data from the database (that we will be using)
+     * Deletes all table data from the database (that we will be using).
      * To only be called if you want to delete all data.
      *
-     * @return Returns 0 if successful and -1 if unsuccessful
+     * @return 0 if successful and -1 if unsuccessful
      */
     public int dropAllTables() {
 
@@ -153,10 +154,10 @@ public class CurrManager {
 
 
     /**
-     * Deletes popular four data from the database
+     * Deletes popular four data from the database.
      * To only be called if you want to delete all data.
      *
-     * @return Returns 0 if successful and -1 if unsuccessful
+     * @return 0 if successful and -1 if unsuccessful
      */
     public int dropPopularFour() {
 
@@ -186,9 +187,9 @@ public class CurrManager {
      * Adds a currency to the currency table.
      * Need to call openConn before this function.
      *
-     * @param exchCode The currency code for the currency as a string: e.g. "AUD".
-     * @param currName The currency name of the code: e.g. "Australian Dollar".
-     * @return Returns 0 if successful and -1 if unsuccessful.
+     * @param exchCode the currency code for the currency as a string: e.g. "AUD"
+     * @param currName the currency name of the code: e.g. "Australian Dollar"
+     * @return 0 if successful and -1 if unsuccessful
      */
     public int addCurrency(String exchCode, String currName) {
 
@@ -214,9 +215,9 @@ public class CurrManager {
      * Adds a currency to the currency table.
      * Need to call openConn before this function.
      *
-     * @param exchCode The currency code for the currency as a string: e.g. "AUD".
-     * @param currName The currency name of the code: e.g. "Australian Dollar".
-     * @return Returns 0 if successful and -1 if unsuccessful.
+     * @param exchCode the currency code for the currency as a string: e.g. "AUD"
+     * @param currName the currency name of the code: e.g. "Australian Dollar"
+     * @return 0 if successful and -1 if unsuccessful
      */
     public int addBasicSix() {
 
@@ -251,8 +252,8 @@ public class CurrManager {
     /**
      * Given a currency code returns the currency name see {@link #addCurrency(String, String) addCurrency}.
      *
-     * @param exchCode The currency code of a currency to be queried.
-     * @return The currency name.
+     * @param exchCode the currency code of a currency to be queried
+     * @return the currency name
      */
     public String getCurrName(String exchCode) {
 
@@ -282,7 +283,7 @@ public class CurrManager {
     /**
      * Retrives all currency codes and names.
      *
-     * @return Returns all currencies in the form of a {@link java.util.HashMap HashMap}. The keys are the currency codes, and the values are the currency names.
+     * @return all currencies in the form of a {@link java.util.HashMap HashMap}. The keys are the currency codes, and the values are the currency names.
      */
     public HashMap<String, String> getAllCurrencies() {
 
@@ -312,7 +313,7 @@ public class CurrManager {
     /**
      * Sets the popular currency codes.
      *
-     * @return Returns 0 if successful and -1 if unsuccessful.
+     * @return 0 if successful and -1 if unsuccessful.
      */
     public int setPopularFour(String[] currencyList) {
 
@@ -340,7 +341,7 @@ public class CurrManager {
     /**
      * Retrives popular currency codes.
      *
-     * @return Returns all currencies in the form of a {@link java.util.HashMap HashMap}. The keys are the currency codes, and the values are the currency names.
+     * @return all currencies in the form of a {@link java.util.HashMap HashMap}. The keys are the currency codes, and the values are the currency names.
      */
     public String[] getPopularFour() {
 
@@ -369,18 +370,19 @@ public class CurrManager {
 
 
     /**
-     * Adds an echange rate from one currency to another.
-     * Also adds the reverse from currency 2 back to currency 1 into the exchange table.
-     * So you do not have to add both AUD -> USD, and USD -> AUD manually. Only need to add one.
+     * Adds an exchange rate from one currency to another.
+     * Also adds the reverse from currency 2 back to currency 1 into the exchange table
+     * so you do not have to add both AUD -> USD, and USD -> AUD manually. Only need to add one.
      *
-     * @param currOne Currency from
-     * @param currTwo Currency to
-     * @param convValue  Conversion rate from currency one to currency 2
-     * @return Returns 0 if successful and -1 if unsuccessful
+     * @param currOne currency from
+     * @param currTwo currency to
+     * @param convValue conversion rate from currency 1 to currency 2
+     * @return 0 if successful and -1 if unsuccessful
      */
     public int addExchange(String currOne, String currTwo, double convValue) {
 
-        // We are doing this because otherwise for somereasonn Java time doesnt pass and the next time we add an exhange it has the same timestamp
+        // We are doing this because otherwise for some reason 
+        // Java time doesn't pass and the next time we add an exhange it has the same timestamp
         try {
             Thread.sleep(2000);
 
@@ -410,9 +412,9 @@ public class CurrManager {
     /**
      * Gets latest the conversion value for a particular exchange.
      *
-     * @param currOne Currency from
-     * @param currTwo Currency to
-     * @return Returns the conversion rate from currency one to currency two.
+     * @param currOne currency from
+     * @param currTwo currency to
+     * @return the conversion rate from currency one to currency two
      */
     public double getExchange(String currOne, String currTwo) { // Bug fixed - now it gets latest currency value
 
@@ -437,9 +439,9 @@ public class CurrManager {
     /**
      * Gets latest the conversion value for a particular exchange.
      *
-     * @param currOne Currency from
-     * @param currTwo Currency to
-     * @return Returns the conversion rate from currency one to currency two.
+     * @param currOne currency from
+     * @param currTwo currency to
+     * @return the conversion rate from currency one to currency two
      */
     public String getExchangeToDisp(String currOne, String currTwo) { // Bug fixed - now it gets latest currency value
 
@@ -465,10 +467,10 @@ public class CurrManager {
     /**
      * Gets full history of the conversion values for a particular exchange between 2 dates.
      *
-     * @param currOne Currency from
-     * @param currTwo Currency to
-     * @param dayOne date one wants the exchange rate after, in format "YYYY-MM-DD" inclusive.
-     * @param dayTwo date one wants the exchange rate before, in format "YYYY-MM-DD" inclusive.
+     * @param currOne currency from
+     * @param currTwo currency to
+     * @param dayOne date one wants the exchange rate after, in format "YYYY-MM-DD" inclusive
+     * @param dayTwo date one wants the exchange rate before, in format "YYYY-MM-DD" inclusive
      * @return ArrayList<ArrayList<String>> containing the full history of a particular exchange rate each list within contains {tiimeStamp , exchange rate} both as string.
      */
     public ArrayList<ArrayList<String>> getExchangeHist(String currOne, String currTwo, String dayOne, String dayTwo) { // Bug fixed - now it gets latest currency value //YYYY-MM-DD
@@ -503,15 +505,15 @@ public class CurrManager {
 
 
     /**
-     *  Gets Average, Minimum , Maximum, and Varience of the conversion values for a particular exchange between 2 dates.
+     * Gets Average, Minimum , Maximum, and Varience of the conversion values for a particular exchange between 2 dates.
      *
-     * @param currOne Currency from
-     * @param currTwo Currency to
-     * @param dayOne date one wants the exchange rate after, in format "YYYY-MM-DD" inclusive.
-     * @param dayTwo date one wants the exchange rate before, in format "YYYY-MM-DD" inclusive.
+     * @param currOne currency from
+     * @param currTwo currency to
+     * @param dayOne date one wants the exchange rate after, in format "YYYY-MM-DD" inclusive
+     * @param dayTwo date one wants the exchange rate before, in format "YYYY-MM-DD" inclusive
      * @return HashMap<String, Double> containing the full the Summaries of a particular exchange rate, in format {Summary Name e.g Average, double value}.
      */
-    public HashMap<String, Double> getSummaries(String currOne, String currTwo, String dayOne, String dayTwo){
+    public HashMap<String, Double> getSummaries(String currOne, String currTwo, String dayOne, String dayTwo) {
 
         HashMap<String, Double> map = new HashMap<String, Double>();
 
@@ -520,7 +522,7 @@ public class CurrManager {
         String maxQuery = String.format("select max(conv_val) as \"Max\" from exchange where currency_ex_code = '%s' and time_added >= '%s 00.00.00' and time_added <= '%s 23.59.59' order by time_added DESC", currOne + currTwo, dayOne, dayTwo);
         String varQuery = String.format("Select avg((t.conv_val - SUB.mean) * (t.conv_val - SUB.mean)) as \"Var\" from exchange t,(SELECT AVG(conv_val) AS mean FROM exchange) AS SUB) where currency_ex_code = '%s' and time_added >= '%s 00.00.00' and time_added <= '%s 23.59.59' order by time_added DESC", currOne + currTwo, dayOne, dayTwo);
 
-        try{
+        try {
 
             ResultSet query1 = openStatement.executeQuery(avgQuery);
             map.put("Average", query1.getDouble("Average"));
@@ -546,15 +548,13 @@ public class CurrManager {
      * Function that gets the latest 2 exchange rate between 2 currencies.
      * @param currOne currency form
      * @param currTwo currency to
-     * @return Double[] with 3 of the latest rate between 2 currencies.
+     * @return Double[] with 3 of the latest rate between 2 currencies
      */
     public Double[] getLatestThreeHist(String currOne, String currTwo) { // Bug fixed - now it gets latest currency value //YYYY-MM-DD
 
-
         Double [] arr = {null, null , null };
 
-
-        try{
+        try {
             ResultSet query = openStatement.executeQuery(String.format("select conv_val from exchange where currency_ex_code = '%s' order by time_added DESC LIMIT 3", currOne + currTwo));
 
             int count = 0;
@@ -565,14 +565,11 @@ public class CurrManager {
 
                 count += 1;
 
-
             }
-
         } catch(SQLException e) {
             // if the error message is "out of memory",
             // it probably means no database file is found
             System.err.println(e.getMessage());
-
         }
 
         return arr;

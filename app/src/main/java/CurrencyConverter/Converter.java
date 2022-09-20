@@ -6,6 +6,7 @@ import java.awt.event.*;
 
 public class Converter extends JPanel implements ActionListener {
     
+    
     private CurrencyExchange cex;
     private JPanel converterPanel;
 
@@ -32,6 +33,7 @@ public class Converter extends JPanel implements ActionListener {
     // this will be replaced with our actual array of currencies
     private String[] currenciesArr;
 
+
     public Converter(CurrencyExchange cex, BasicUser user) {
         this.cex = cex;
         this.user = user;
@@ -46,6 +48,7 @@ public class Converter extends JPanel implements ActionListener {
         this.cex.add(this.converterPanel);
 
     }
+
 
     private void addComponentsToScreen() {
 
@@ -200,6 +203,7 @@ public class Converter extends JPanel implements ActionListener {
             this.cex.getWelcomeScreen().getWelcomePanel().setVisible(true);
         }
     }
+
 
     private void printConversionStatement(double result) {
 
