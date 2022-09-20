@@ -32,30 +32,12 @@ public class Converter extends JPanel implements ActionListener {
 
     // temporary array just for testing UI
     // this will be replaced with our actual array of currencies
-<<<<<<< HEAD
-    private String[] arr = new String[] {
-        "AUD",
-        "EUR",
-        "INR",
-        "USD",
-        "NZD",
-        "JPY",
-        "GBP"
-    };
-    
-    
-=======
     private String[] currenciesArr;
->>>>>>> integration
 
     public Converter(CurrencyExchange cex, BasicUser user) {
         this.cex = cex;
-<<<<<<< HEAD
-        this.app = cex.getApp();
-=======
         this.user = user;
         this.currenciesArr = user.getCurrencyCodes();
->>>>>>> integration
 
         // set up panel which lives inside the JInternalFrame
         converterPanel = new JPanel(new BorderLayout());
