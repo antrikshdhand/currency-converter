@@ -34,7 +34,7 @@ public class App extends JFrame {
         
         System.out.println(manager.getExchange("AUD", "USD"));
 
-        ArrayList<ArrayList<String>> hist = manager.getExchangeHist("AUD", "USD", "20220918", "20220919");
+        ArrayList<ArrayList<String>> hist = manager.getExchangeHist ("AUD", "USD", "20220918", "20220919");
 
         for (ArrayList<String> ar : hist) {
             for (String s : ar) {
@@ -44,8 +44,7 @@ public class App extends JFrame {
             System.out.println("");
         }
 
-        
-        manager.closeConn();
+
 
 
         // set look and feel

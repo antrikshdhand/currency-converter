@@ -42,18 +42,37 @@ public class Admin extends BasicUser {
 
 
     /**
-     * function for replacing old popular currency with a new one.
-     * @param oldCur : Old currency that was in the table
-     * @param newCur : New currency the person wants to add in the table.
+     * Function for setting the Popular 4 currencies.
+     * @param currOne String
+     * @param currTwo String
+     * @param currThree String
+     * @param currFour String
      */
-    public void replacePopularCurrency(String oldCur, String newCur){
+    public void addPopularCurrency(String currOne, String currTwo, String currThree , String currFour){
+
+        String[] arr = {currOne, currTwo, currThree ,currFour};
+        this.database.setPopularFour(arr);
+
 
     }
 
-    // public void reset(){
-    //     this.database.openConn();
-    //     this.database.dropAllTables();
-    //     this.database.addBasicSix();
-    //     this.database.closeConn();
+    // /**
+    //  * Function for setting the Popular 4 currencies.
+    //  * @param arr String []
+    //  */
+    // public void addPopularCurrency(String [] arr){
+    //     this.database.setPopularCurrencies(arr);
     // }
+
+
+
+    /**
+     * Function resets the database and adds all the original currencies
+     */
+    public void reset(){
+        this.database.openConn();
+        this.database.dropAllTables();
+        this.database.addBasicSix();
+        this.database.openConn();
+    }
 }
