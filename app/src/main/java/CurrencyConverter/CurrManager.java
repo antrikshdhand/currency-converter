@@ -11,8 +11,6 @@ import java.sql.Statement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.io.File;
 
 //////////////////////// README ////////////////////////
 /*
@@ -68,8 +66,6 @@ public class CurrManager {
     public CurrManager() {
         openConn();
         closeConn();
-
-        // printSeparator();
 
     }
 
@@ -185,18 +181,6 @@ public class CurrManager {
         
     }
 
-
-
-    // protected int deleteDatabase() {
-    //     File deleteFile = new File("../../../../../currency.db");
-
-    //     if (deleteFile.delete()) {
-    //         return 0;
-    //       } else {
-    //         return 1;
-    //       }
-
-    // }
 
     /**
      * Adds a currency to the currency table.
@@ -382,29 +366,6 @@ public class CurrManager {
         return popCurrencies;
 
     }
-
-
-    // public void displayCurrencies() {
-    //     try{
-    //         ResultSet query = openStatement.executeQuery("select * from currency");
-
-    //         while(query.next())
-    //         {
-    //             // read the result set
-    //             System.out.println("currency = " + query.getString("currency_name"));
-    //             System.out.println("code = " + query.getString("currency_code"));
-    //             System.out.println("---LINE---");
-    //         }
-
-    //     } catch(SQLException e) {
-    //         // if the error message is "out of memory",
-    //         // it probably means no database file is found
-    //         System.err.println(e.getMessage());
-
-    //     }
-
-    //     printSeperator();
-    // }
 
 
     /**
@@ -616,96 +577,5 @@ public class CurrManager {
 
         return arr;
 
-    }
-
-    // public void displayExhanges() {
-    //     try{
-    //         ResultSet query = openStatement.executeQuery("select * from exchange");
-
-    //         while(query.next())
-    //         {
-    //             System.out.println("From ID = " + query.getString("currency_from"));
-    //             System.out.println("To ID = " + query.getString("currency_to"));
-    //             System.out.println("Conversion Code = " + query.getString("currency_ex_code"));
-    //             System.out.println("Conversion = " + query.getFloat("conv_val"));
-    //             System.out.println("Time = " + query.getTimestamp("time_added"));
-    //             System.out.println("---LINE---");
-    //         }
-
-    //     } catch(SQLException e) {
-    //         // if the error message is "out of memory",
-    //         // it probably means no database file is found
-    //         System.err.println(e.getMessage());
-
-    //     }
-
-    //     printSeparator();
-    // }
-
-    // /**
-    //  * Gets the latest exhange rates for all exchanges.
-    //  *
-    //  * @deprecated
-    //  * @return Returns a {@link java.util.HashMap HashMap}, where the keys are the currency exchange codes ("USDAUD") and the values and the conversion rates.
-    //  */
-    // @Deprecated
-    // public HashMap<String, Double> getLatestExchanges() {
-
-    //     HashMap<String, Double> latestExchanges = new HashMap<String, Double>();
-
-    //     try{
-    //         ResultSet query = openStatement.executeQuery("select t1.* from exchange t1 inner join (select currency_ex_code, max(time_added) as 'time_added' from exchange group by currency_ex_code) t2 ON (t1.currency_ex_code = t2.currency_ex_code and t1.time_added = t2.time_added)");
-
-    //         while(query.next())
-    //         {
-    //             String currExchCode = query.getString("currency_ex_code");
-    //             Double conValue = (double) query.getFloat("conv_val");
-
-    //             latestExchanges.put(currExchCode, conValue);
-    //         }
-
-    //     } catch(SQLException e) {
-    //         // if the error message is "out of memory",
-    //         // it probably means no database file is found
-    //         System.err.println(e.getMessage());
-    //         return null;
-    //     }
-
-    //     return latestExchanges;
-    // }
-
-
-    // public void displayLatestExchanges() {
-    //     try{
-    //         ResultSet query = openStatement.executeQuery("select t1.* from exchange t1 inner join (select currency_ex_code, max(time_added) as 'time_added' from exchange group by currency_ex_code) t2 ON (t1.currency_ex_code = t2.currency_ex_code and t1.time_added = t2.time_added)");
-
-    //         while(query.next())
-    //         {
-    //             System.out.println("From = " + query.getString("currency_from"));
-    //             System.out.println("To = " + query.getString("currency_to"));
-    //             System.out.println("Conversion Code = " + query.getString("currency_ex_code"));
-    //             System.out.println("Conversion = " + query.getFloat("conv_val"));
-    //             System.out.println("Time = " + query.getTimestamp("time_added"));
-    //             System.out.println("---LINE---");
-    //         }
-
-    //     } catch(SQLException e) {
-    //         // if the error message is "out of memory",
-    //         // it probably means no database file is found
-    //         System.err.println(e.getMessage());
-
-    //     }
-
-    //     printSeparator();
-    // }
-
-
-    // public void printSeparator() {
-    //     System.out.println();
-    //     System.out.println("================================");
-    //     System.out.println();
-    // }
-
-
-    
+    }    
 }

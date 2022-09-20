@@ -9,6 +9,13 @@ public class CurrencyExchange extends JInternalFrame {
     private JDesktopPane desktop;
     private WelcomeScreen welcomeScreen;
 
+
+    /**
+     * Construtor for currency exchange class
+     * Used to open new window for currency exchange in the application.
+     * 
+     * @param desktop
+     */
     public CurrencyExchange(JDesktopPane desktop) {
         
         // set basic graphics
@@ -35,7 +42,13 @@ public class CurrencyExchange extends JInternalFrame {
         // application control now moves to WelcomeScreen.java
 
     }
+
     
+    /**
+     * Called to return to the homepage of our application
+     * 
+     * @return returns home page for the 
+     */
     public WelcomeScreen getWelcomeScreen() {
         return this.welcomeScreen;
     }
