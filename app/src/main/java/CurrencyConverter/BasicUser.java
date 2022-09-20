@@ -1,44 +1,37 @@
 package CurrencyConverter;
-import java.util.*;
-public class BasicUser {
 
+import java.util.*;
+
+public class BasicUser {
 
     /**
      * Attribute database : CurrManager
      */
     protected CurrManager database;
-    // protected ArrayList<Currency> uniqueCurrencies;
 
     /**
-    * Constuctor of class
-    * @Param Database : take in Currmanager which queries a database.
+     * Constuctor of class
+     * @param Database : take in Currmanager which queries a database.
      */
     public BasicUser(CurrManager database) {
         this.database = database;
     }
 
+
     /**
-    * Fucntion that return the CurrManager
+     * Function that return the CurrManager
      */
     public CurrManager getDatabase() {
         return database;
     }
-
-// public boolean checkDisplay(){
-    //reutrn this.displaypop4;}
-
-    // public void changeDisplaySettings(){
-    // if ( this.displayPop4) this.displayPop4 = false;
-    // else this.displayPop4 = true;
-
-    // User wants to convert from one currency to another.
+    
 
     /**
-    * Funciton that convert an amount form one currency to another.
-    * @Param from : currency from which one wishes to convert form (String)
-    * @Param to : currency to which one wishes to convert to (String)
-    * @Param amount : the amount one wishes to convert (double)
-    * @return, return the converted amount as a ( double)
+     * Function that convert an amount form one currency to another.
+     * @param from : currency from which one wishes to convert form (String)
+     * @param to : currency to which one wishes to convert to (String)
+     * @param amount : the amount one wishes to convert (double)
+     * @return, return the converted amount as a ( double)
      */
     public double convert(String from, String to, double amount){
         // here goes the logic of querying the from one currency, to another.
@@ -74,12 +67,12 @@ public class BasicUser {
     }
 
     /**
-    * function that returns the History between 2 chosen currencies between 2 date.
-    * @Param currOne: the currency from
-    * @Param currTwo: the currency to
-    * @Param startDate : the date form in format "YYYY-MM-DD"
-    * @Param endDate : the date to in format "YYYY-MM-DD"
-    * @return  A 2 dimensional array where the index is the timestamp and the index 1 is the exchange rate at the time.
+     * Function that returns the History between 2 chosen currencies between 2 date.
+     * @param currOne: the currency from
+     * @param currTwo: the currency to
+     * @param startDate : the date form in format "YYYY-MM-DD"
+     * @param endDate : the date to in format "YYYY-MM-DD"
+     * @return A 2 dimensional array where the index is the timestamp and the index 1 is the exchange rate at the time.
      */
     public String[][] getHistory(String currOne, String currTwo, String startDate, String endDate) {
         database.openConn();
@@ -95,9 +88,6 @@ public class BasicUser {
             result[count] = temp;
             count += 1;
         }
-
-//        System.out.println(result[1][1]);
-//        System.out.println(result[0][1]);
         return result;
     }
 
@@ -109,23 +99,23 @@ public class BasicUser {
      * @param endDate the date onw wants rates before, in format "YYYY-MM-DD" inclusive.
      * @return double which is the median exchange rate between these values.
      */
-     public double getMedian(String currOne, String curTwo ,String startDate, String endDate) {
-         ArrayList<ArrayList<String>> map = this.database.getExchangeHist(currOne, curTwo, startDate, endDate);
-         int length = map.size();
-         int fl = length % 2;
-         double result = 0;
-         if (fl == 0 ){
-             int val1 = (int) Math.floor(length/2) ;
-             int val2 = (int) Math.ceil(length/2);
-             result = (Double.parseDouble(map.get(val1).get(1)) + Double.parseDouble(map.get(val2).get(1)));
-         }
-         else{
-             int val1 = (int) length/2;
-             result = Double.parseDouble(map.get(val1).get(1));
-         }
+    public double getMedian(String currOne, String curTwo ,String startDate, String endDate) {
+        ArrayList<ArrayList<String>> map = this.database.getExchangeHist(currOne, curTwo, startDate, endDate);
+        int length = map.size();
+        int fl = length % 2;
+        double result = 0;
+        if (fl == 0 ){
+            int val1 = (int) Math.floor(length/2) ;
+            int val2 = (int) Math.ceil(length/2);
+            result = (Double.parseDouble(map.get(val1).get(1)) + Double.parseDouble(map.get(val2).get(1)));
+        }
+        else {
+            int val1 = (int) length/2;
+            result = Double.parseDouble(map.get(val1).get(1));
+        }
          return result;
 
-     }
+    }
 
     /**
      * Function calculates the average exchange rate between 2 specified currency within a given time frame.
@@ -135,10 +125,10 @@ public class BasicUser {
      * @param endDate the date onw wants rates before, in format "YYYY-MM-DD" inclusive.
      * @return double which is the average exchange rate between these values.
      */
-     public double getAverage(String currOne, String currTwo ,String startDate, String endDate){
-         HashMap<String, Double> map = this.database.getSummaries(currOne, currTwo, startDate, endDate);
-         return map.get("Average");
-     }
+    public double getAverage(String currOne, String currTwo ,String startDate, String endDate){
+        HashMap<String, Double> map = this.database.getSummaries(currOne, currTwo, startDate, endDate);
+        return map.get("Average");
+    }
 
     /**
      * Function calculates the Minimum exchange rate between 2 specified currency within a given time frame.
@@ -161,7 +151,6 @@ public class BasicUser {
      * @param endDate the date onw wants rates before, in format "YYYY-MM-DD" inclusive.
      * @return double which is the Maximum exchange rate between these values.
      */
-
     public double getMaximum(String currOne, String currTwo ,String startDate, String endDate){
         HashMap<String, Double> map = this.database.getSummaries(currOne, currTwo, startDate, endDate);
         return map.get("Max");

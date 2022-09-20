@@ -1,8 +1,8 @@
 package CurrencyConverter;
-import java.util.Scanner;
-import java.util.*;
-public class Admin extends BasicUser {
 
+import java.util.*;
+
+public class Admin extends BasicUser {
 
     public Admin(CurrManager database) {
         super(database);
@@ -10,7 +10,7 @@ public class Admin extends BasicUser {
     }
 
     /**
-     * function adds currency in the database.
+     * Function adds currency in the database.
      * @param exhcode : the short form code of the currency.
      * @para name : full name of the currency
      * @return  nothing
@@ -23,22 +23,20 @@ public class Admin extends BasicUser {
         int result = this.database.addCurrency(exhcode, name);
         database.closeConn();
 
-
     }
 
 
     /**
-     * funciton that adds an exchange rate to the database.
+     * Function that adds an exchange rate to the database.
      * @param from : short code for the currency form
      * @param to : short code for the currency to
      * @param rate : rate of the exchange from one currency to other.
      */
-    public void addExchange( String from, String to, double rate){
+    public void addExchange(String from, String to, double rate){
         database.openConn();
         database.addExchange(from, to , rate);
         database.closeConn();
     }
-
 
     /**
      * Function for setting the Popular 4 currencies.
@@ -63,8 +61,6 @@ public class Admin extends BasicUser {
         this.database.setPopularFour(arr);
         database.closeConn();
     }
-
-
 
     /**
      * Function resets the database and adds all the original currencies

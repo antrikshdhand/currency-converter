@@ -7,7 +7,6 @@ public class App extends JFrame {
 
     private Desktop desktop;
 
-
     /**
      * Constructor for app.
      * Just creates a new Desktop - basically opening the new window on gradle run.

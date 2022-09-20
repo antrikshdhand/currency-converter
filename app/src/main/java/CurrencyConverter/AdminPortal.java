@@ -82,7 +82,6 @@ public class AdminPortal extends JPanel implements ActionListener {
         backButton.setActionCommand("back");
         this.adminPortalPanel.add(backButton);
         /////
-
     }
 
     public void actionPerformed(ActionEvent e) {
