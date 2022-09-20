@@ -147,6 +147,8 @@ public class AdminPortal extends JPanel implements ActionListener {
         } else if (e.getActionCommand().equals("update")) {
             this.adminPortalPanel.setVisible(false);
             UpdateExchange updateExchange = new UpdateExchange(this.cex, this.admin);
+        } else if (e.getActionCommand().equals("reset")) {
+            
         }
     }
 

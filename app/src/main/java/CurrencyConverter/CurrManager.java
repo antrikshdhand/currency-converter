@@ -298,9 +298,8 @@ public class CurrManager {
 
         String[] popCurrencies = new String[4];
 
-        try{
+        try {
             ResultSet query = openStatement.executeQuery(String.format("select * from popularFour"));
-
             
             int i = 0;
             while(query.next() && i < 0) {

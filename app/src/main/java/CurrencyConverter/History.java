@@ -167,6 +167,7 @@ public class History extends JFrame implements ActionListener {
         table.setFillsViewportHeight(true);
         table.getTableHeader().setReorderingAllowed(false);
         tablePanel = new JScrollPane(table);
+        tablePanel.setVisible(false);
         this.topLevelPanel.add(tablePanel);
         /////
         
@@ -214,6 +215,7 @@ public class History extends JFrame implements ActionListener {
             } else {
                 this.data = this.user.getHistory(currOne, currTwo, dateFrom, dateTo);
                 this.table = new JTable(new MyTableModel(this.columnNames, this.data));
+
             }
         }
     }

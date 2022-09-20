@@ -47,17 +47,22 @@ public class DisplayPopular extends JFrame implements ActionListener {
 
         // TABLE
         String[] columns = this.user.getPopular4Header();
-        
         String[][] data = this.user.getPopular4Data();
 
-        MyTableModel mtm = new MyTableModel(columns, data);
-        
-        table = new JTable(mtm);
-        table.setFillsViewportHeight(true);
-        table.getTableHeader().setReorderingAllowed(false);
-        tablePanel = new JScrollPane(table);
-        this.topLevelPanel.add(tablePanel);
-        /////
+        boolean isFilled = false;
+        if (data[0][0] != null) isFilled = true;
+        if (!isFilled) {
+            JLabel errorLabel = new JLabel("No popular currencies have been set by the admin.");
+            this.topLevelPanel.add(errorLabel);
+        } else {
+            MyTableModel mtm = new MyTableModel(columns, data);
+            table = new JTable(mtm);
+            table.setFillsViewportHeight(true);
+            table.getTableHeader().setReorderingAllowed(false);
+            tablePanel = new JScrollPane(table);
+            this.topLevelPanel.add(tablePanel);
+            /////
+        }        
 
         addSpace(this.topLevelPanel, 20);
 
