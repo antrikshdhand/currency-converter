@@ -13,20 +13,16 @@ public class SelectPopular extends JPanel implements ActionListener {
     private JLabel headerLabel;
     private JButton backButton;
     private JButton applyButton;
-    JCheckBox[] boxes;
+    private JCheckBox[] boxes;
 
-    private String[] currencies = new String[] {
-        "AUD",
-        "EUR",
-        "INR",
-        "USD",
-        "NZD",
-        "JPY",
-        "GBP"
-    };
+    // BACKEND
+    private Admin admin;
+    private String[] currenciesArr;
 
-    public SelectPopular(CurrencyExchange cex) {
+    public SelectPopular(CurrencyExchange cex, Admin admin) {
         this.cex = cex;
+        this.admin = admin;
+        this.currenciesArr = admin.getCurrencyCodes();
 
         this.topLevelPanel = new JPanel();
         this.topLevelPanel.setLayout(new BoxLayout(topLevelPanel, BoxLayout.PAGE_AXIS));
@@ -46,11 +42,11 @@ public class SelectPopular extends JPanel implements ActionListener {
         addSpace(topLevelPanel, 20);
 
         // CHECKBOXES
-        boxes = new JCheckBox[currencies.length]; 
+        boxes = new JCheckBox[currenciesArr.length]; 
         
         // make a new checkbox for each currency
         for (int i = 0; i < boxes.length; i++)
-            boxes[i] = new JCheckBox(currencies[i]); 
+            boxes[i] = new JCheckBox(currenciesArr[i]); 
         
         // add all checkboxes to JPanel
         for (JCheckBox box : boxes) {
@@ -94,10 +90,11 @@ public class SelectPopular extends JPanel implements ActionListener {
                 );
             } else {
                 String[] popularCurrencies = getChosenCurrencies();
+                this.admin.addPopularCurrency(popularCurrencies);
+
                 JOptionPane.showMessageDialog(this.topLevelPanel,
                     "Successfully selected 4 popular currencies."
                 );
-                // GIVE THIS STRING[] TO BACKEND
             }
         }
     }

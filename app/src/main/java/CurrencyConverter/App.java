@@ -3,6 +3,7 @@ package CurrencyConverter;
 import javax.swing.*;
 import javax.swing.UIManager;
 
+<<<<<<< HEAD
 // import java.sql.Connection;
 // import java.sql.DriverManager;
 // import java.sql.ResultSet;
@@ -14,6 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.*;
 
+=======
+>>>>>>> integration
 public class App extends JFrame {
 
     private Desktop desktop;
@@ -24,6 +27,7 @@ public class App extends JFrame {
         return calculator;
     }
 
+<<<<<<< HEAD
     public App(CurrManager manager) {
         desktop = new Desktop();
         desktop.setApp(this);
@@ -51,6 +55,9 @@ public class App extends JFrame {
         // gradle run -q --console=plain
 
         System.out.println("Welcome to the Currency Convertor");
+=======
+    public static void main(String[] args) {
+>>>>>>> integration
 
         // set look and feel
         try {

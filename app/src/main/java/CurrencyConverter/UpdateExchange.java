@@ -27,19 +27,18 @@ public class UpdateExchange extends JPanel implements ActionListener {
     private JTextField newExchangeRate;
     private JLabel newExchangeRateLabel;
     private JButton submitRate;
+    private String curr1;
+    private String curr2;
+    private String amount;
 
-    private String[] currencies = new String[] {
-        "AUD",
-        "EUR",
-        "INR",
-        "USD",
-        "NZD",
-        "JPY",
-        "GBP"
-    };
+    // BACKEND
+    private Admin admin;
+    private String[] currencies;
 
-    public UpdateExchange(CurrencyExchange cex) {
+    public UpdateExchange(CurrencyExchange cex, Admin admin) {
         this.cex = cex;
+        this.admin = admin;
+        this.currencies = admin.getCurrencyCodes();
         
         this.topLevelPanel = new JPanel();
         this.topLevelPanel.setLayout(new GridLayout(0, 1));
@@ -162,7 +161,14 @@ public class UpdateExchange extends JPanel implements ActionListener {
             this.topLevelPanel.setVisible(false);
             this.cex.getWelcomeScreen().getAdminPortal().getAdminPortalPanel().setVisible(true);
         } else if (e.getActionCommand().equals("setCurrencies")) {
+            this.curr1 = (String) this.curr1Combo.getSelectedItem();
+            this.curr2 = (String) this.curr2Combo.getSelectedItem();
             printConfirmStatement();
+        } else if (e.getActionCommand().equals("submitRate")) {
+            this.amount = this.newExchangeRate.getText();
+            Double amtDouble = Double.parseDouble(this.amount);
+            this.admin.addExchange(curr1, curr2, amtDouble);
+            printSuccessPopup();
         }
     }
 
@@ -173,11 +179,17 @@ public class UpdateExchange extends JPanel implements ActionListener {
     private void printConfirmStatement() {
         StringBuilder s1 = new StringBuilder();
         s1.append("<html>You have selected the exchange <font color='green'>");
-        s1.append(this.curr1Combo.getSelectedItem());
+        s1.append(this.curr1);
         s1.append("</font>/<font color='orange'>");
-        s1.append(this.curr2Combo.getSelectedItem());
+        s1.append(this.curr2);
         s1.append("</font>.</html>");
         this.confirmCurrenciesLabel.setText(s1.toString());
+    }
+
+    private void printSuccessPopup() {
+        JOptionPane.showMessageDialog(this.topLevelPanel,
+                "Successfully reset database to original 6 currencies."
+            );
     }
 
 }

@@ -27,8 +27,12 @@ public class Converter extends JPanel implements ActionListener {
     private App app;
     private String currencyToAmount;
 
+    // BACKEND
+    private BasicUser user;
+
     // temporary array just for testing UI
     // this will be replaced with our actual array of currencies
+<<<<<<< HEAD
     private String[] arr = new String[] {
         "AUD",
         "EUR",
@@ -40,10 +44,18 @@ public class Converter extends JPanel implements ActionListener {
     };
     
     
+=======
+    private String[] currenciesArr;
+>>>>>>> integration
 
-    public Converter(CurrencyExchange cex) {
+    public Converter(CurrencyExchange cex, BasicUser user) {
         this.cex = cex;
+<<<<<<< HEAD
         this.app = cex.getApp();
+=======
+        this.user = user;
+        this.currenciesArr = user.getCurrencyCodes();
+>>>>>>> integration
 
         // set up panel which lives inside the JInternalFrame
         converterPanel = new JPanel(new BorderLayout());
@@ -106,7 +118,7 @@ public class Converter extends JPanel implements ActionListener {
             this.JHEIGHT
         );
 
-        fromComboBox = new JComboBox<String>(arr);
+        fromComboBox = new JComboBox<String>(currenciesArr);
         fromComboBox.setBounds(
             (int) fromLabel.getBounds().getX() + (int) fromLabel.getBounds().getWidth() + this.PADDING, 
             (int) fromLabel.getBounds().getY(), 
@@ -128,7 +140,7 @@ public class Converter extends JPanel implements ActionListener {
             this.JHEIGHT
         );
 
-        toComboBox = new JComboBox<String>(arr);
+        toComboBox = new JComboBox<String>(currenciesArr);
         toComboBox.setBounds(
             (int) toLabel.getBounds().getX() + (int) toLabel.getBounds().getWidth() + this.PADDING, 
             (int) toLabel.getBounds().getY(), 
@@ -196,15 +208,25 @@ public class Converter extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("convertFunction")) {
+<<<<<<< HEAD
             this.currencyToAmount = "10"; //Double.toString(this.app.getCalculator().calculateConverstion((String) this.fromComboBox.getSelectedItem(), (String) this.toComboBox.getSelectedItem(), Double.parseDouble(this.amount.getText())));
             printConversionStatement();
+=======
+            String currFrom = (String) this.fromComboBox.getSelectedItem();
+            String currTo = (String) this.toComboBox.getSelectedItem();
+            if (amount.getText().equals("")) return;
+            double amount = Double.parseDouble(this.amount.getText());
+            double result = this.user.convert(currFrom, currTo, amount);
+            
+            printConversionStatement(result);
+>>>>>>> integration
         } else if (e.getActionCommand().equals("back")) {
             this.converterPanel.setVisible(false);
             this.cex.getWelcomeScreen().getWelcomePanel().setVisible(true);
         }
     }
 
-    private void printConversionStatement() {
+    private void printConversionStatement(double result) {
 
         StringBuilder s1 = new StringBuilder();
         s1.append("<html>Converting <font color='orange'>");
@@ -217,7 +239,11 @@ public class Converter extends JPanel implements ActionListener {
         this.conversionResultPreamble.setText(s1.toString());
 
         StringBuilder s2 = new StringBuilder();
+<<<<<<< HEAD
         s2.append(currencyToAmount);
+=======
+        s2.append(String.format("%.2f", result));
+>>>>>>> integration
         s2.append(" ");
         s2.append(this.toComboBox.getSelectedItem());
         this.conversionResultLabel.setText(s2.toString());

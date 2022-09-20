@@ -4,6 +4,10 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class History extends JFrame implements ActionListener {
     
@@ -31,19 +35,24 @@ public class History extends JFrame implements ActionListener {
     private JTextField dateFromField;
     private JTextField dateToField;
     private JButton setDatesButton;
+    private String curr1;
+    private String curr2;
+    
+    // BACKEND
+    private BasicUser user;
+    public final static String DATE_FORMAT = "yyyy-MM-dd";
+    private String[] currenciesArr;
+    private String[] columnNames;
+    private String[][] data;
 
-    private String[] currencies = new String[] {
-        "AUD",
-        "EUR",
-        "INR",
-        "USD",
-        "NZD",
-        "JPY",
-        "GBP"
-    };
-
-    public History(CurrencyExchange cex) {
+    public History(CurrencyExchange cex, BasicUser user) {
         this.cex = cex;
+        this.user = user;
+        this.currenciesArr = user.getCurrencyCodes();
+        this.columnNames = new String[] {"Date", "Curr1/Curr2"};
+        this.data = new String[][] {
+            {"1970-01-01", "1.00"}
+        };
 
         this.topLevelPanel = new JPanel();
         this.topLevelPanel.setLayout(new GridLayout(0, 1));
@@ -82,10 +91,10 @@ public class History extends JFrame implements ActionListener {
         curr2Label = new JLabel("<html><font color='orange'>Currency 2:</font></html>");
         curr2Label.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
     
-        curr1Combo = new JComboBox<String>(currencies);
+        curr1Combo = new JComboBox<String>(currenciesArr);
         curr1Combo.setPreferredSize(new Dimension(100, 40));
         curr1Combo.setMaximumSize(new Dimension(100, 40));
-        curr2Combo = new JComboBox<String>(currencies);     
+        curr2Combo = new JComboBox<String>(currenciesArr);     
         curr2Combo.setPreferredSize(new Dimension(100, 40));
         curr2Combo.setMaximumSize(new Dimension(100, 40));
 
@@ -114,16 +123,18 @@ public class History extends JFrame implements ActionListener {
         confirmCurrenciesLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
         middleText.add(confirmCurrenciesLabel);
 
-        middleText.add(Box.createVerticalGlue());
+        addSpace(middleText, 20);
         
-        informationLabel2 = new JLabel("<html><font color='red'>2.</font> Select the date range you are interested in. <strong>Input in dd/mm/yyyy</strong>.</html>");
+        informationLabel2 = new JLabel("<html><font color='red'>2.</font> Select the date range you are interested in. <strong>Input in yyyy-mm-dd</strong>.</html>");
         informationLabel2.setFont(new Font("Comic Sans MS", Font.PLAIN, 22));
+        informationLabel2.setVisible(false);
         middleText.add(informationLabel2);
         /////
     
         // DATE FROM, DATE TO, AND APPLY BUTTON
         datePanel = new JPanel();
         datePanel.setLayout(new BoxLayout(datePanel, BoxLayout.LINE_AXIS));
+        datePanel.setVisible(false);
         this.topLevelPanel.add(datePanel);
 
         dateFromLabel = new JLabel("<html><font color='blue'>Date from:</font></html>");
@@ -154,14 +165,6 @@ public class History extends JFrame implements ActionListener {
         datePanel.add(Box.createRigidArea(new Dimension(300, 0)));
         /////
 
-        // TABLE
-        table = new JTable(new MyTableModel());
-        table.setFillsViewportHeight(true);
-        table.getTableHeader().setReorderingAllowed(false);
-        tablePanel = new JScrollPane(table);
-        this.topLevelPanel.add(tablePanel);
-        /////
-        
         // BACK BUTTON
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.PAGE_AXIS));
@@ -187,8 +190,81 @@ public class History extends JFrame implements ActionListener {
             this.topLevelPanel.setVisible(false);
             this.cex.getWelcomeScreen().getWelcomePanel().setVisible(true);
         } else if (e.getActionCommand().equals("setCurrencies")) {
-            printConfirmStatement();
+            this.curr1 = (String) this.curr1Combo.getSelectedItem();
+            this.curr2 = (String) this.curr2Combo.getSelectedItem();
+
+            if (curr1.equals(curr2)) {
+                printErrorStatement();
+            } else {
+                printConfirmStatement();
+
+                informationLabel2.setVisible(true);
+                datePanel.setVisible(true);
+            }
+        } else if (e.getActionCommand().equals("setDates")) {
+            String dateFrom = dateFromField.getText();
+            String dateTo = dateToField.getText();
+            
+            String[] dates = new String[] {dateFrom, dateTo};
+            
+            boolean valid = areDatesValid(dates);
+            if (valid) {
+                String[] tempColNames = new String[] {"Date", String.format("%s/%s", this.curr1, this.curr2)};
+                String[][] tempData = this.user.getHistory(curr1, curr2, dateFrom, dateTo);
+
+                // for (String[] sa : tempData) {
+                //     for (String s : sa) {
+                //         System.out.print(s + " ");
+                //     }
+                //     System.out.println();
+                // }
+
+                this.topLevelPanel.setVisible(false);
+                if (this.tablePanel != null) this.topLevelPanel.remove(this.tablePanel);
+
+                MyTableModel mtm = new MyTableModel(tempColNames, tempData);
+                this.table = new JTable(mtm);
+                this.table.setFillsViewportHeight(true);
+                this.table.getTableHeader().setReorderingAllowed(false);
+                this.tablePanel = new JScrollPane(this.table);
+                this.topLevelPanel.add(tablePanel);
+                this.topLevelPanel.setVisible(true);
+
+            }
         }
+    }
+
+    private boolean areDatesValid(String[] dates) {
+        DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+        df.setLenient(false);
+
+        // check if dates follow the date format
+        Date dateFrom;
+        Date dateTo;
+        try {
+            dateFrom = df.parse(dates[0]);
+            dateTo = df.parse(dates[1]);
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(this.topLevelPanel,
+                    "Date format not valid. Please try again.",
+                    "Date formatting error",
+                    JOptionPane.ERROR_MESSAGE
+                );
+            return false;
+        }
+
+        // compare dates
+        if (dateFrom.compareTo(dateTo) > 0) {
+            // dateFrom occurs after dateTo
+            JOptionPane.showMessageDialog(this.topLevelPanel,
+                    "'Date from' occurs after 'Date to'. Please try again.",
+                    "Date error",
+                    JOptionPane.ERROR_MESSAGE
+                );
+            return false;
+        }
+
+        return true;
     }
 
     private void printConfirmStatement() {
@@ -201,19 +277,20 @@ public class History extends JFrame implements ActionListener {
         this.confirmCurrenciesLabel.setText(s1.toString());
     }
 
-    class MyTableModel extends AbstractTableModel {
-        private String[] columnNames = new String[] {
-            "Date/Time",
-            "Curr1/Curr2",
-        };
+    private void printErrorStatement() {
+        String error = "You cannot choose the same two currencies! Try again.";
+        this.confirmCurrenciesLabel.setText(error);
+    }
 
-        private String[][] data = new String[][] {
-            {"12/08/22 07:05:33", "0.98"},
-            {"13/08/22 13:22:24", "0.99"},
-            {"13/08/22 18:54:12", "1.02"},
-            {"14/08/22 02:03:59", "1.00"},
-            {"15/08/22 11:17:32", "0.98"},
-        };
+    class MyTableModel extends AbstractTableModel {
+        private String[] columnNames;
+        private String[][] data;
+
+        public MyTableModel(String[] columnNames, String[][] data) {
+            super();
+            this.columnNames = columnNames;
+            this.data = data;
+        }
 
         public int getColumnCount() {
             return columnNames.length;

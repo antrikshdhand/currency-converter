@@ -10,6 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 // import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class CurrManagerTest {
@@ -27,6 +29,7 @@ public class CurrManagerTest {
         currManager.closeConn();
         currManager = null;
     }
+
 
     @Test
     public void testTest() {
@@ -54,7 +57,7 @@ public class CurrManagerTest {
         currManager.addExchange("TC1", "TC2", 20);
 
         assertEquals("Test Currency 1", currManager.getCurrName("TC1"));
-        assertEquals("Test Currency 2", currManager.getCurrName("TC2"));
+        assertEquals("Test Currency 2", currManager.getCurrName("TC2"));    
 
         assertEquals(20.0, currManager.getExchange("TC1", "TC2"), String.format("Was %f expected %f", 20.0, currManager.getExchange("TC1", "TC2")));
         assertEquals(1/ 20.0, currManager.getExchange("TC2", "TC1"), String.format("Was %f expected %f", 1 / 20.0, currManager.getExchange("TC2", "TC1")));
@@ -62,6 +65,55 @@ public class CurrManagerTest {
     }
 
 
+    @Test
+    public void getExchangeRateTest() { //tests that function gets latest exchange
+        currManager.addCurrency("TC1", "Test Currency 1");
+        currManager.addCurrency("TC2", "Test Currency 2");
+        currManager.addExchange("TC1", "TC2", 20);
+        
 
+        assertEquals("Test Currency 1", currManager.getCurrName("TC1"));
+        assertEquals("Test Currency 2", currManager.getCurrName("TC2"));
+        
+        currManager.addExchange("TC1", "TC2", 25);
+
+        assertEquals(25.0, currManager.getExchange("TC1", "TC2"), String.format("Was %f expected %f", 25.0, currManager.getExchange("TC1", "TC2")));
+        assertEquals(1/ 25.0, currManager.getExchange("TC2", "TC1"), String.format("Was %f expected %f", 1 / 25.0, currManager.getExchange("TC2", "TC1")));
+
+    }
+
+    @Test
+    public void getExchangeRateHistTest() { //tests that function gets latest exchange
+        currManager.addCurrency("TC1", "Test Currency 1");
+        currManager.addCurrency("TC2", "Test Currency 2");
+        currManager.addExchange("TC1", "TC2", 20);
+        
+
+        assertEquals("Test Currency 1", currManager.getCurrName("TC1"));
+        assertEquals("Test Currency 2", currManager.getCurrName("TC2"));
+        
+        currManager.addExchange("TC1", "TC2", 25);
+
+        ArrayList<ArrayList<String>> hist = currManager.getExchangeHist("TC1", "TC2", "2022-09-18", "2023-09-20");
+        HashMap<String, Double> map = currManager.getSummaries("TC1", "TC2", "2022-09-18", "2023-09-20");
+
+        // for (ArrayList<String> ar : hist) {
+        //     for (String s : ar) {
+        //         System.out.print(s + ", ");
+        //     }
+
+        //     System.out.println("");
+        // }
+
+        // String[][] stringArray = hist.stream().map(u -> u.toArray(new String[0])).toArray(String[][]::new);
+
+        // System.out.println(stringArray);
+
+        assertEquals(2, hist.size(), String.format("Expected 2 but was %d", hist.size()));
+        assertTrue( 3 == map.size());
+        assertTrue( map.get("Average") == 22.5);
+//        assertTrue(map.get(""));
+
+    }
 
 }
