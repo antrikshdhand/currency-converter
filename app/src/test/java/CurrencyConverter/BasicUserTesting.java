@@ -96,6 +96,59 @@ public class BasicUserTesting {
         assertEquals(expected, result);
     }
 
+    @Test
+    public void getHistoryTest(){
+        this.db.openConn();
+        this.db.addCurrency("AUD", "Australia");
+        this.db.addCurrency("USD", "America");
+        this.db.addExchange("AUD", "USD", 1.5);
+        this.db.addExchange("AUD", "USD", 1.55);
+        this.db.closeConn();
+
+        String [][] arr = user.getHistory("AUD", "USD", "2022-09-18", "2022-09-25");
+
+        assertEquals(2, arr.length);
+        assertEquals(1.55, Double.parseDouble(arr[0][1]));
+        assertEquals(1.5, Double.parseDouble(arr[1][1]));
+
+
+    }
+
+    public void getCodes() {
+        this.db.openConn();
+        this.db.addCurrency("AUD", "Australia");
+        this.db.addCurrency("USD", "America");
+        this.db.addExchange("AUD", "USD", 1.5);
+        this.db.addExchange("AUD", "USD", 1.55);
+        this.db.closeConn();
+
+        String[] arr = user.getCurrencyCodes();
+
+        assertEquals("AUD", arr[0]);
+        assertEquals("USD", arr[1]);
+    }
+
+
+    public void testSummaries(){
+        this.db.openConn();
+        this.db.addCurrency("AUD", "Australia");
+        this.db.addCurrency("USD", "America");
+        this.db.addExchange("AUD", "USD", 1.5);
+        this.db.addExchange("AUD", "USD", 1.6);
+        this.db.closeConn();
+
+        double med = user.getMedian("AUD", "USD", "2022-09-18", "2022-09-25");
+        double avg = user.getAverage("AUD", "USD", "2022-09-18", "2022-09-25");
+        double max = user.getMinimum("AUD", "USD", "2022-09-18", "2022-09-25");
+        double min = user.getMaximum("AUD", "USD", "2022-09-18", "2022-09-25");
+        double SD = user.getSD("AUD", "USD", "2022-09-18", "2022-09-25");
+
+        assertEquals(1.55 , med);
+        assertEquals(1.55 , avg);
+        assertEquals(1.6, max);
+        assertEquals(1.5, min);
+        assertNotEquals(0, SD);
+    }
 
 
 }

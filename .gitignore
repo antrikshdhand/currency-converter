@@ -8,3 +8,7 @@ app/bin
 app/bin/*
 .idea
 .idea/*
+currency-converter/.idea/*
+Assignment1/.idea/*
+currency-converter/.idea
+Assignment1/.idea
