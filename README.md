@@ -1,9 +1,9 @@
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
 
-<!-- [![Contributors][contributors-shield]][contributors-url]
+[![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url] -->
+[![Stargazers][stars-shield]][stars-url]
 
 
 <!-- PROJECT LOGO -->
@@ -18,14 +18,9 @@
   <p align="center">
     A Windows XP-esk currency exchange coded in 100% Java.
     <br />
-    <a href="https://github.sydney.edu.au/adha5655/currency-converter"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
     <a href="https://github.sydney.edu.au/adha5655/currency-converter">View Demo</a>
     ·
     <a href="https://github.sydney.edu.au/adha5655/currency-converter/issues">Report Bug</a>
-    ·
-    <a href="https://github.sydney.edu.au/adha5655/currency-converter/issues">Request Feature</a>
   </p>
 </div>
 
