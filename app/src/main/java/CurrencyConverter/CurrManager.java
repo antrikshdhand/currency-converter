@@ -556,6 +556,43 @@ public class CurrManager {
     }
 
 
+    /**
+     * Function that gets the latest 2 exchange rate between 2 currencies.
+     * @param currOne currency form
+     * @param currTwo currency to
+     * @return Double[] with 3 of the latest rate between 2 currencies.
+     */
+    public Double[] getLatestThreeHist(String currOne, String currTwo) { // Bug fixed - now it gets latest currency value //YYYY-MM-DD
+
+
+        Double [] arr = {null, null , null };
+
+
+        try{
+            ResultSet query = openStatement.executeQuery(String.format("select conv_val from exchange where currency_ex_code = '%s' order by time_added DESC LIMIT 3", currOne + currTwo));
+
+            int count = 0;
+            while(query.next()) {
+
+                double conv_value = query.getDouble("conv_val");
+                arr[count] = conv_value;
+
+                count += 1;
+
+
+            }
+
+        } catch(SQLException e) {
+            // if the error message is "out of memory",
+            // it probably means no database file is found
+            System.err.println(e.getMessage());
+
+        }
+
+        return arr;
+
+    }
+
     // public void displayExhanges() {
     //     try{
     //         ResultSet query = openStatement.executeQuery("select * from exchange");
