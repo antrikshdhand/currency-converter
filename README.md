@@ -2,6 +2,8 @@
 
 **CC_06_Thu_14_Rasim_Group-2**
 
+Navigate to `currency-converter\notes\README.md` for the main README file.
+
 Here's our shared repo for SOFT2412 Assignment 1.
 
 Contributors:
