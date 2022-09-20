@@ -34,7 +34,6 @@ public class Admin extends BasicUser {
      * @param rate : rate of the exchange from one currency to other.
      */
     public void addExchange( String from, String to, double rate){
-
         database.openConn();
         database.addExchange(from, to , rate);
         database.closeConn();
@@ -49,20 +48,21 @@ public class Admin extends BasicUser {
      * @param currFour String
      */
     public void addPopularCurrency(String currOne, String currTwo, String currThree , String currFour){
-
+        database.openConn();
         String[] arr = {currOne, currTwo, currThree ,currFour};
         this.database.setPopularFour(arr);
-
-
+        database.closeConn();
     }
 
-    // /**
-    //  * Function for setting the Popular 4 currencies.
-    //  * @param arr String []
-    //  */
-    // public void addPopularCurrency(String [] arr){
-    //     this.database.setPopularCurrencies(arr);
-    // }
+    /**
+     * Function for setting the Popular 4 currencies.
+     * @param arr String []
+     */
+    public void addPopularCurrency(String [] arr){
+        database.openConn();
+        this.database.setPopularFour(arr);
+        database.closeConn();
+    }
 
 
 

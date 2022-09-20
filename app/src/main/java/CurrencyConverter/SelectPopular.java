@@ -90,10 +90,11 @@ public class SelectPopular extends JPanel implements ActionListener {
                 );
             } else {
                 String[] popularCurrencies = getChosenCurrencies();
+                this.admin.addPopularCurrency(popularCurrencies);
+
                 JOptionPane.showMessageDialog(this.topLevelPanel,
                     "Successfully selected 4 popular currencies."
                 );
-                // GIVE THIS STRING[] TO BACKEND
             }
         }
     }

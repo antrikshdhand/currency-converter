@@ -148,7 +148,10 @@ public class AdminPortal extends JPanel implements ActionListener {
             this.adminPortalPanel.setVisible(false);
             UpdateExchange updateExchange = new UpdateExchange(this.cex, this.admin);
         } else if (e.getActionCommand().equals("reset")) {
-            
+            this.admin.reset();
+            JOptionPane.showMessageDialog(this.adminPortalPanel,
+                    "Successfully reset database to original 6 currencies."
+                );
         }
     }
 

@@ -184,7 +184,7 @@ public class BasicUser {
      * @return an array list with tht header of the popular 4 currencies, format [From/To, curr1, curr2, curr3, curr4]
      */
     public String[] getPopular4Header(){
-        String [] temp = new String [5];
+        String[] temp = new String[5];
         temp[0] = "From/To";
 
         this.database.openConn();
@@ -201,7 +201,7 @@ public class BasicUser {
 
     /**
      * The function gets the popular 4 currencies and their current exchange rate between  each in a [4][5] matrix
-     * @return stirng [][] matrix of the popular 4 currencies and their currencies.
+     * @return string[][] matrix of the popular 4 currencies and their currencies.
      */
     public String [][] getPopular4Data(){
         String[][] temp = new String[4][5];
@@ -222,24 +222,28 @@ public class BasicUser {
         temp[3][4] = "-";
 
         // Row 2
-        temp[0][2] = this.database.getExchange(temp[0][0], header[2]) + "";
-        temp[0][3] = this.database.getExchange(temp[0][0], header[3]) + "";
-        temp[0][4] = this.database.getExchange(temp[0][0], header[4]) + "";
+        temp[0][0] = header[1];
+        temp[0][2] = this.database.getExchangeToDisp(temp[0][0], header[2]) + " " + this.checkState(temp[0][0], header[2]);
+        temp[0][3] = this.database.getExchangeToDisp(temp[0][0], header[3]) + " " + this.checkState(temp[0][0], header[3]);
+        temp[0][4] = this.database.getExchangeToDisp(temp[0][0], header[4]) + " " + this.checkState(temp[0][0], header[4]);
 
         //Row 3;
-        temp[1][1] = this.database.getExchange(temp[1][0], header[1]) + " " + this.chekcState(temp[1][0], header[1]);
-        temp[1][3] = this.database.getExchange(temp[1][0], header[3]) + " " + this.chekcState(temp[1][0], header[2]);
-        temp[1][4] = this.database.getExchange(temp[1][0], header[4]) + " " + this.chekcState(temp[1][0], header[4]);
+        temp[1][0] = header[2];
+        temp[1][1] = this.database.getExchangeToDisp(temp[1][0], header[1]) + " " + this.checkState(temp[1][0], header[1]);
+        temp[1][3] = this.database.getExchangeToDisp(temp[1][0], header[3]) + " " + this.checkState(temp[1][0], header[3]);
+        temp[1][4] = this.database.getExchangeToDisp(temp[1][0], header[4]) + " " + this.checkState(temp[1][0], header[4]);
 
         // Row 4
-        temp[2][1] = this.database.getExchange(temp[2][0], header[1]) + " " + this.chekcState(temp[2][0], header[1]);
-        temp[2][2] = this.database.getExchange(temp[2][0], header[2]) + " " + this.chekcState(temp[2][0], header[2]);
-        temp[2][4] = this.database.getExchange(temp[2][0], header[4]) + " " + this.chekcState(temp[2][0], header[4]);;
+        temp[2][0] = header[3];
+        temp[2][1] = this.database.getExchangeToDisp(temp[2][0], header[1]) + " " + this.checkState(temp[2][0], header[1]);
+        temp[2][2] = this.database.getExchangeToDisp(temp[2][0], header[2]) + " " + this.checkState(temp[2][0], header[2]);
+        temp[2][4] = this.database.getExchangeToDisp(temp[2][0], header[4]) + " " + this.checkState(temp[2][0], header[4]);;
 
         // Row 5
-        temp[3][1] = this.database.getExchange(temp[3][0], header[1]) + "" + this.chekcState(temp[3][0], header[1]);
-        temp[3][2] = this.database.getExchange(temp[3][0], header[2]) + "" + this.chekcState(temp[3][0], header[2]);
-        temp[3][3] = this.database.getExchange(temp[3][0], header[3]) + "" + this.chekcState(temp[3][0], header[3]);
+        temp[3][0] = header[4];
+        temp[3][1] = this.database.getExchangeToDisp(temp[3][0], header[1]) + " " + this.checkState(temp[3][0], header[1]);
+        temp[3][2] = this.database.getExchangeToDisp(temp[3][0], header[2]) + " " + this.checkState(temp[3][0], header[2]);
+        temp[3][3] = this.database.getExchangeToDisp(temp[3][0], header[3]) + " " + this.checkState(temp[3][0], header[3]);
 
         this.database.closeConn();
 
@@ -248,7 +252,7 @@ public class BasicUser {
     }
 
 
-    public String chekcState(String currOne, String currTwo) {
+    public String checkState(String currOne, String currTwo) {
 
         Double[] arr = this.database.getLatestThreeHist(currOne, currTwo);
 

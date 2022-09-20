@@ -50,7 +50,7 @@ public class CurrManager {
         {"AUD", "SGD", "0.94533497"},
         {"USD", "NPR", "127.5877"},
         {"USD", "INR", "79.704953"},
-        {"USD", "GBP", "19.42119"},
+        {"USD", "GBP", "1.1437933279"},
         {"USD", "SGD", "1.4080513"},
         {"NPR", "INR", "0.62470717"},
         {"NPR", "GBP", "0.0068644026"},
@@ -89,7 +89,7 @@ public class CurrManager {
 
             openStatement.executeUpdate("create table if not exists currency (currency_code char(3) primary key, currency_name var_char(20))");
             openStatement.executeUpdate("create table if not exists exchange (currency_from char(3) references currency(currency_code), currency_to char(3) references currency(currency_code), currency_ex_code char(6), conv_val float, time_added datetime default (CURRENT_TIMESTAMP), primary key (currency_ex_code, time_added), constraint check_not_equal check (currency_from != currency_to))");
-            openStatement.executeUpdate("create table if not exists popularFour (currency_from char(3) references currency(currency_code))");
+            openStatement.executeUpdate("create table if not exists popularFour (currency_code char(3) references currency(currency_code))");
 
             return 0;
 
@@ -169,7 +169,7 @@ public class CurrManager {
 
             Statement statement = dbConn.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
-            statement.executeUpdate("drop table currency; drop table exchange;");
+            statement.executeUpdate("drop table popularFour");
 
             //error handling
             openConn();
@@ -243,11 +243,13 @@ public class CurrManager {
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
             for(String[] currency : BasicCurrencies) {
-                statement.executeUpdate(String.format("insert into currency values('%s', '%s')", currency[0], currency[1]));
+                addCurrency(currency[0], currency[1]);
             }
 
             for(String[] exchange : BasicExchanges) {
+                System.out.println("HELLO");
                 openStatement.executeUpdate(String.format("insert into exchange values('%s', '%s', '%s', %f, CURRENT_TIMESTAMP)", exchange[0], exchange[1], exchange[0] + exchange[1], Double.parseDouble(exchange[2])));
+                openStatement.executeUpdate(String.format("insert into exchange values('%s', '%s', '%s', %f, CURRENT_TIMESTAMP)", exchange[1], exchange[0], exchange[1] + exchange[0], 1.0/Double.parseDouble(exchange[2])));
             }
 
 
@@ -365,9 +367,9 @@ public class CurrManager {
             ResultSet query = openStatement.executeQuery(String.format("select * from popularFour"));
             
             int i = 0;
-            while(query.next() && i < 0) {
+            while (query.next() && i < 4) {
                 String currCode = query.getString("currency_code");
-
+                System.out.println(currCode);
                 popCurrencies[i] = currCode;
                 i++;
             }
@@ -458,12 +460,10 @@ public class CurrManager {
         try{
             ResultSet query = openStatement.executeQuery(String.format("select conv_val from exchange where currency_ex_code = '%s' and time_added in (select MAX(time_added) from exchange where currency_ex_code = '%s' group by currency_ex_code)", currOne + currTwo, currOne + currTwo));
 
-            if(query.next()) {
+            if (query.next()) {
                 return query.getDouble("conv_val");
-
             } else {
                 return -1;
-
             }
 
         } catch(SQLException e) {
@@ -473,11 +473,32 @@ public class CurrManager {
             return -1;
         }
 
+    }
 
+    /**
+     * Gets latest the conversion value for a particular exchange.
+     *
+     * @param currOne Currency from
+     * @param currTwo Currency to
+     * @return Returns the conversion rate from currency one to currency two.
+     */
+    public String getExchangeToDisp(String currOne, String currTwo) { // Bug fixed - now it gets latest currency value
 
+        try{
+            ResultSet query = openStatement.executeQuery(String.format("select conv_val from exchange where currency_ex_code = '%s' and time_added in (select MAX(time_added) from exchange where currency_ex_code = '%s' group by currency_ex_code)", currOne + currTwo, currOne + currTwo));
 
+            if (query.next()) {
+                return String.format("%.2f", query.getDouble("conv_val"));
+            } else {
+                return null;
+            }
 
-        
+        } catch(SQLException e) {
+            // if the error message is "out of memory",
+            // it probably means no database file is found
+            System.err.println(e.getMessage());
+            return null;
+        }
 
     }
 
