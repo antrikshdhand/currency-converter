@@ -208,10 +208,6 @@ public class Converter extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("convertFunction")) {
-<<<<<<< HEAD
-            this.currencyToAmount = "10"; //Double.toString(this.app.getCalculator().calculateConverstion((String) this.fromComboBox.getSelectedItem(), (String) this.toComboBox.getSelectedItem(), Double.parseDouble(this.amount.getText())));
-            printConversionStatement();
-=======
             String currFrom = (String) this.fromComboBox.getSelectedItem();
             String currTo = (String) this.toComboBox.getSelectedItem();
             if (amount.getText().equals("")) return;
@@ -219,7 +215,6 @@ public class Converter extends JPanel implements ActionListener {
             double result = this.user.convert(currFrom, currTo, amount);
             
             printConversionStatement(result);
->>>>>>> integration
         } else if (e.getActionCommand().equals("back")) {
             this.converterPanel.setVisible(false);
             this.cex.getWelcomeScreen().getWelcomePanel().setVisible(true);
@@ -239,11 +234,7 @@ public class Converter extends JPanel implements ActionListener {
         this.conversionResultPreamble.setText(s1.toString());
 
         StringBuilder s2 = new StringBuilder();
-<<<<<<< HEAD
-        s2.append(currencyToAmount);
-=======
         s2.append(String.format("%.2f", result));
->>>>>>> integration
         s2.append(" ");
         s2.append(this.toComboBox.getSelectedItem());
         this.conversionResultLabel.setText(s2.toString());

@@ -46,10 +46,7 @@ test {
 }
 
 task jtr {
-<<<<<<< HEAD
-=======
     dependsOn test
->>>>>>> integration
     dependsOn jacocoTestReport
 }
 
