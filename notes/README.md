@@ -2,6 +2,20 @@
 
 This repository holds all planning documents for the software design alongside any notes for all members in our team to keep in mind throughout the software development process.
 
+## How to run code
+1. Open terminal.
+2. Navigate to `currency-converter\app` directory.
+3. In terminal run command `gradle build`.
+4. In terminal run command `gradle run`.
+5. App is now running.
+6. To exit app, open the bottom left menu and click *Turn off computer*.
+
+## How to test code
+1. Open terminal.
+2. Navigate to `currency-converter\app` directory.
+3. In terminal run command `gradle test`.
+5. App is now testing.
+6. On success tesing, the terminal will display *BUILD SUCCESSFUL*.
 
 ## Continuous Integration to Continous Deployment
 1. Whenever you would like to start working on something, add it to one of the project boards if you have not already.
@@ -34,7 +48,7 @@ _Summarised from [How to Write a Git Commit Message](https://cbea.ms/git-commit/
 - Do not end the subject line with a full stop.
 - Use the "imperative mood" in the subject line (written as if you're giving a command). e.g. `Merge branch 'myfeature'`, `Remove deprecated methods`, `Update getting started documentation` and NOT `Changing behavior of Player.move() method`.
 
-## Writing and testing the code: 
+## Writing tests for the code: 
 - When writing code, for each method it is the responsibility of the person wrtiting the method to also write the tests as well for that specific method.
 - The person is to conduct both validation and defective testing covering as many cases as possible. 
 
