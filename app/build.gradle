@@ -68,11 +68,17 @@ jacocoTestReport {
                     exclude: ['WelcomeScreen.class',
                               'SelectPopular.class',
                               'History.class',
-                              'Display.class',
+                              'History$MyTableModel.class',
                               'Desktop.class',
+                              'Desktop$1.class',
                               'CurrencyExchange.class',
                               'AdminPortal.class',
-                              'Calculator.class'])
+                              'Calculator.class',
+                              'Converter.class',
+                              'Converter$1.class',
+                              'DisplayPopular.class',
+                              'DisplayPopular$MyTableModel.class',
+                              'UpdateExchange.class'])
         }))
     }
 }
