@@ -8,15 +8,6 @@ public class CurrencyExchange extends JInternalFrame {
 
     private JDesktopPane desktop;
     private WelcomeScreen welcomeScreen;
-    private App app;
-
-    public App getApp() {
-        return app;
-    }
-
-    public void setApp(App app) {
-        this.app = app;
-    }
 
     public CurrencyExchange(JDesktopPane desktop) {
         
@@ -44,11 +35,7 @@ public class CurrencyExchange extends JInternalFrame {
         // application control now moves to WelcomeScreen.java
 
     }
-
-    public JDesktopPane getDesktop() {
-        return desktop;
-    }
-
+    
     public WelcomeScreen getWelcomeScreen() {
         return this.welcomeScreen;
     }

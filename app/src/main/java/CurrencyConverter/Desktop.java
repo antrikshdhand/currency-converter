@@ -19,17 +19,7 @@ class Desktop extends JDesktopPane implements ActionListener {
     private JFrame desktopFrame;
     private BufferedImage img;
     private boolean cexOpened = false;
-    private App app;
-
     
-
-    public App getApp() {
-        return app;
-    }
-
-    public void setApp(App app) {
-        this.app = app;
-    }
 
     public Desktop() {
         try {
@@ -123,7 +113,6 @@ class Desktop extends JDesktopPane implements ActionListener {
 
     private void openCEXApplication() {
         CurrencyExchange cex = new CurrencyExchange(desktop);
-        cex.setApp(this.app);
         
         // application control now moves to CurrencyExchange.java
 

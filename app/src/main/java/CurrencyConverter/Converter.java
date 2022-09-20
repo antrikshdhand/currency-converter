@@ -24,8 +24,6 @@ public class Converter extends JPanel implements ActionListener {
     private JLabel conversionResultPreamble;
     private JLabel conversionResultLabel;
     private JButton backButton;
-    private App app;
-    private String currencyToAmount;
 
     // BACKEND
     private BasicUser user;

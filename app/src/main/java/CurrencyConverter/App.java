@@ -6,7 +6,6 @@ import javax.swing.UIManager;
 public class App extends JFrame {
 
     private Desktop desktop;
-    private CurrManager manager;
 
     public App() {
         desktop = new Desktop();
@@ -21,10 +20,6 @@ public class App extends JFrame {
         
         App app = new App();
 
-    }
-
-    public CurrManager getManager() {
-        return manager;
     }
 
 }
