@@ -247,7 +247,6 @@ public class CurrManager {
             }
 
             for(String[] exchange : BasicExchanges) {
-                System.out.println("HELLO");
                 openStatement.executeUpdate(String.format("insert into exchange values('%s', '%s', '%s', %f, CURRENT_TIMESTAMP)", exchange[0], exchange[1], exchange[0] + exchange[1], Double.parseDouble(exchange[2])));
                 openStatement.executeUpdate(String.format("insert into exchange values('%s', '%s', '%s', %f, CURRENT_TIMESTAMP)", exchange[1], exchange[0], exchange[1] + exchange[0], 1.0/Double.parseDouble(exchange[2])));
             }
@@ -369,7 +368,6 @@ public class CurrManager {
             int i = 0;
             while (query.next() && i < 4) {
                 String currCode = query.getString("currency_code");
-                System.out.println(currCode);
                 popCurrencies[i] = currCode;
                 i++;
             }
@@ -523,7 +521,7 @@ public class CurrManager {
 
                 ArrayList<String> tempList = new ArrayList<String>();
                 String time_added = query.getTimestamp("time_added") + "";
-                String conv_value = query.getDouble("conv_val") + "";
+                String conv_value = String.format("%.2f", query.getDouble("conv_val"));
 
                 tempList.add(time_added);
                 tempList.add(conv_value);

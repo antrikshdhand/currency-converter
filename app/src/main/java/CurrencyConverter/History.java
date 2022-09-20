@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,7 +35,8 @@ public class History extends JFrame implements ActionListener {
     private JTextField dateFromField;
     private JTextField dateToField;
     private JButton setDatesButton;
-
+    private String curr1;
+    private String curr2;
     
     // BACKEND
     private BasicUser user;
@@ -121,16 +123,18 @@ public class History extends JFrame implements ActionListener {
         confirmCurrenciesLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
         middleText.add(confirmCurrenciesLabel);
 
-        middleText.add(Box.createVerticalGlue());
+        addSpace(middleText, 20);
         
         informationLabel2 = new JLabel("<html><font color='red'>2.</font> Select the date range you are interested in. <strong>Input in yyyy-mm-dd</strong>.</html>");
         informationLabel2.setFont(new Font("Comic Sans MS", Font.PLAIN, 22));
+        informationLabel2.setVisible(false);
         middleText.add(informationLabel2);
         /////
     
         // DATE FROM, DATE TO, AND APPLY BUTTON
         datePanel = new JPanel();
         datePanel.setLayout(new BoxLayout(datePanel, BoxLayout.LINE_AXIS));
+        datePanel.setVisible(false);
         this.topLevelPanel.add(datePanel);
 
         dateFromLabel = new JLabel("<html><font color='blue'>Date from:</font></html>");
@@ -161,16 +165,6 @@ public class History extends JFrame implements ActionListener {
         datePanel.add(Box.createRigidArea(new Dimension(300, 0)));
         /////
 
-        // TABLE
-        MyTableModel mtm = new MyTableModel(this.columnNames, this.data);
-        table = new JTable(mtm);
-        table.setFillsViewportHeight(true);
-        table.getTableHeader().setReorderingAllowed(false);
-        tablePanel = new JScrollPane(table);
-        tablePanel.setVisible(false);
-        this.topLevelPanel.add(tablePanel);
-        /////
-        
         // BACK BUTTON
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.PAGE_AXIS));
@@ -196,25 +190,45 @@ public class History extends JFrame implements ActionListener {
             this.topLevelPanel.setVisible(false);
             this.cex.getWelcomeScreen().getWelcomePanel().setVisible(true);
         } else if (e.getActionCommand().equals("setCurrencies")) {
-            printConfirmStatement();
+            this.curr1 = (String) this.curr1Combo.getSelectedItem();
+            this.curr2 = (String) this.curr2Combo.getSelectedItem();
+
+            if (curr1.equals(curr2)) {
+                printErrorStatement();
+            } else {
+                printConfirmStatement();
+
+                informationLabel2.setVisible(true);
+                datePanel.setVisible(true);
+            }
         } else if (e.getActionCommand().equals("setDates")) {
-            String currOne = (String) this.curr1Combo.getSelectedItem();
-            String currTwo = (String) this.curr2Combo.getSelectedItem();
-    
             String dateFrom = dateFromField.getText();
             String dateTo = dateToField.getText();
             
             String[] dates = new String[] {dateFrom, dateTo};
+            
             boolean valid = areDatesValid(dates);
-            if (!valid) {
-                JOptionPane.showMessageDialog(this.topLevelPanel,
-                    "Date format not valid. Please try again.",
-                    "Date formatting error",
-                    JOptionPane.ERROR_MESSAGE
-                );
-            } else {
-                this.data = this.user.getHistory(currOne, currTwo, dateFrom, dateTo);
-                this.table = new JTable(new MyTableModel(this.columnNames, this.data));
+            if (valid) {
+                String[] tempColNames = new String[] {"Date", String.format("%s/%s", this.curr1, this.curr2)};
+                String[][] tempData = this.user.getHistory(curr1, curr2, dateFrom, dateTo);
+
+                // for (String[] sa : tempData) {
+                //     for (String s : sa) {
+                //         System.out.print(s + " ");
+                //     }
+                //     System.out.println();
+                // }
+
+                this.topLevelPanel.setVisible(false);
+                if (this.tablePanel != null) this.topLevelPanel.remove(this.tablePanel);
+
+                MyTableModel mtm = new MyTableModel(tempColNames, tempData);
+                this.table = new JTable(mtm);
+                this.table.setFillsViewportHeight(true);
+                this.table.getTableHeader().setReorderingAllowed(false);
+                this.tablePanel = new JScrollPane(this.table);
+                this.topLevelPanel.add(tablePanel);
+                this.topLevelPanel.setVisible(true);
 
             }
         }
@@ -223,11 +237,30 @@ public class History extends JFrame implements ActionListener {
     private boolean areDatesValid(String[] dates) {
         DateFormat df = new SimpleDateFormat(DATE_FORMAT);
         df.setLenient(false);
+
+        // check if dates follow the date format
+        Date dateFrom;
+        Date dateTo;
         try {
-            for (String s : dates) {
-                df.parse(s);
-            }
+            dateFrom = df.parse(dates[0]);
+            dateTo = df.parse(dates[1]);
         } catch (ParseException e) {
+            JOptionPane.showMessageDialog(this.topLevelPanel,
+                    "Date format not valid. Please try again.",
+                    "Date formatting error",
+                    JOptionPane.ERROR_MESSAGE
+                );
+            return false;
+        }
+
+        // compare dates
+        if (dateFrom.compareTo(dateTo) > 0) {
+            // dateFrom occurs after dateTo
+            JOptionPane.showMessageDialog(this.topLevelPanel,
+                    "'Date from' occurs after 'Date to'. Please try again.",
+                    "Date error",
+                    JOptionPane.ERROR_MESSAGE
+                );
             return false;
         }
 
@@ -242,6 +275,11 @@ public class History extends JFrame implements ActionListener {
         s1.append(this.curr2Combo.getSelectedItem());
         s1.append("</font>.</html>");
         this.confirmCurrenciesLabel.setText(s1.toString());
+    }
+
+    private void printErrorStatement() {
+        String error = "You cannot choose the same two currencies! Try again.";
+        this.confirmCurrenciesLabel.setText(error);
     }
 
     class MyTableModel extends AbstractTableModel {

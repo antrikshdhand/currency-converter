@@ -49,13 +49,6 @@ public class DisplayPopular extends JFrame implements ActionListener {
         String[] columns = this.user.getPopular4Header();
         String[][] data = this.user.getPopular4Data();
 
-        for (String[] sa : data) {
-            for (String s : sa) {
-                System.out.print(s + " ");
-            }
-            System.out.println();
-        }
-
         boolean isFilled = false;
         if (data[0][0] != null) isFilled = true;
         
