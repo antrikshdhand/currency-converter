@@ -6,9 +6,10 @@ import java.awt.event.*;
 
 public class AdminPortal extends JPanel implements ActionListener {
     
+
     private CurrencyExchange cex;
     private JPanel adminPortalPanel;
-    
+
     private JLabel headerLabel;
     private JButton popularCurrencies;
     private JButton newCurrency;
@@ -18,6 +19,7 @@ public class AdminPortal extends JPanel implements ActionListener {
 
     // BACKEND
     private Admin admin;
+
 
     public AdminPortal(CurrencyExchange cex, Admin admin) {
         this.cex = cex;
@@ -32,6 +34,7 @@ public class AdminPortal extends JPanel implements ActionListener {
         this.cex.add(this.adminPortalPanel);
 
     }
+
 
     private void addComponentsToScreen() {
         // HEADER LABEL
@@ -84,6 +87,7 @@ public class AdminPortal extends JPanel implements ActionListener {
         /////
     }
 
+
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("back")) {
             this.adminPortalPanel.setVisible(false);
@@ -116,6 +120,7 @@ public class AdminPortal extends JPanel implements ActionListener {
         }
     }
 
+
     private String[] newCurrencyDialogue() {
         JPanel newCurrPanel = new JPanel();
 
@@ -139,6 +144,7 @@ public class AdminPortal extends JPanel implements ActionListener {
         }
     }
 
+
     private boolean testCurrency(String[] currency) {
         String currencyCode = currency[0];
         String currencyName = currency[1];
@@ -148,6 +154,7 @@ public class AdminPortal extends JPanel implements ActionListener {
         }
         return true;
     }
+
     
     private void displayError() {
         JOptionPane.showMessageDialog(this.adminPortalPanel,
@@ -157,18 +164,22 @@ public class AdminPortal extends JPanel implements ActionListener {
         );
     }
 
+
     private void displaySuccess() {
         JOptionPane.showMessageDialog(this.adminPortalPanel,
                 "Successfully added new currency."
             );
     }
+    
 
     private void addSpace(JPanel jp, int y) {
         jp.add(Box.createRigidArea(new Dimension(0, y)));
     }
 
+
     public JPanel getAdminPortalPanel() {
         return this.adminPortalPanel;
     }
+    
 
 }
