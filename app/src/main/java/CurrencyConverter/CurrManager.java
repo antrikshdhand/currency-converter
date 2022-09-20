@@ -186,11 +186,7 @@ public class CurrManager {
     }
 
 
-<<<<<<< HEAD
 
-    
-=======
->>>>>>> test_db
     // protected int deleteDatabase() {
     //     File deleteFile = new File("../../../../../currency.db");
 

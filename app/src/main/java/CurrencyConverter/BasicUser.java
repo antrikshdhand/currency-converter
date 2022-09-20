@@ -243,20 +243,22 @@ public class BasicUser {
     }
 
 
-    public String chekcState(String currOne, String currTwo){
+    public String chekcState(String currOne, String currTwo) {
 
-        Double [] arr = this.database.getLatestThreeHist(currOne,currTwo);
+        Double[] arr = this.database.getLatestThreeHist(currOne, currTwo);
 
-        if ( arr[1] == null) {return "(NEW)";}
-
-        if( arr[0] > arr[1]){
-            return "I!";
+        if (arr[1] == null) {
+            return "(NEW)";
         }
-        else { return "D¡";
+
+        if (arr[0] > arr[1]) {
+            return "I!";
+        } else {
+            return "D¡";
+
+        }
 
     }
-
-
 
 
 
