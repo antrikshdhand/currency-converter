@@ -17,6 +17,11 @@ public class App extends JFrame {
         desktop = new Desktop();
     }
 
+    public Desktop getDesktop(){
+        return this.desktop;
+    }
+
+    public static void main(String[] args) {
 
     /**
      * Main function is what is run as the code is executed.
@@ -33,4 +38,8 @@ public class App extends JFrame {
     }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> integration
 }
