@@ -6,3 +6,5 @@ app/.gradle/*
 app/currency.db
 app/bin
 app/bin/*
+.idea
+.idea/*
