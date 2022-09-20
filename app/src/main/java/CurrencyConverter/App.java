@@ -8,6 +8,10 @@ public class App extends JFrame {
     private Desktop desktop;
     private CurrManager manager;
 
+    public App() {
+        desktop = new Desktop();
+    }
+
     public static void main(String[] args) {
 
         // set look and feel
