@@ -3,11 +3,20 @@
  */
 package CurrencyConverter;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.awt.*;
 
 public class AppTest {
-    // @Test public void appHasAGreeting() {
-    //     App classUnderTest = new App();
-    //     assertNotNull("app should have a greeting", classUnderTest.getGreeting());
-    // }
+
+
+    @Test
+    public void DesktopTestin(){
+        App Hello = new App();
+        assertNotNull(Hello.getDesktop());
+    }
 }
+
