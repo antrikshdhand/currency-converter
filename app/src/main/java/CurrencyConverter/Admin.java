@@ -28,7 +28,7 @@ public class Admin extends BasicUser {
 
 
     /**
-     * funciton that adds an exchange rate to the database.
+     * funciton that adds an exchange rate to the database, Currency must be in the database.
      * @param from : short code for the currency form
      * @param to : short code for the currency to
      * @param rate : rate of the exchange from one currency to other.
@@ -40,19 +40,19 @@ public class Admin extends BasicUser {
     }
 
 
-    /**
-     * Function for setting the Popular 4 currencies.
-     * @param currOne String
-     * @param currTwo String
-     * @param currThree String
-     * @param currFour String
-     */
-    public void addPopularCurrency(String currOne, String currTwo, String currThree , String currFour){
-        database.openConn();
-        String[] arr = {currOne, currTwo, currThree ,currFour};
-        this.database.setPopularFour(arr);
-        database.closeConn();
-    }
+//    /**
+//     * Function for setting the Popular 4 currencies.
+//     * @param currOne String
+//     * @param currTwo String
+//     * @param currThree String
+//     * @param currFour String
+//     */
+////    public void addPopularCurrency(String currOne, String currTwo, String currThree , String currFour){
+////        database.openConn();
+////        String[] arr = {currOne, currTwo, currThree ,currFour};
+////        this.database.setPopularFour(arr);
+////        database.closeConn();
+////    }
 
     /**
      * Function for setting the Popular 4 currencies.
