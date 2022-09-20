@@ -11,6 +11,10 @@ public class App extends JFrame {
         desktop = new Desktop();
     }
 
+    public Desktop getDesktop(){
+        return this.desktop;
+    }
+
     public static void main(String[] args) {
 
         // set look and feel
@@ -21,5 +25,7 @@ public class App extends JFrame {
         App app = new App();
 
     }
+
+
 
 }
