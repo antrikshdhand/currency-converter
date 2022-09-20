@@ -261,6 +261,7 @@ public class BasicUser {
         return temp;
 
     }
+    
 
     /**
      * Returns whether a currency's exchange rate has
