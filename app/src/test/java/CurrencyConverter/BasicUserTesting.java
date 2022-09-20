@@ -114,6 +114,7 @@ public class BasicUserTesting {
 
     }
 
+    @Test
     public void getCodes() {
         this.db.openConn();
         this.db.addCurrency("AUD", "Australia");
@@ -128,7 +129,7 @@ public class BasicUserTesting {
         assertEquals("USD", arr[1]);
     }
 
-
+    @Test
     public void testSummaries(){
         this.db.openConn();
         this.db.addCurrency("AUD", "Australia");
