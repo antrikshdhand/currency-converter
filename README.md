@@ -10,7 +10,7 @@
 <br />
 <div align="center">
   <a href="https://github.sydney.edu.au/adha5655/currency-converter">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="img/logo.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Currency Converter</h3>
@@ -145,10 +145,10 @@ Project Link: [https://github.sydney.edu.au/adha5655/currency-converter](https:/
 [stars-shield]: https://img.shields.io/github/stars/adha5655/currency_converter.svg?style=for-the-badge
 [stars-url]: https://github.sydney.edu.au/adha5655/currency-converter/stargazers
 
-[product-screenshot-1]: images/desktop.png
-[product-screenshot-2]: images/welcomeScreen.png
-[product-screenshot-3]: images/converter.png
-[product-screenshot-4]: images/adminPortal.png
+[product-screenshot-1]: img/desktop.png
+[product-screenshot-2]: img/welcomeScreen.png
+[product-screenshot-3]: img/converter.png
+[product-screenshot-4]: img/adminPortal.png
 
 [SQLite]: https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white
 [SQLite-url]: https://www.sqlite.org/index.html
