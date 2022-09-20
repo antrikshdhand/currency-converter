@@ -93,9 +93,11 @@ public class BasicUser {
         for (ArrayList<String> val : map){
             String[] temp = {val.get(0), val.get(1)};
             result[count] = temp;
-            count++;
+            count += 1;
         }
 
+//        System.out.println(result[1][1]);
+//        System.out.println(result[0][1]);
         return result;
     }
 
