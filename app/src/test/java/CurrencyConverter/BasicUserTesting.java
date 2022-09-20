@@ -129,7 +129,6 @@ public class BasicUserTesting {
         assertEquals("USD", arr[1]);
     }
 
-
     @Test
     public void testSummaries(){
         this.db.openConn();
