@@ -214,8 +214,6 @@ public class CurrManager {
      * Adds a currency to the currency table.
      * Need to call openConn before this function.
      *
-     * @param exchCode the currency code for the currency as a string: e.g. "AUD"
-     * @param currName the currency name of the code: e.g. "Australian Dollar"
      * @return 0 if successful and -1 if unsuccessful
      */
     public int addBasicSix() {
@@ -371,7 +369,7 @@ public class CurrManager {
     /**
      * Adds an exchange rate from one currency to another.
      * Also adds the reverse from currency 2 back to currency 1 into the exchange table
-     * so you do not have to add both AUD -> USD, and USD -> AUD manually. Only need to add one.
+     * so you do not have to add both AUD to USD, and USD to AUD manually. Only need to add one.
      *
      * @param currOne currency from
      * @param currTwo currency to
