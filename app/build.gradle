@@ -9,7 +9,13 @@ plugins {
     id 'jacoco'
 }
 
-tasks.withType(Javadoc).all { enabled = false } // non ascii characters make it crash
+if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+      tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+      }
+    }
+} // non ascii characters make it crash
 
 repositories {
     // Use Maven Central for resolving dependencies.
