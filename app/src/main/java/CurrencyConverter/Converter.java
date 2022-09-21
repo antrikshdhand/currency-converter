@@ -172,7 +172,7 @@ public class Converter extends JPanel implements ActionListener {
         converterPanel.add(conversionResultLabel);
 
         // BACK BUTTON
-        ImageIcon upIcon = new ImageIcon(this.getClass().getResource("upFolder.png").getPath());
+        ImageIcon upIcon = new ImageIcon("./src/main/resources/CurrencyConverter/upFolder.png");
         backButton = new JButton("Back", upIcon);
         backButton.setBounds(
             (int) conversionResultPreamble.getBounds().getX(),

@@ -145,7 +145,7 @@ public class UpdateExchange extends JPanel implements ActionListener {
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.LINE_AXIS));
         this.topLevelPanel.add(bottomPanel);
 
-        ImageIcon upIcon = new ImageIcon(this.getClass().getResource("upFolder.png").getPath());
+        ImageIcon upIcon = new ImageIcon("./src/main/resources/CurrencyConverter/upFolder.png");
         backButton = new JButton("Back", upIcon);
         backButton.setPreferredSize(new Dimension(100, 40));
         backButton.setMaximumSize(new Dimension(100, 40));

@@ -77,7 +77,7 @@ public class AdminPortal extends JPanel implements ActionListener {
         addSpace(adminPortalPanel, 30);
         
         // BACK BUTTON
-        ImageIcon upIcon = new ImageIcon(this.getClass().getResource("upFolder.png").getPath());
+        ImageIcon upIcon = new ImageIcon("./src/main/resources/CurrencyConverter/upFolder.png");
         backButton = new JButton("Back", upIcon);
         backButton.setPreferredSize(new Dimension(100, 40));
         backButton.setMaximumSize(new Dimension(100, 40));

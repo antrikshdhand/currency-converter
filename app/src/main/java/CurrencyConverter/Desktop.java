@@ -23,7 +23,7 @@ class Desktop extends JDesktopPane implements ActionListener {
 
     public Desktop() {
         try {
-            img = ImageIO.read(new File(this.getClass().getResource("windowsXP.gif").getPath().replace("%20", " ")));
+            img = ImageIO.read(new File("./src/main/resources/CurrencyConverter/windowsXP.gif"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,19 +61,19 @@ class Desktop extends JDesktopPane implements ActionListener {
 
         // Applications menu
         JMenu applicationMenu = new JMenu("");
-        ImageIcon windowsXPIcon = new ImageIcon(this.getClass().getResource("startMenu.png").getPath().replace("%20", " "));
+        ImageIcon windowsXPIcon = new ImageIcon("./src/main/resources/CurrencyConverter/startMenu.png");
         applicationMenu.setIcon(windowsXPIcon);
         menuBar.add(applicationMenu);
 
         // Currency Exchange
-        ImageIcon cexIcon = new ImageIcon(this.getClass().getResource("dollarSignTransparent.png").getPath().replace("%20", " "));
+        ImageIcon cexIcon = new ImageIcon("./src/main/resources/CurrencyConverter/dollarSignTransparent.png");
         JMenuItem cexItem = new JMenuItem("Currency Exchange", cexIcon);   
         cexItem.addActionListener(this);
         cexItem.setActionCommand("Open CEX"); // for mouse-click register
         applicationMenu.add(cexItem);
 
         // Quit
-        ImageIcon quitIcon = new ImageIcon(this.getClass().getResource("powerOff.png").getPath().replace("%20", " "));
+        ImageIcon quitIcon = new ImageIcon("./src/main/resources/CurrencyConverter/powerOff.png");
         JMenuItem quit = new JMenuItem("Turn Off Computer", quitIcon);
         // set shortcut CTRL+Q (CMD+Q on Mac)
         KeyStroke quitCommand = KeyStroke.getKeyStroke(KeyEvent.VK_Q, Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx());
