@@ -75,9 +75,8 @@ class Desktop extends JDesktopPane implements ActionListener {
         // Quit
         ImageIcon quitIcon = new ImageIcon("./src/main/resources/CurrencyConverter/powerOff.png");
         JMenuItem quit = new JMenuItem("Turn Off Computer", quitIcon);
-        // set shortcut CTRL+Q (CMD+Q on Mac)
-        KeyStroke quitCommand = KeyStroke.getKeyStroke(KeyEvent.VK_Q, Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx());
-        quit.setAccelerator(quitCommand);
+
+        // Quit Button
         quit.addActionListener(this);
         quit.setActionCommand("quit"); // for mouse-click register
         applicationMenu.add(quit);
