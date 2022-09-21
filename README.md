@@ -145,7 +145,7 @@ Project Link: [https://github.sydney.edu.au/adha5655/currency-converter](https:/
 
 
 
-Important Information on Linking Jenkins with discord, set up by a fellow team member : [https://edstem.org/au/courses/9767/discussion/1014406]
+Important Information on Linking Jenkins with discord, set up by a fellow team member : https://edstem.org/au/courses/9767/discussion/1014406
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
