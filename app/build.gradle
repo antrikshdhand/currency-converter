@@ -82,3 +82,9 @@ jacocoTestReport {
         }))
     }
 }
+
+
+jar {
+    archiveBaseName = 'Currency-Coverter'
+    archiveVersion =  '1.0.0'
+}
