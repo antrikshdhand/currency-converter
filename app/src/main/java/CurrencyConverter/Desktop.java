@@ -13,7 +13,7 @@ import java.awt.event.*;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalTime;
 
-class Desktop extends JDesktopPane   ActionListener {
+class Desktop extends JDesktopPane implements ActionListener {
     
     private JDesktopPane desktop;
     private JFrame desktopFrame;
