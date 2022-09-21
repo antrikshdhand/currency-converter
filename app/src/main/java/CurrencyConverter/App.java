@@ -17,7 +17,7 @@ public class App extends JFrame {
         desktop = new Desktop();
     }
 
-    public Desktop getDesktop(){
+    public Desktop getDesktop() {
         return this.desktop;
     }
 

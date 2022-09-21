@@ -248,7 +248,7 @@ public class BasicUser {
      * in a [4][5] matrix to be used in JTable.
      * @return matrix of the popular 4 currencies and their relative exchange rates
      */
-    public String [][] getPopular4Data() {
+    public String[][] getPopular4Data() {
         String[][] temp = new String[4][5];
         String[] header = this.getPopular4Header();
 
