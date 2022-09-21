@@ -142,6 +142,7 @@ Created for SOFT2412: Agile Software Development Practices in Semester 2, 2022.
 ```
 
 Project Link: [https://github.sydney.edu.au/adha5655/currency-converter](https://github.sydney.edu.au/adha5655/currency-converter)
+Important Information on Linking Jenkins with discord, set up by a fellow team member : [https://edstem.org/au/courses/9767/discussion/1014406]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -164,3 +165,7 @@ Project Link: [https://github.sydney.edu.au/adha5655/currency-converter](https:/
 [SQLite-url]: https://www.sqlite.org/index.html
 [Java]: https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white
 [Java-url]: https://www.java.com/en/
+
+
+
+
