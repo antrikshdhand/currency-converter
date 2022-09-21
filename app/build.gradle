@@ -93,6 +93,8 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 task fatJar(type: Jar) {
+
+    archiveBaseName = 'Currency-Converter'
 	manifest {
         attributes 'Implementation-Title': 'Currency Converter',  
         	'Implementation-Version': version,
