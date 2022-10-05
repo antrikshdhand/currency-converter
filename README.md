@@ -32,7 +32,7 @@ Created in Java 17 using `java.swing` for the GUI, the currency exchange allows 
 - view current exchange rates of popular currencies, and 
 - view historical exchange rate data
 
-Admins of the application are responsible for setting which currencies are popular and adding and updating currencies and their exchange rates. All data is persistant and is stored in a local SQLite database.
+Admins of the application are responsible for setting which currencies are popular and adding and updating currencies and their exchange rates. All data is persistent and is stored in a local SQLite database.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -93,10 +93,7 @@ We recommend using the [`sdkman`](https://sdkman.io) package manager to install 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Add usage here.
-
 ![Currency Converter][product-screenshot-3]
-
 
 ### How to test code
 
