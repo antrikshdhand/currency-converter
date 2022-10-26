@@ -19,6 +19,12 @@
   </p>
 </div>
 
+<div align="center">
+<em>
+NOTE: This repo is a clone of <a href=https://github.sydney.edu.au/adha5655/currency-converter>the original repo</a> which was stored in the USYD Github Enterprise.
+</em>
+</div>
+
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
