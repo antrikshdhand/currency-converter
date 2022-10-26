@@ -15,7 +15,7 @@
     <br />
     <a href="https://github.sydney.edu.au/adha5655/currency-converter">View Demo</a>
     ·
-    <a href="https://github.sydney.edu.au/adha5655/currency-converter/Technical\ Report.pdf">Read Technical Report</a>
+    <a href="technical_report.pdf">Read Technical Report</a>
   </p>
 </div>
 
